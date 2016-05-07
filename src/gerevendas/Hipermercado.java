@@ -23,17 +23,19 @@ public class Hipermercado {
      */
     public static Venda parseLinhaVenda(String linha) {
         Venda v;
-        try{
-        String[] partes = linha.split(" ");
-        String produto = partes[0];
-        double preco = Double.parseDouble(partes[1]);
-        int quantidade = Integer.parseInt(partes[2]);
-        String PouN = partes[3];
-        String cliente = partes[4];
-        int mes = Integer.parseInt(partes[5]);
-        int filial = Integer.parseInt(partes[6]);
-        v = new Venda(produto, preco, quantidade, PouN, cliente, mes, filial);
-        }catch(NumberFormatException | NullPointerException exc) {return null;}
+        try {
+            String[] partes = linha.split(" ");
+            String produto = partes[0];
+            double preco = Double.parseDouble(partes[1]);
+            int quantidade = Integer.parseInt(partes[2]);
+            String PouN = partes[3];
+            String cliente = partes[4];
+            int mes = Integer.parseInt(partes[5]);
+            int filial = Integer.parseInt(partes[6]);
+            v = new Venda(produto, preco, quantidade, PouN, cliente, mes, filial);
+        } catch (NumberFormatException | NullPointerException exc) {
+            return null;
+        }
         return v;
     }
 
