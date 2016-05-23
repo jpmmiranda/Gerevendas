@@ -26,6 +26,8 @@ public class Input {
   * Métodos de Classe
   */
     
+    
+    
  public static String lerString() {
      Scanner input = new Scanner(in);
      boolean ok = false; 

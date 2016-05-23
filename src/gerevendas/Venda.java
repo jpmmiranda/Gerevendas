@@ -12,10 +12,29 @@ import java.util.Objects;
  *
  * @author Asus
  */
-public class Venda implements Serializable {
-   String produto, cliente, PouN;
-   int filial, quantidade, mes;
-   double preco;
+public class Venda implements Serializable {   
+   
+   private Cliente cliente;
+   private Produto produto;
+   private String  PouN;
+   private int filial, quantidade, mes;
+   private double preco;
+   
+   
+   
+   /*Construtores*/
+   public Venda(){
+       
+        this.cliente = null;
+        this.produto = null;
+        this.preco = 0.0;
+        this.quantidade = 0;
+        this.mes = 0;
+        this.PouN = "";
+        this.filial=0;
+   
+   }
+   
    
    public Venda(Venda v){
       produto = v.getProduto();
@@ -27,7 +46,7 @@ public class Venda implements Serializable {
       PouN = v.getPouN();
    }
    
-   public Venda(String p, double pre,int q, String PN, String c, int m, int f ){
+   public Venda(Produto p, double pre,int q, String PN, Cliente c, int m, int f ){
        produto = p;
        cliente = c;
        filial = f;
@@ -37,11 +56,12 @@ public class Venda implements Serializable {
        PouN = PN;
    }
 
-    public String getProduto() {
+    /*Getters*/
+    public Produto getProduto() {
         return produto;
     }
 
-    public String getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
@@ -65,10 +85,20 @@ public class Venda implements Serializable {
         return mes;
     }
     
+    /*Metodos*/
+    
     @Override
     public String toString() {
-        return "Venda{" + "produto=" + produto + ", cliente=" + cliente + ", filial=" + filial + ", quantidade=" + quantidade + ", preco=" + preco + ", PouN=" + PouN + '}';
-    }
+        StringBuilder st = new StringBuilder();
+        st.append("Venda{");
+        st.append("cliente=").append(cliente);
+        st.append(", produto=").append(produto);
+        st.append(", preço=").append(preco);
+        st.append(", quantidade=").append(quantidade);
+        st.append(", mes=").append(mes);
+        st.append(", tipo=").append(PouN);
+        st.append('}');
+        return st.toString();    }
 
     @Override
     public boolean equals(Object obj) {
@@ -94,7 +124,7 @@ public class Venda implements Serializable {
         if (Double.doubleToLongBits(this.preco) != Double.doubleToLongBits(other.preco)) {
             return false;
         }
-        if (this.PouN != other.PouN) {
+        if (!this.PouN.equals(other.PouN)) {
             return false;
         }
         return true;

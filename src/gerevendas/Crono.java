@@ -19,6 +19,7 @@ public class Crono {
   private static long inicio = 0L;
   private static long fim = 0L;
   
+  
   public static void start() { 
       fim = 0L; inicio = nanoTime();  
   }
