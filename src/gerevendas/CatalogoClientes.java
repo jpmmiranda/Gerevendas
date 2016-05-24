@@ -14,19 +14,41 @@ import java.util.TreeSet;
  */
 public class CatalogoClientes {
 
-    private HashMap<Character,TreeSet<Cliente>> clientes;
+    private HashMap<Character,TreeSet<Cliente>> CatClientes;
     
     
-    
-    public CatalogoClientes(){
-        this.clientes = new HashMap<>();
+    /*Construtores*/
+    public  CatalogoClientes(){
+        this.CatClientes = new HashMap<>();
         for (Character c = 'A'; c <= 'Z'; c++) {
-          this.clientes.put(c, new TreeSet<Cliente>());
+          this.CatClientes.put(c, new TreeSet<Cliente>(new ComparatorCodigoCliente()));
         }
     }
     
-    void adicionaCliente(String cod) {
-        System.out.println(cod);
+     public CatalogoClientes(CatalogoClientes cc) {
+        this.CatClientes = cc.getCatClientes();
+    }
+    
+    /* Getters*/
+
+    public HashMap<Character, TreeSet<Cliente>> getCatClientes() {
+        return CatClientes;
+    }
+     
+    /*Metodos*/
+    
+    void adicionaCliente(Cliente cli) {
+        String cod = cli.getCodigo();
+        Character c= Character.toUpperCase(cod.charAt(0));
+        this.CatClientes.get(c).add(cli.clone());
+    }
+    
+    /* Funçao de teste */
+     void imprimeCatalogo(){
+   
+        for (Cliente codigo : this.CatClientes.get('A')) {
+            System.out.println(codigo.getCodigo());
+        }   
     }
     
 }

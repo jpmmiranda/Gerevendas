@@ -32,8 +32,10 @@ public class Leitura {
                 
         codigos = readLinesWithBuff("Produtos.txt");
         for(String cod : codigos){
-             hiper.insereProduto(cod);
+            Produto pro = new Produto(cod);
+             hiper.insereProduto(pro);
           }
+        hiper.imprimeProdutos();
     }
 
     static void lerClientes() {
@@ -43,8 +45,10 @@ public class Leitura {
         
         codigos = readLinesWithBuff("Clientes.txt");
         for(String cod : codigos){
-                hiper.insereCliente(cod);
+                Cliente cli = new Cliente(cod);
+                hiper.insereCliente(cli);
         }
+        hiper.imprimeClientes();
     }
     
     /*

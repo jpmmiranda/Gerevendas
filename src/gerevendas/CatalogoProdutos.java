@@ -5,15 +5,50 @@
  */
 package gerevendas;
 
+import java.util.HashMap;
+import java.util.TreeSet;
+
 /**
  *
  * @author Rui
  */
 public class CatalogoProdutos {
     
+  private HashMap<Character,TreeSet<Produto>> CatProdutos;
+    
+    
+    /*Construtores*/
+    public  CatalogoProdutos(){
+        this.CatProdutos = new HashMap<>();
+        for (Character c = 'A'; c <= 'Z'; c++) {
+          this.CatProdutos.put(c, new TreeSet<Produto>(new ComparatorCodigoProduto()));
+        }
+    }
+    
+     public CatalogoProdutos(CatalogoProdutos cp) {
+        this.CatProdutos = cp.getCatProdutos();
+    }
+    
+    /* Getters*/
 
-    void adicionaProduto(String cod) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HashMap<Character, TreeSet<Produto>> getCatProdutos() {
+        return CatProdutos;
+    }
+     
+    /*Metodos*/
+    
+    void adicionaProduto(Produto pro) {
+        String cod = pro.getCodigo();
+        Character c= Character.toUpperCase(cod.charAt(0));
+        this.CatProdutos.get(c).add(pro.clone());
+    }
+    
+    /* Funçao de teste */
+     void imprimeCatalogo(){
+   
+        for (Produto codigo : this.CatProdutos.get('B')) {
+            System.out.println(codigo.getCodigo());
+        }   
     }
     
 }

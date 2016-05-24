@@ -57,12 +57,24 @@ public class Hipermercado {
     
     /*Metodos*/
     
-    void insereCliente(String cod) {
-        clientes.adicionaCliente(cod);
+    void insereCliente(Cliente cli) {
+        clientes.adicionaCliente(cli);
     }
 
-    void insereProduto(String cod) {
-         produtos.adicionaProduto(cod);
+    void insereProduto(Produto pro) {
+         produtos.adicionaProduto(pro);
+    }
+    
+    
+    /* Funcao de teste */
+    void imprimeClientes(){
+    
+        clientes.imprimeCatalogo();
+    }
+    
+    void imprimeProdutos(){
+    
+        produtos.imprimeCatalogo();
     }
     
       @Override
