@@ -5,6 +5,8 @@
  */
 package gerevendas;
 
+import java.io.IOException;
+
 /**
  *
  * @author Rui
@@ -13,7 +15,7 @@ public class Gerevendas {
     
     public static Hipermercado hipermercado;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException, IOException {
         hipermercado = new Hipermercado();
         Interface.printMenu();
     }

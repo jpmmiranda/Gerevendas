@@ -5,6 +5,9 @@
  */
 package gerevendas;
 
+import java.io.IOException;
+import static java.lang.System.out;
+
 /**
  *
  * @author Rui
@@ -24,7 +27,7 @@ public class Interface {
         initVendas=0;
     }
     
-    public static void printMenu() {
+    public static void printMenu() throws CloneNotSupportedException, IOException {
         
         int opcao;
         boolean r = true;
@@ -61,7 +64,7 @@ public class Interface {
         }
    }
     
-    public static void menuLerFicheiros(){
+    public static void menuLerFicheiros() throws CloneNotSupportedException, IOException{
 	int r = 0, n = 0;
 
 	printInicializar();
@@ -111,6 +114,8 @@ public class Interface {
 				}
 				break;
 			case 4:
+                                                Crono.start();
+
 				limpaEcra();
 				Leitura.lerClientes();
 				initCli = 1;
@@ -119,6 +124,9 @@ public class Interface {
 				Leitura.lerVendas();
 				initVendas = 1;
 				menuLerFicheiros();
+                                                    Crono.stop();
+                    out.println("Tempo: " + Crono.print() );
+
 				break;
 			case 0:
 				limpaEcra();
@@ -196,7 +204,7 @@ public class Interface {
 
     
     
-    public static void printEstatisticas(){
+    public static void printEstatisticas() throws CloneNotSupportedException, IOException{
       
          
         int opcao;
@@ -228,7 +236,7 @@ public class Interface {
         }
 }
     
-    public static void printQueries(){
+    public static void printQueries() throws CloneNotSupportedException, IOException{
           
         int opcao;
         boolean r = true;

@@ -35,7 +35,7 @@ public class Hipermercado {
     public Hipermercado(Hipermercado hiper) {
         clientes = hiper.getClientes();
         produtos = hiper.getProdutos();
-        faturacao = hiper.getFaturacao());
+        faturacao = hiper.getFaturacao();
        
     }
 
@@ -78,6 +78,7 @@ public class Hipermercado {
 
     void insereProduto(Produto pro) {
          produtos.adicionaProduto(pro);
+         faturacao.adicionaProduto(pro);
     }
     
     void insereVendaValida(Venda v) throws CloneNotSupportedException {

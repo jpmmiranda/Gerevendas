@@ -31,6 +31,7 @@ public class InfoProdutoFacturacao {
         this.totalVendidas = 0;
         this.unidadesVendidas =new int[12][2];
         this.faturado = new double[12][2];
+        this.totalFaturado = new double[12][2];
         this.totalFatFilial1 = new double[12][2];
         this.totalFatFilial2 = new double[12][2];
         this.totalFatFilial3 = new double[12][2];
@@ -184,20 +185,61 @@ public class InfoProdutoFacturacao {
     void incrementaFaturado(String PouN, int mes, double preco) {
             if(PouN.equals("N")){
 
-                       this.unidadesVendidas[mes-1][0]+=quantidade;
+                       this.faturado[mes-1][0]+=preco;
                    }else{
-                       this.unidadesVendidas[mes-1][1]+=quantidade;
+                       this.faturado[mes-1][1]+=preco;
 
                    }
     
     }
 
-    void incrementaTotalFaturado(String PouN, int mes, double preco) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void incrementaTotalFaturado(String PouN, int mes, double preco,int quantidade) {
+        
+         if(PouN.equals("N")){
+
+                       this.totalFaturado[mes-1][0]+=preco*quantidade;
+        }else{
+                       this.totalFaturado[mes-1][1]+=preco*quantidade;
+
+                   }
+        
     }
 
     void incrementaTotaisFilial(String PouN, int mes, double preco, int quantidade, int filial) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if(PouN.equals("N")){
+            if(filial==1){
+            
+                 this.totalFatFilial1[mes-1][0]+=preco*quantidade;
+                 this.totalUniFilial1[mes-1][0]+=quantidade;
+                 
+            }else if(filial==2){
+                
+                 this.totalFatFilial2[mes-1][0]+=preco*quantidade;
+                 this.totalUniFilial2[mes-1][0]+=quantidade;
+            
+            
+            }else{
+                 this.totalFatFilial3[mes-1][0]+=preco*quantidade;
+                 this.totalUniFilial3[mes-1][0]+=quantidade;
+            }
+        }else{
+            if(filial==1){
+            
+                 this.totalFatFilial1[mes-1][1]+=preco*quantidade;
+                 this.totalUniFilial1[mes-1][1]+=quantidade;
+                 
+            }else if(filial==2){
+                
+                 this.totalFatFilial2[mes-1][1]+=preco*quantidade;
+                 this.totalUniFilial2[mes-1][1]+=quantidade;
+            
+            
+            }else{
+                 this.totalFatFilial3[mes-1][1]+=preco*quantidade;
+                 this.totalUniFilial3[mes-1][1]+=quantidade;
+            }
+        }
     }
 
 }

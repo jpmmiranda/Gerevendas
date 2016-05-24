@@ -22,7 +22,7 @@ public class Facturacao {
     /*Construtores*/
      
     public Facturacao() {
-        this.facturacao = new TreeMap<>();
+        this.facturacao = new TreeMap<>(new ComparatorCodigoProduto());
         this.totalVendas = new int[12][2];
         this.totalFaturado = new double[12][2];
 
@@ -37,7 +37,7 @@ public class Facturacao {
         }
     }
     
-    public Facturacao(Facturacao fact) {
+    public Facturacao(Facturacao fact) throws CloneNotSupportedException {
         this.facturacao = fact.getFacturacao();
         this.totalFaturado = fact.getTotalFaturado();
         this.totalVendas = fact.getTotalVendas();
@@ -45,8 +45,13 @@ public class Facturacao {
     
     /*Getter*/
 
-    public Map<Produto, InfoProdutoFacturacao> getFacturacao() {
-        return facturacao;
+    public Map<Produto, InfoProdutoFacturacao> getFacturacao() throws CloneNotSupportedException {
+        TreeMap<Produto, InfoProdutoFacturacao> aux = new TreeMap<>();
+
+        for (Map.Entry<Produto, InfoProdutoFacturacao> ipf : this.facturacao.entrySet()) {
+            aux.put(ipf.getKey().clone(), ipf.getValue().clone());
+        }
+        return aux;
     }
 
     public int[][] getTotalVendas() {
@@ -76,30 +81,47 @@ public class Facturacao {
     
    /* Metodos */
     
+    void adicionaProduto(Produto prod){
+        InfoProdutoFacturacao ipf = new InfoProdutoFacturacao();
+
+        this.facturacao.put(prod.clone(),ipf );
+    
+    }
+    
+    
     void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {
         String codigoProduto = ven.getProduto().getCodigo();
         String PouN;
-        int mes,quantidade,filial;
-        double preco = 0.0;
-        InfoProdutoFacturacao ipf = new InfoProdutoFacturacao();
-        ip
+        int mes,quantidade,filial,r=0;
+        double preco ;
         
-        
-        
-        
-        
-        for(Produto pro : facturacao.keySet()){
-            if(pro.getCodigo().equals(codigoProduto)){
-                ipf=this.facturacao.get(pro);
+        InfoProdutoFacturacao ipf;
+        quantidade=ven.getQuantidade();
+        PouN=ven.getPouN();
+        mes=ven.getMes();
+        filial=ven.getFilial();
+        preco=ven.getPreco();
+        if(facturacao.containsKey(ven.getProduto())){
+        //for(Produto pro : facturacao.keySet()){
+          //  if(pro.getCodigo().equals(codigoProduto)){
+                ipf=this.facturacao.get(ven.getProduto());
                 ipf.incrementaTotalVendidas(quantidade);
                 ipf.incrementaUnidadesVendidas(PouN, mes, quantidade);
                 ipf.incrementaFaturado( PouN, mes, preco);
-                ipf.incrementaTotalFaturado( PouN, mes, preco);
+                ipf.incrementaTotalFaturado( PouN, mes, preco,quantidade);
                 ipf.incrementaTotaisFilial( PouN, mes, preco,quantidade, filial);
+              //  r=1;
                 
             }
-        
-        }
+       // }
+       /* if(r==0){
+            ipf.incrementaTotalVendidas(quantidade);
+            ipf.incrementaUnidadesVendidas(PouN, mes, quantidade);
+            ipf.incrementaFaturado( PouN, mes, preco);
+            ipf.incrementaTotalFaturado( PouN, mes, preco,quantidade);
+            ipf.incrementaTotaisFilial( PouN, mes, preco,quantidade, filial);
+            facturacao.put(ven.getProduto().clone(), ipf);
+        }*/
     }
 
     @Override
