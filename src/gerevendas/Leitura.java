@@ -23,8 +23,7 @@ public class Leitura {
     public Leitura(){}
 
     
-    static void lerVendas() throws CloneNotSupportedException, IOException {
-        ArrayList<String> linhas = new ArrayList<>();
+    static void lerVendas() throws  IOException, CloneNotSupportedException {
         String linha;
         Hipermercado hiper = Gerevendas.getHipermercado();
 
@@ -32,7 +31,7 @@ public class Leitura {
 
          BufferedReader in = null;
             try {
-                in = new BufferedReader(new FileReader("Vendas_1M.txt"));
+                in = new BufferedReader(new FileReader("Vendas_3M.txt"));
             } catch (FileNotFoundException ex) {
                     System.out.println("Ficheiro não existe");
             }
@@ -52,7 +51,7 @@ public class Leitura {
         int filial = Integer.parseInt(partes[6]);
         if(verificaVenda(pro,preco,quantidade,PouN,cliente,mes,filial)){
                 v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
-                hiper.insereVendaValida(v);
+                hiper.insereVendaValida(v.clone());
         }else{
                 //hiper.insereVendaInvalida(v);
         } 
@@ -90,7 +89,7 @@ public class Leitura {
         //hiper.imprimeClientes();
     }
     
-     public static int parseLinhaVenda(String linha,int i) throws CloneNotSupportedException {
+     /*public static int parseLinhaVenda(String linha,int i) throws CloneNotSupportedException {
         Hipermercado hiper = Gerevendas.getHipermercado();
          Venda v = null;
          
@@ -121,7 +120,7 @@ public class Leitura {
              i=parseLinhaVenda(s,i);
         }
          System.out.println(i);
-    }
+    }*/
      
      
     public static ArrayList<String> readLinesWithBuff(String fich) {
@@ -145,8 +144,8 @@ public class Leitura {
         Hipermercado hiper = Gerevendas.getHipermercado();
         Boolean r=false;
         
-        if(hiper.getClientes().existeCliente(cliente)){
-            if(hiper.getProdutos().existeProduto(pro)){
+        if(hiper.existeCliente(cliente)){
+            if(hiper.existeProduto(pro)){
                 if(preco>=0.0 && quantidade>=0) r=true;
             }
         }

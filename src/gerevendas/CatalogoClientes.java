@@ -53,19 +53,11 @@ public class CatalogoClientes {
 
     boolean existeCliente(Cliente cli) {
 
-        Boolean r=false;
-        TreeSet<Cliente> cliente;
+        
         String cod = cli.getCodigo();
         Character c= Character.toUpperCase(cod.charAt(0));
-        cliente=this.CatClientes.get(c);
-        for(Cliente cl : cliente){
-            if(cl.getCodigo().equals(cod)){
-                r=true;
-                break;
-            }
-            }
-        return r;
-        }
+        return this.CatClientes.get(c).contains(cli);
+    }
 }
     
 

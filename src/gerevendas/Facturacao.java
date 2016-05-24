@@ -90,7 +90,7 @@ public class Facturacao {
     
     
     void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {
-        String codigoProduto = ven.getProduto().getCodigo();
+     //   String codigoProduto = ven.getProduto().getCodigo();
         String PouN;
         int mes,quantidade,filial,r=0;
         double preco ;

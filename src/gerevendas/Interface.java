@@ -123,9 +123,10 @@ public class Interface {
 				initPro = 1;
 				Leitura.lerVendas();
 				initVendas = 1;
+                                Crono.stop();
+                    System.out.println("Tempo: " + Crono.print() );
 				menuLerFicheiros();
-                                                    Crono.stop();
-                    out.println("Tempo: " + Crono.print() );
+                                                    
 
 				break;
 			case 0:
