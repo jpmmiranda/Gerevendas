@@ -50,5 +50,20 @@ public class CatalogoProdutos {
             System.out.println(codigo.getCodigo());
         }   
     }
+
+    Boolean existeProduto(Produto pro) {
+       Boolean r=false;
+        TreeSet<Produto> produto;
+        String cod = pro.getCodigo();
+        Character c= Character.toUpperCase(cod.charAt(0));
+        produto=this.CatProdutos.get(c);
+        for(Produto cl : produto){
+            if(cl.getCodigo().equals(cod)){
+                r=true;
+                break;
+            }
+            }
+        return r;
+    }
     
 }

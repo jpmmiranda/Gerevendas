@@ -50,5 +50,22 @@ public class CatalogoClientes {
             System.out.println(codigo.getCodigo());
         }   
     }
-    
+
+    boolean existeCliente(Cliente cli) {
+
+        Boolean r=false;
+        TreeSet<Cliente> cliente;
+        String cod = cli.getCodigo();
+        Character c= Character.toUpperCase(cod.charAt(0));
+        cliente=this.CatClientes.get(c);
+        for(Cliente cl : cliente){
+            if(cl.getCodigo().equals(cod)){
+                r=true;
+                break;
+            }
+            }
+        return r;
+        }
 }
+    
+

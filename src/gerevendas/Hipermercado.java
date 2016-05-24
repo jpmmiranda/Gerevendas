@@ -16,26 +16,35 @@ public class Hipermercado {
     
     private CatalogoClientes clientes;
     private CatalogoProdutos produtos;
+    private Facturacao faturacao;
     
     /* Construtores */
     public Hipermercado() {
         this.clientes = new CatalogoClientes();
         this.produtos = new CatalogoProdutos();
+        this.faturacao = new Facturacao();
     }
     
-    public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp) {
+    public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp,Facturacao fact) {
 		this.clientes= cc;
 		this.produtos = cp;	
+                this.faturacao=fact;
     }
 
     
     public Hipermercado(Hipermercado hiper) {
         clientes = hiper.getClientes();
         produtos = hiper.getProdutos();
+        faturacao = hiper.getFaturacao());
        
     }
 
     /* Getters*/
+    
+    public Facturacao getFaturacao() {
+        return faturacao;
+    }
+
     public CatalogoClientes getClientes() {
         return clientes;
     }
@@ -45,6 +54,12 @@ public class Hipermercado {
     }
     
     /* Setters */
+
+    public void setFaturacao(Facturacao faturacao) {
+        this.faturacao = faturacao;
+    }
+    
+    
 
     public void setClientes(CatalogoClientes clientes) {
         this.clientes = clientes;
@@ -65,6 +80,15 @@ public class Hipermercado {
          produtos.adicionaProduto(pro);
     }
     
+    void insereVendaValida(Venda v) throws CloneNotSupportedException {
+        faturacao.adicionaFaturacao(v);
+    
+    }
+
+    void insereVendaInvalida(Venda v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
     /* Funcao de teste */
     void imprimeClientes(){
@@ -75,6 +99,18 @@ public class Hipermercado {
     void imprimeProdutos(){
     
         produtos.imprimeCatalogo();
+    }
+    
+    boolean existeCliente(Cliente cli){
+    Boolean r=false;
+        r=clientes.existeCliente(cli);
+    return r;
+    }
+    
+    boolean existeProduto(Produto pro){
+    Boolean r=false;
+        r=produtos.existeProduto(pro);
+    return r;
     }
     
       @Override
@@ -90,7 +126,8 @@ public class Hipermercado {
         return this.clientes.equals(other.clientes)
                 && this.produtos.equals(other.produtos);
     }
-    
+
+  
     
     
 }

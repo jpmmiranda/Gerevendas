@@ -23,7 +23,13 @@ public class Leitura {
 
     
     static void lerVendas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> linhas = new ArrayList<>();
+        ArrayList<Venda> vendas = new ArrayList<>();
+
+        Hipermercado hiper = Gerevendas.getHipermercado();
+        
+        linhas = readLinesWithBuff("Vendas_1M.txt");
+        vendas = parseAllLinhas(linhas);
     }
 
     static void lerProdutos() {
@@ -35,7 +41,7 @@ public class Leitura {
             Produto pro = new Produto(cod);
              hiper.insereProduto(pro);
           }
-        hiper.imprimeProdutos();
+        //hiper.imprimeProdutos();
     }
 
     static void lerClientes() {
@@ -48,10 +54,33 @@ public class Leitura {
                 Cliente cli = new Cliente(cod);
                 hiper.insereCliente(cli);
         }
-        hiper.imprimeClientes();
+        //hiper.imprimeClientes();
     }
     
-    /*
+     public static Venda parseLinhaVenda(String linha) {
+        Hipermercado hiper = Gerevendas.getHipermercado();
+         Venda v = null;
+        String[] partes = linha.split(" ");
+        Produto pro = new Produto(partes[0]);
+        double preco = Double.parseDouble(partes[1]);
+        int quantidade = Integer.parseInt(partes[2]);
+        String PouN = partes[3];
+        Cliente cliente = new Cliente(partes[4]);
+        int mes = Integer.parseInt(partes[5]);
+        int filial = Integer.parseInt(partes[6]);
+        
+        if(verificaVenda(pro,preco,quantidade,PouN,cliente,mes,filial)){
+        
+                v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
+                hiper.insereVendaValida(v);
+
+        }else{
+                hiper.insereVendaInvalida(v);
+        }
+        
+       return v;
+    }
+    
     
      public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas) {
         Venda venda;
@@ -61,7 +90,7 @@ public class Leitura {
             vendas.add(venda);
         }
         return vendas;
-    }*/
+    }
      
      
     public static ArrayList<String> readLinesWithBuff(String fich) {
@@ -79,4 +108,21 @@ public class Leitura {
         };
         return linhas;
     }
+    
+    
+    public static boolean verificaVenda(Produto pro,double preco,int quantidade,String PouN,Cliente cliente,int mes,int filial) {
+        Hipermercado hiper = Gerevendas.getHipermercado();
+        Boolean r=false;
+        
+        if(hiper.getClientes().existeCliente(cliente)){
+            if(hiper.getProdutos().existeProduto(pro)){
+                if(preco>=0.0 && quantidade>=0) r=true;
+            }
+        }
+        
+        
+        return r;
+
+    }
+    
 }
