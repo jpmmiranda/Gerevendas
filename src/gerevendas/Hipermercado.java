@@ -17,18 +17,21 @@ public class Hipermercado {
     private CatalogoClientes clientes;
     private CatalogoProdutos produtos;
     private Facturacao faturacao;
+    private GestaoFilial gestfilial;
     
     /* Construtores */
     public Hipermercado() {
         this.clientes = new CatalogoClientes();
         this.produtos = new CatalogoProdutos();
         this.faturacao = new Facturacao();
+        this.gestfilial=new GestaoFilial();
     }
     
-    public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp,Facturacao fact) {
+    public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp,Facturacao fact, GestaoFilial gf) {
 		this.clientes= cc;
 		this.produtos = cp;	
                 this.faturacao=fact;
+                this.gestfilial=gf;
     }
 
     
@@ -36,6 +39,7 @@ public class Hipermercado {
         clientes = hiper.getClientes();
         produtos = hiper.getProdutos();
         faturacao = hiper.getFaturacao();
+        gestfilial=hiper.getGestfilial();
        
     }
 
@@ -53,6 +57,12 @@ public class Hipermercado {
         return produtos;
     }
     
+    public GestaoFilial getGestfilial() {
+        return gestfilial;
+    }
+
+    
+    
     /* Setters */
 
     public void setFaturacao(Facturacao faturacao) {
@@ -60,7 +70,6 @@ public class Hipermercado {
     }
     
     
-
     public void setClientes(CatalogoClientes clientes) {
         this.clientes = clientes;
     }
@@ -69,11 +78,15 @@ public class Hipermercado {
         this.produtos = produtos;
     }
     
+    public void setGestfilial(GestaoFilial gestfilial) {
+        this.gestfilial = gestfilial;
+    }
     
     /*Metodos*/
     
-    void insereCliente(Cliente cli) {
+    void insereCliente(Cliente cli) throws CloneNotSupportedException {
         clientes.adicionaCliente(cli);
+        gestfilial.adicionaClienteInicial(cli.clone());
     }
 
     void insereProduto(Produto pro) {
@@ -83,7 +96,8 @@ public class Hipermercado {
     
     void insereVendaValida(Venda v) throws CloneNotSupportedException {
         faturacao.adicionaFaturacao(v);
-    
+        gestfilial.adicionaComprasCliente(v.clone());
+        gestfilial.adicionaComprasDeProduto(v);
     }
 
     void insereVendaInvalida(Venda v) {
@@ -91,7 +105,7 @@ public class Hipermercado {
     }
     
     
-    /* Funcao de teste */
+    /* Funcao de teste  */
     void imprimeClientes(){
     
         clientes.imprimeCatalogo();
@@ -101,6 +115,14 @@ public class Hipermercado {
     
         produtos.imprimeCatalogo();
     }
+    
+    void imprimeGestFilial(){
+    
+        gestfilial.imprimeCliente();
+    }
+    
+    /* ------------------------------------------ */
+    
     
     boolean existeCliente(Cliente cli){
     Boolean r=false;
@@ -114,7 +136,7 @@ public class Hipermercado {
     return r;
     }
     
-      @Override
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -127,6 +149,8 @@ public class Hipermercado {
         return this.clientes.equals(other.clientes)
                 && this.produtos.equals(other.produtos);
     }
+
+    
 
   
     

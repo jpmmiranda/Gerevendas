@@ -90,9 +90,8 @@ public class Facturacao {
     
     
     void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {
-     //   String codigoProduto = ven.getProduto().getCodigo();
         String PouN;
-        int mes,quantidade,filial,r=0;
+        int mes,quantidade,filial;
         double preco ;
         
         InfoProdutoFacturacao ipf;
@@ -102,26 +101,15 @@ public class Facturacao {
         filial=ven.getFilial();
         preco=ven.getPreco();
         if(facturacao.containsKey(ven.getProduto())){
-        //for(Produto pro : facturacao.keySet()){
-          //  if(pro.getCodigo().equals(codigoProduto)){
+        
                 ipf=this.facturacao.get(ven.getProduto());
                 ipf.incrementaTotalVendidas(quantidade);
                 ipf.incrementaUnidadesVendidas(PouN, mes, quantidade);
                 ipf.incrementaFaturado( PouN, mes, preco);
                 ipf.incrementaTotalFaturado( PouN, mes, preco,quantidade);
                 ipf.incrementaTotaisFilial( PouN, mes, preco,quantidade, filial);
-              //  r=1;
-                
+             
             }
-       // }
-       /* if(r==0){
-            ipf.incrementaTotalVendidas(quantidade);
-            ipf.incrementaUnidadesVendidas(PouN, mes, quantidade);
-            ipf.incrementaFaturado( PouN, mes, preco);
-            ipf.incrementaTotalFaturado( PouN, mes, preco,quantidade);
-            ipf.incrementaTotaisFilial( PouN, mes, preco,quantidade, filial);
-            facturacao.put(ven.getProduto().clone(), ipf);
-        }*/
     }
 
     @Override

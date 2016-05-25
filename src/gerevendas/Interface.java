@@ -125,7 +125,7 @@ public class Interface {
 				initVendas = 1;
                                 Crono.stop();
                     System.out.println("Tempo: " + Crono.print() );
-				menuLerFicheiros();
+			        menuLerFicheiros();
                                                     
 
 				break;
@@ -210,7 +210,7 @@ public class Interface {
          
         int opcao;
         boolean r = true;
-        
+        Hipermercado hiper=Gerevendas.getHipermercado();
         while(r){
             System.out.println("################## GEREVENDAS ##################");
             System.out.println("  1. Dados acerca do último ficheiro lido      #");
@@ -224,7 +224,8 @@ public class Interface {
                     System.exit(0);
                     break;
                 case 1:
-                    menuLerFicheiros();
+                    hiper.imprimeGestFilial();
+                    //menuLerFicheiros();
                     r = false;
                     break;
                 case 2:
@@ -278,7 +279,7 @@ public class Interface {
 
 
     private static void limpaEcra(){
-        System.out.print("\033c");
+        System.out.print("\033");
     }
 
 }

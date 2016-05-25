@@ -32,7 +32,18 @@ public class CatalogoProdutos {
     /* Getters*/
 
     public HashMap<Character, TreeSet<Produto>> getCatProdutos() {
-        return CatProdutos;
+       HashMap<Character, TreeSet<Produto>> res = new HashMap<>();
+        TreeSet<Produto> aux;
+        Character inicio = 'A';
+        for (TreeSet<Produto> ts : this.CatProdutos.values()) {
+            aux = new TreeSet<>();
+            for (Produto st : ts) {
+                aux.add(st);
+            }
+            res.put(inicio, aux);
+            inicio++;
+        }
+        return res;
     }
      
     /*Metodos*/

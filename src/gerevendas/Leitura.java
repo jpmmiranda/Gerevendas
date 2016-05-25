@@ -26,42 +26,38 @@ public class Leitura {
     static void lerVendas() throws  IOException, CloneNotSupportedException {
         String linha;
         Hipermercado hiper = Gerevendas.getHipermercado();
-
-                 Venda v;
-
-         BufferedReader in = null;
+        int linhasValidas=0;
+        int linhasInvalidas=0;
+        Venda v;
+        BufferedReader in = null;
             try {
-                in = new BufferedReader(new FileReader("Vendas_3M.txt"));
+                in = new BufferedReader(new FileReader("Vendas_1M.txt"));
             } catch (FileNotFoundException ex) {
-                    System.out.println("Ficheiro não existe");
+                 out.println(ex.getMessage());
             }
        
-            while ((linha = in.readLine())!= null) {
-                
-                
-                
-         
-        String[] partes = linha.split(" ");
-        Produto pro = new Produto(partes[0]);
-        double preco = Double.parseDouble(partes[1]);
-        int quantidade = Integer.parseInt(partes[2]);
-        String PouN = partes[3];
-        Cliente cliente = new Cliente(partes[4]);
-        int mes = Integer.parseInt(partes[5]);
-        int filial = Integer.parseInt(partes[6]);
-        if(verificaVenda(pro,preco,quantidade,PouN,cliente,mes,filial)){
-                v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
-                hiper.insereVendaValida(v.clone());
-        }else{
-                //hiper.insereVendaInvalida(v);
-        } 
-                
-                
-                
+        while ((linha = in.readLine())!= null) {
+                 
+            String[] partes = linha.split(" ");
+            Produto pro = new Produto(partes[0]);
+            double preco = Double.parseDouble(partes[1]);
+            int quantidade = Integer.parseInt(partes[2]);
+            String PouN = partes[3];
+            Cliente cliente = new Cliente(partes[4]);
+            int mes = Integer.parseInt(partes[5]);
+            int filial = Integer.parseInt(partes[6]);
             
-        /*linhas = readLinesWithBuff("Vendas_1M.txt");
-        parseAllLinhas(linhas);*/
-    }
+            if(verificaVenda(pro,preco,quantidade,PouN,cliente,mes,filial)){
+                    v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
+                    hiper.insereVendaValida(v.clone());
+                    linhasValidas++;
+            }else{
+                    linhasInvalidas++;
+                    //hiper.insereVendaInvalida(v);
+            } 
+                
+        }
+
   }
 
     static void lerProdutos() {
@@ -71,12 +67,12 @@ public class Leitura {
         codigos = readLinesWithBuff("Produtos.txt");
         for(String cod : codigos){
             Produto pro = new Produto(cod);
-             hiper.insereProduto(pro);
+             hiper.insereProduto(pro.clone());
           }
         //hiper.imprimeProdutos();
     }
 
-    static void lerClientes() {
+    static void lerClientes() throws CloneNotSupportedException {
         
         ArrayList<String> codigos = new ArrayList<>();
         Hipermercado hiper = Gerevendas.getHipermercado();
@@ -84,43 +80,12 @@ public class Leitura {
         codigos = readLinesWithBuff("Clientes.txt");
         for(String cod : codigos){
                 Cliente cli = new Cliente(cod);
-                hiper.insereCliente(cli);
+                hiper.insereCliente(cli.clone());
         }
         //hiper.imprimeClientes();
     }
     
-     /*public static int parseLinhaVenda(String linha,int i) throws CloneNotSupportedException {
-        Hipermercado hiper = Gerevendas.getHipermercado();
-         Venda v = null;
-         
-        String[] partes = linha.split(" ");
-        Produto pro = new Produto(partes[0]);
-        double preco = Double.parseDouble(partes[1]);
-        int quantidade = Integer.parseInt(partes[2]);
-        String PouN = partes[3];
-        Cliente cliente = new Cliente(partes[4]);
-        int mes = Integer.parseInt(partes[5]);
-        int filial = Integer.parseInt(partes[6]);
-        if(verificaVenda(pro,preco,quantidade,PouN,cliente,mes,filial)){
-                v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
-                i++;
-                hiper.insereVendaValida(v);
-        }else{
-            
-                //hiper.insereVendaInvalida(v);
-        }
-        
-       return i;
-    }
     
-    
-     public static void parseAllLinhas(ArrayList<String> linhas) throws CloneNotSupportedException {
-        int i=0;
-         for (String s : linhas) {
-             i=parseLinhaVenda(s,i);
-        }
-         System.out.println(i);
-    }*/
      
      
     public static ArrayList<String> readLinesWithBuff(String fich) {
@@ -135,7 +100,7 @@ public class Leitura {
         } catch (IOException e) {
             out.println(e.getMessage());
             return null;
-        };
+        }
         return linhas;
     }
     
