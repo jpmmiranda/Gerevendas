@@ -10,7 +10,7 @@ import java.util.TreeSet;
 
 /**
  *
- * @author Rui
+ * @author Rui/José/João/José
  */
 public class CatalogoClientes {
 
