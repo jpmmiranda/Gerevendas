@@ -263,7 +263,8 @@ public class Interface {
                     System.exit(0);
                     break;
                 case 1:
-                    menuLerFicheiros();
+                    Queries querie = new Queries();
+                    querie.Querie1();
                     r = false;
                     break;
                 case 2:

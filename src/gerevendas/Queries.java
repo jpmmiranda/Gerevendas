@@ -5,6 +5,7 @@
  */
 package gerevendas;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -16,15 +17,24 @@ import java.util.TreeSet;
  */
 public class Queries {
     
-    private HashMap<Character,TreeSet<Cliente>> CatClientes;
+    private ArrayList<Venda> Vendas;
 
     
-   
-    static void Querie1(){
-       
-        
-    }
+   // Mostra as Vendas feitas na Filial 2
     
+    public ArrayList Querie1(){
+      ArrayList newVendas = new ArrayList();
+      Venda venda = new Venda();
+      int filial=2;
+      for (Venda vendas: Vendas) {   
+       if (vendas.getFilial()==filial){
+           newVendas.add(vendas);
+       }
+      }
+       return newVendas;
+    }
+      
+       
     static void Querie2(){
         
         
