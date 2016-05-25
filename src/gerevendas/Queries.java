@@ -5,11 +5,40 @@
  */
 package gerevendas;
 
+import java.util.HashMap;
+import java.util.TreeSet;
+
+
+
 /**
  *
- * @author Rui
+ * @author José
  */
 public class Queries {
     
+    private HashMap<Character,TreeSet<Cliente>> CatClientes;
+
+    
+   
+    static void Querie1(){
+       
+        
+    }
+    
+    static void Querie2(){
+        
+        
+    }
+    
+    static void Querie3(){
+        
+        
+    }
+     
+    static void Querie4(){
+        
+        
+    }
+
     
 }
