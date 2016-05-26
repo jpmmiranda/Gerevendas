@@ -128,6 +128,16 @@ public class Facturacao {
         mes=ven.getMes();
         filial=ven.getFilial();
         preco=ven.getPreco();
+        if(PouN.equals("N")){
+            totalVendas[mes-1][0]++;
+            totalFaturado[mes-1][0]+=preco*quantidade;
+        }else{
+            totalVendas[mes-1][1]++;
+            totalFaturado[mes-1][1]+=preco*quantidade;
+
+        }
+        
+        
         if(facturacao.containsKey(ven.getProduto())){
         
                 ipf=this.facturacao.get(ven.getProduto());
