@@ -5,6 +5,8 @@
  */
 package gerevendas;
 
+import java.util.Objects;
+
 /**
  *
  * @author Rui
@@ -42,8 +44,12 @@ public class Cliente {
     /*
     Metodos
     */
-    public boolean equals(Cliente cliente) {
-        return this.codigo.equals(cliente.getCodigo());
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.codigo);
+        return hash;
     }
 
     @Override
@@ -73,6 +79,9 @@ public class Cliente {
         sb.append("Codigo Cliente= ").append(codigo);
         return sb.toString();
     }
-
+    
+    public int compareTo(Cliente c) {
+        return this.codigo.compareTo(c.getCodigo());
+    }
 
 }

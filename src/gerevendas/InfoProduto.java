@@ -16,9 +16,16 @@ public class InfoProduto {
     
    private int UnidadesVendidas;
    private double TotalPago;
-   private int[][] ComprasFilial1;
-   private int[][] ComprasFilial2;
-   private int[][] ComprasFilial3;
+   private int[] ComprasFilial1Normal;
+   private int[] ComprasFilial2Normal;
+   private int[] ComprasFilial3Normal;
+   private int[] ComprasFilial1Promocao;
+   private int[] ComprasFilial2Promocao;
+   private int[] ComprasFilial3Promocao;
+
+  /* private int[][] ComprasFilial1=new int[12][2];
+   private int[][] ComprasFilial2=new int[12][2];
+   private int[][] ComprasFilial3=new int[12][2];*7
 
    /*Construtores*/
    
@@ -26,28 +33,38 @@ public class InfoProduto {
         
         this.UnidadesVendidas=0;
         this.TotalPago=0.0;
-        this.ComprasFilial1 = new int[12][2];
-        this.ComprasFilial2 = new int[12][2];
-        this.ComprasFilial3 = new int[12][2];
+       this.ComprasFilial1Normal=new int[12];
+       this.ComprasFilial2Normal=new int[12];
+       this.ComprasFilial3Normal=new int[12];
+       this.ComprasFilial1Promocao=new int[12];
+       this.ComprasFilial2Promocao=new int[12];
+       this.ComprasFilial3Promocao=new int[12];
 
 
     }
    
-    public InfoProduto(int UnidadesVendidas, double TotalPago, int[][] ComprasFilial1, int[][] ComprasFilial2, int[][] ComprasFilial3) {
+    public InfoProduto(int UnidadesVendidas, double TotalPago, int[] ComprasFilial1Normal, int[] ComprasFilial2Normal, int[] ComprasFilial3Normal,int[] ComprasFilial1Promocao,int[] ComprasFilial2Promocao,int[] ComprasFilial3Promocao) {
         this.UnidadesVendidas = UnidadesVendidas;
         this.TotalPago = TotalPago;
-        this.ComprasFilial1 = ComprasFilial1;
-        this.ComprasFilial2 = ComprasFilial2;
-        this.ComprasFilial3 = ComprasFilial3;
+      
+        this.ComprasFilial1Normal = ComprasFilial1Normal.clone();
+        this.ComprasFilial2Normal = ComprasFilial2Normal.clone();
+        this.ComprasFilial3Normal = ComprasFilial3Normal.clone();
+        this.ComprasFilial1Promocao = ComprasFilial1Promocao.clone();
+        this.ComprasFilial2Promocao = ComprasFilial2Promocao.clone();
+        this.ComprasFilial3Promocao = ComprasFilial3Promocao.clone();
     }
    
    public InfoProduto(InfoProduto ip) throws CloneNotSupportedException {
        
         this.TotalPago = ip.getTotalPago();
         this.UnidadesVendidas = ip.getUnidadesVendidas();
-        this.ComprasFilial1 = ip.getComprasFilial1();
-        this.ComprasFilial2 = ip.getComprasFilial2();
-        this.ComprasFilial3 = ip.getComprasFilial3();
+        this.ComprasFilial1Normal = ip.getComprasFilial1Normal();
+        this.ComprasFilial2Normal = ip.getComprasFilial2Normal();
+        this.ComprasFilial3Normal = ip.getComprasFilial3Normal();
+        this.ComprasFilial1Promocao = ip.getComprasFilial1Promocao();
+        this.ComprasFilial2Promocao = ip.getComprasFilial2Promocao();
+        this.ComprasFilial3Promocao = ip.getComprasFilial3Promocao();
     }
    
    
@@ -63,17 +80,32 @@ public class InfoProduto {
         return TotalPago;
     }
 
-    public int[][] getComprasFilial1() {
-        return ComprasFilial1;
+    
+    public int[] getComprasFilial1Normal() {
+        return ComprasFilial1Normal;
     }
 
-    public int[][] getComprasFilial2() {
-        return ComprasFilial2;
+    public int[] getComprasFilial2Normal() {
+        return ComprasFilial2Normal;
     }
 
-    public int[][] getComprasFilial3() {
-        return ComprasFilial3;
+    public int[] getComprasFilial3Normal() {
+        return ComprasFilial3Normal;
     }
+
+    public int[] getComprasFilial1Promocao() {
+        return ComprasFilial1Promocao;
+    }
+
+    public int[] getComprasFilial2Promocao() {
+        return ComprasFilial2Promocao;
+    }
+
+    public int[] getComprasFilial3Promocao() {
+        return ComprasFilial3Promocao;
+    }
+
+ 
     
    /*Setter*/
 
@@ -85,17 +117,31 @@ public class InfoProduto {
         this.TotalPago = TotalPago;
     }
 
-    public void setComprasFilial1(int[][] ComprasFilial1) {
-        this.ComprasFilial1 = ComprasFilial1;
+    public void setComprasFilial1Normal(int[] ComprasFilial1Normal) {
+        this.ComprasFilial1Normal = ComprasFilial1Normal;
     }
 
-    public void setComprasFilial2(int[][] ComprasFilial2) {
-        this.ComprasFilial2 = ComprasFilial2;
+    public void setComprasFilial2Normal(int[] ComprasFilial2Normal) {
+        this.ComprasFilial2Normal = ComprasFilial2Normal;
     }
 
-    public void setComprasFilial3(int[][] ComprasFilial3) {
-        this.ComprasFilial3 = ComprasFilial3;
+    public void setComprasFilial3Normal(int[] ComprasFilial3Normal) {
+        this.ComprasFilial3Normal = ComprasFilial3Normal;
     }
+
+    public void setComprasFilial1Promocao(int[] ComprasFilial1Promocao) {
+        this.ComprasFilial1Promocao = ComprasFilial1Promocao;
+    }
+
+    public void setComprasFilial2Promocao(int[] ComprasFilial2Promocao) {
+        this.ComprasFilial2Promocao = ComprasFilial2Promocao;
+    }
+
+    public void setComprasFilial3Promocao(int[] ComprasFilial3Promocao) {
+        this.ComprasFilial3Promocao = ComprasFilial3Promocao;
+    }
+
+    
     
     /* Métodos */
     
@@ -111,41 +157,33 @@ public class InfoProduto {
         int mes = v.getMes();
         int quantidade= v.getQuantidade();
         double preco = v.getPreco();
-        
-           if(v.getPouN().equals("N")){
-            if(v.getFilial()==1){
-            
-                 this.ComprasFilial1[mes-1][0]+=preco*quantidade;
-                 this.ComprasFilial1[mes-1][0]+=quantidade;
+        int filial = v.getFilial();
+        if(v.getPouN().equals("N")){
+            if(filial==1){
+
+                 this.ComprasFilial1Normal[mes-1]+=quantidade;
                  
-            }else if(v.getFilial()==2){
+            }else if(filial==2){
                 
-                 this.ComprasFilial2[mes-1][0]+=preco*quantidade;
-                 this.ComprasFilial2[mes-1][0]+=quantidade;
+                 this.ComprasFilial2Normal[mes-1]+=quantidade;
             
             
             }else{
-                 this.ComprasFilial3[mes-1][0]+=preco*quantidade;
-                 this.ComprasFilial3[mes-1][0]+=quantidade;
+                 this.ComprasFilial3Normal[mes-1]+=quantidade;
             }
         }else{
-            if(v.getFilial()==1){
-            
-                 this.ComprasFilial1[mes-1][1]+=preco*quantidade;
-                 this.ComprasFilial1[mes-1][1]+=quantidade;
+            if(filial==1){
+                 this.ComprasFilial1Promocao[mes-1]+=quantidade;
                  
-            }else if(v.getFilial()==2){
+            }else if(filial==2){
                 
-                 this.ComprasFilial2[mes-1][1]+=preco*quantidade;
-                 this.ComprasFilial2[mes-1][1]+=quantidade;
+                 this.ComprasFilial2Promocao[mes-1]+=quantidade;
             
             
             }else{
-                 this.ComprasFilial3[mes-1][1]+=preco*quantidade;
-                 this.ComprasFilial3[mes-1][1]+=quantidade;
+                 this.ComprasFilial3Promocao[mes-1]+=quantidade;
             }
         }
-        
         
     }
 }

@@ -224,8 +224,7 @@ public class Interface {
                     System.exit(0);
                     break;
                 case 1:
-                    hiper.imprimeGestFilial();
-                    //menuLerFicheiros();
+                    menuLerFicheiros();
                     r = false;
                     break;
                 case 2:
@@ -266,7 +265,6 @@ public class Interface {
                     Queries querie = new Queries();
                     querie.Querie1();
                     r = false;
-                    break;
                 case 2:
                     printQueries();
                     r = false;

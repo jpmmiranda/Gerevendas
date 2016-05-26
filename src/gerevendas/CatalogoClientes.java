@@ -10,7 +10,7 @@ import java.util.TreeSet;
 
 /**
  *
- * @author Rui/José/João/José
+ * @author Rui
  */
 public class CatalogoClientes {
 
@@ -42,15 +42,7 @@ public class CatalogoClientes {
         Character c= Character.toUpperCase(cod.charAt(0));
         this.CatClientes.get(c).add(cli.clone());
     }
-    
-    /* Funçao de teste */
-     void imprimeCatalogo(){
    
-        for (Cliente codigo : this.CatClientes.get('A')) {
-            System.out.println(codigo.getCodigo());
-        }   
-    }
-
     boolean existeCliente(Cliente cli) {
 
         

@@ -6,6 +6,8 @@
 package gerevendas;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -14,7 +16,7 @@ import java.util.HashMap;
 public class GestaoFilial {
     
     private HashMap<Cliente,InfoCliente> comprasDoCliente;
-    private HashMap<Produto,InfoProduto> comprasDeProduto;
+    private HashMap<Produto,InfoProduto> comprasDeProduto; // NAo sei se sera necessario!!!
 
     
     /*Construtor*/
@@ -55,50 +57,30 @@ public class GestaoFilial {
     
      /* Métodos */
     
-    void imprimeCliente(){
-        
-                 InfoCliente ic;
-                 
-
-         for(Cliente cl : comprasDoCliente.keySet()){
-            if(cl.getCodigo().equals("F2916")){
-                      ic=comprasDoCliente.get(cl);
-                      int r=10;
-                       r= ic.getTotalComprados();
-                      System.out.println(r);
-            }
-        }
-   
-        System.out.println(comprasDoCliente.size());
-    
-    }
     
     void adicionaComprasCliente(Venda v) throws CloneNotSupportedException {
         
-        InfoCliente ic;
-        if(this.comprasDoCliente.containsKey(v.getCliente())){
-                                    System.out.println("fdasnfsf"+ v.getCliente());
-
-            ic=comprasDoCliente.get(v.getCliente());
-            ic.adicionaInfo(v.clone());
-            comprasDoCliente.put(v.getCliente().clone(), ic.clone()); 
-
-        }
-    
+      this.comprasDoCliente.get(v.getCliente()).adicionaInfo(v.clone());
+                    
     }
+    
+    
     
     void adicionaClienteInicial(Cliente cli) throws CloneNotSupportedException{
         InfoCliente ic = new InfoCliente();
-        this.comprasDoCliente.put(cli, ic);
+        this.comprasDoCliente.put(cli.clone(), ic);
     }
 
+    void adicionaProdutoInicial(Produto pro) {
+        InfoProduto ip = new InfoProduto();
+        this.comprasDeProduto.put(pro.clone(), ip);
+    }
+    
     void adicionaComprasDeProduto(Venda v) throws CloneNotSupportedException {
-        InfoProduto ip;
+       
         if(comprasDeProduto.containsKey(v.getProduto())){
-            
-            ip=comprasDeProduto.get(v.getProduto());
-            ip.adicionaInfoProduto(v.clone());
-            comprasDeProduto.put(v.getProduto(), ip); 
+                 this.comprasDeProduto.get(v.getProduto()).adicionaInfoProduto(v.clone());
+
         }
     }
     
@@ -109,13 +91,26 @@ public class GestaoFilial {
         if ((o == null) || (this.getClass() != o.getClass())) {
             return false;
         }
-        return false;
+        final GestaoFilial other = (GestaoFilial) o;
+        return this.comprasDoCliente.keySet().containsAll(other.comprasDoCliente.keySet())
+                && this.comprasDoCliente.values().containsAll(other.comprasDoCliente.values())
+                && this.comprasDeProduto.keySet().containsAll(other.comprasDeProduto.keySet())
+                && this.comprasDeProduto.values().containsAll(other.comprasDeProduto.values());
+      }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.comprasDoCliente);
+        hash = 97 * hash + Objects.hashCode(this.comprasDeProduto);
+        return hash;
     }
      
     @Override
     public GestaoFilial clone() throws CloneNotSupportedException {
         return new GestaoFilial(this);
     }
+
 
   
     

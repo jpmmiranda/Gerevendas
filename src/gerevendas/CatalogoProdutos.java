@@ -54,14 +54,7 @@ public class CatalogoProdutos {
         this.CatProdutos.get(c).add(pro.clone());
     }
     
-    /* Funçao de teste */
-     void imprimeCatalogo(){
    
-        for (Produto codigo : this.CatProdutos.get('B')) {
-            System.out.println(codigo.getCodigo());
-        }   
-    }
-
      
     Boolean existeProduto(Produto pro) {
         String cod = pro.getCodigo();

@@ -102,32 +102,37 @@ public class Venda implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Venda other = (Venda) obj;
-        if (!Objects.equals(this.produto, other.produto)) {
-            return false;
-        }
-        if (!Objects.equals(this.cliente, other.cliente)) {
-            return false;
-        }
-        if (this.filial != other.filial) {
-            return false;
-        }
-        if (this.quantidade != other.quantidade) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.preco) != Double.doubleToLongBits(other.preco)) {
-            return false;
-        }
-        if (!this.PouN.equals(other.PouN)) {
-            return false;
-        }
-        return true;
+        Venda venda = (Venda) obj;
+        return this.cliente.equals(venda.getCliente())
+                && this.produto.equals(venda.getProduto())
+                && (this.preco == venda.getPreco())
+                && (this.quantidade == venda.getQuantidade())
+                && (this.mes == venda.getMes())
+                && (this.PouN.equals(venda.getPouN())
+                && (this.filial == venda.getFilial()));
+                
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.cliente);
+        hash = 97 * hash + Objects.hashCode(this.produto);
+        hash = 97 * hash + Objects.hashCode(this.PouN);
+        hash = 97 * hash + this.filial;
+        hash = 97 * hash + this.quantidade;
+        hash = 97 * hash + this.mes;
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.preco) ^ (Double.doubleToLongBits(this.preco) >>> 32));
+        return hash;
     }
    
    @Override

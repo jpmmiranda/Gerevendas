@@ -5,6 +5,8 @@
  */
 package gerevendas;
 
+import java.util.Objects;
+
 /**
  *
  * @author Rui
@@ -43,10 +45,6 @@ public class Produto {
      /*
     Metodos
     */
-    public boolean equals(Produto prod) {
-        return this.codigo.equals(prod.getCodigo());
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -62,6 +60,13 @@ public class Produto {
         return this.codigo.equals(prod.codigo);
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.codigo);
+        return hash;
+    }
+
     
     @Override
     public Produto clone() {
@@ -75,5 +80,7 @@ public class Produto {
         return sb.toString();
     }
 
-    
+     public int compareTo(Produto c) {
+        return this.codigo.compareTo(c.getCodigo());
+    }
 }

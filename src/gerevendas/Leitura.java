@@ -53,7 +53,6 @@ public class Leitura {
                     linhasValidas++;
             }else{
                     linhasInvalidas++;
-                    //hiper.insereVendaInvalida(v);
             } 
                 
         }
@@ -69,7 +68,6 @@ public class Leitura {
             Produto pro = new Produto(cod);
              hiper.insereProduto(pro.clone());
           }
-        //hiper.imprimeProdutos();
     }
 
     static void lerClientes() throws CloneNotSupportedException {

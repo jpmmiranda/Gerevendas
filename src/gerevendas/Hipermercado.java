@@ -92,12 +92,13 @@ public class Hipermercado {
     void insereProduto(Produto pro) {
          produtos.adicionaProduto(pro);
          faturacao.adicionaProduto(pro);
+         gestfilial.adicionaProdutoInicial(pro);
     }
     
     void insereVendaValida(Venda v) throws CloneNotSupportedException {
         faturacao.adicionaFaturacao(v);
         gestfilial.adicionaComprasCliente(v.clone());
-        gestfilial.adicionaComprasDeProduto(v);
+        gestfilial.adicionaComprasDeProduto(v.clone());
     }
 
     void insereVendaInvalida(Venda v) {
@@ -105,24 +106,8 @@ public class Hipermercado {
     }
     
     
-    /* Funcao de teste  */
-    void imprimeClientes(){
-    
-        clientes.imprimeCatalogo();
-    }
-    
-    void imprimeProdutos(){
-    
-        produtos.imprimeCatalogo();
-    }
-    
-    void imprimeGestFilial(){
-    
-        gestfilial.imprimeCliente();
-    }
-    
-    /* ------------------------------------------ */
-    
+  
+   
     
     boolean existeCliente(Cliente cli){
     Boolean r=false;

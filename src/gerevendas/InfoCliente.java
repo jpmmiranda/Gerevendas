@@ -5,6 +5,9 @@
  */
 package gerevendas;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -13,16 +16,14 @@ import java.util.TreeMap;
  */
 public class InfoCliente {
     
-    private TreeMap<Produto, InfoProduto> clienteCompras; // Cada cliente tem os seus produtos
+    private Map<Produto, InfoProduto> clienteCompras; // Cada cliente tem os seus produtos
     private int totalComprados;
-
     
     /* Cosntrutores*/
     
     public InfoCliente(){
         this.clienteCompras=new TreeMap<>(new ComparatorCodigoProduto());
         this.totalComprados=0;
-    
     }
     
     public InfoCliente(TreeMap<Produto, InfoProduto> clienteCompras, int totalComprados) {
@@ -30,17 +31,35 @@ public class InfoCliente {
         this.totalComprados = totalComprados;
     }
     
-    public InfoCliente(InfoCliente ic){
+    public InfoCliente(InfoCliente ic) throws CloneNotSupportedException{
         this.clienteCompras=ic.getClienteCompras();
         this.totalComprados=ic.getTotalComprados();
         
+        /* for (Map.Entry<Produto, InfoProduto> entrada : ic.clienteCompras.entrySet()) {
+            this.clienteCompras.put(entrada.getKey().clone(), entrada.getValue().clone());
+        }*/
     }
     
     
     /*Getters*/
+  public List<Produto> getProdutosCliente() {
+        ArrayList<Produto> resultado = new ArrayList<>();
+        int r,a=0;
+        for (Produto produto : this.clienteCompras.keySet()) {
+             
+            resultado.add(produto.clone());
+        }
+        System.out.println(clienteCompras.size());
+        return (List<Produto>) resultado;
+    }
+  
 
-    public TreeMap<Produto, InfoProduto> getClienteCompras() {
-        return clienteCompras;
+    public TreeMap<Produto, InfoProduto> getClienteCompras() throws CloneNotSupportedException {
+        
+    TreeMap<Produto,InfoProduto> res = new TreeMap<>();
+        for (Map.Entry<Produto, InfoProduto> entrada : clienteCompras.entrySet()) 
+            res.put(entrada.getKey().clone(), entrada.getValue().clone());
+        return res;
     }
 
     public int getTotalComprados() {
@@ -63,17 +82,12 @@ public class InfoCliente {
        void adicionaInfo(Venda v) throws CloneNotSupportedException {
         
         this.totalComprados++;
-        /*InfoProduto ip;
-        if(clienteCompras.containsKey(v.getProduto())){
-            ip=clienteCompras.get(v.getProduto());
-            ip.adicionaInfoProduto(v.clone());
-            clienteCompras.put(v.getProduto(), ip); 
-        
-        }else{
-            ip=new InfoProduto();
-            ip.adicionaInfoProduto(v.clone());
-            clienteCompras.put(v.getProduto(), ip);    
-        }*/
+       
+        if(!clienteCompras.containsKey(v.getProduto())){
+           this.clienteCompras.put(v.getProduto().clone(),new InfoProduto());
+        }
+         this.clienteCompras.get(v.getProduto()).adicionaInfoProduto(v.clone());
+       
         
     }
     
@@ -91,7 +105,6 @@ public class InfoCliente {
     public InfoCliente clone() throws CloneNotSupportedException {
         return new InfoCliente(this);
     }
-    
 
  
 }
