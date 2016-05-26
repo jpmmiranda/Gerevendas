@@ -16,22 +16,23 @@ import java.util.TreeSet;
  * @author José
  */
 public class Queries {
-    
+  
+ 
     private ArrayList<Venda> Vendas;
-
     
-   // Mostra as Vendas feitas na Filial 2
+   // Mostra Os codigos dos produtos nao vendidos
     
-    public ArrayList Querie1(){
-      ArrayList newVendas = new ArrayList();
-      Venda venda = new Venda();
-      int filial=2;
-      for (Venda vendas: Vendas) {   
-       if (vendas.getFilial()==filial){
-           newVendas.add(vendas);
+    public void Querie1(){
+      this.Vendas=new ArrayList<>();
+      ArrayList<String> Produtos = new ArrayList<>();
+      for (Venda venda: Vendas) {   
+       if (venda.getQuantidade()==0){
+           Produtos.add(venda.getProduto().getCodigo());
        }
       }
-       return newVendas;
+       System.out.println(Vendas.size());
+       System.out.println(Produtos);
+       System.out.println(Vendas);
     }
       
        
