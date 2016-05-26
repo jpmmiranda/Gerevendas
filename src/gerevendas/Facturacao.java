@@ -72,8 +72,24 @@ public class Facturacao {
     public double[][] getTotalFaturado() {
         return totalFaturado.clone();
     }
-
     
+    public double getTotalFaturadoGlobal(){
+        double r=0.0;
+        int j,i;
+        for(i=0;i<12;i++)
+            for(j=0;j<2;j++)
+                r+=totalFaturado[i][j];
+        return r;
+    }
+    
+    public int getTotalProdutosNaoComprados(){
+        int  r=0;
+        for(InfoProdutoFacturacao p : facturacao.values()){
+        
+            if(p.getTotalVendidas()==0)r++;
+        }
+        return r;
+    }
     /* Setter*/
     
     
@@ -98,6 +114,7 @@ public class Facturacao {
         this.facturacao.put(prod.clone(),ipf );
     
     }
+    
     
     
     void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {

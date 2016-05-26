@@ -58,6 +58,10 @@ public class Interface {
                 printQueries();
                 r = false;
                 break;
+            case 4:
+                
+                r = false;
+                break;
             default:
                 break;
         }
@@ -224,7 +228,7 @@ public class Interface {
                     System.exit(0);
                     break;
                 case 1:
-                    menuLerFicheiros();
+                    hiper.imprimeEstatisticas();
                     r = false;
                     break;
                 case 2:
@@ -265,6 +269,7 @@ public class Interface {
                     Queries querie = new Queries();
                     querie.Querie1();
                     r = false;
+                    break;
                 case 2:
                     printQueries();
                     r = false;

@@ -7,8 +7,10 @@ package gerevendas;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import static java.lang.System.out;
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
  */
 public class Leitura {
     
-   
+     private static int Clientes = 0, Produtos = 0,Compras = 0, Preco0 = 0, Errados=0;
     
     public Leitura(){}
 
@@ -29,16 +31,20 @@ public class Leitura {
         int linhasValidas=0;
         int linhasInvalidas=0;
         Venda v;
-        BufferedReader in = null;
+        String fich="Vendas_1M.txt";
+       /* BufferedReader in = null;
             try {
-                in = new BufferedReader(new FileReader("Vendas_1M.txt"));
+                in = new BufferedReader(new FileReader("Vendas_3M.txt"));
             } catch (FileNotFoundException ex) {
                  out.println(ex.getMessage());
-            }
-       
-        while ((linha = in.readLine())!= null) {
+            }*/
+               ArrayList<String> codigos = new ArrayList<>();
+
+        codigos = readLinesWithBuff(fich);
+        for(String c : codigos){
+      //  while ((linha = in.readLine())!= null) {
                  
-            String[] partes = linha.split(" ");
+            String[] partes = c.split(" ");
             Produto pro = new Produto(partes[0]);
             double preco = Double.parseDouble(partes[1]);
             int quantidade = Integer.parseInt(partes[2]);
@@ -49,13 +55,16 @@ public class Leitura {
             
             if(verificaVenda(pro,preco,quantidade,PouN,cliente,mes,filial)){
                     v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
+                    if(preco==0) Preco0++;
                     hiper.insereVendaValida(v.clone());
-                    linhasValidas++;
+                    Compras++;
             }else{
-                    linhasInvalidas++;
+                    Errados++;
             } 
                 
         }
+        hiper.insereEstatistica(fich,Clientes,Produtos,Compras,Preco0,Errados);
+
 
   }
 
@@ -67,6 +76,7 @@ public class Leitura {
         for(String cod : codigos){
             Produto pro = new Produto(cod);
              hiper.insereProduto(pro.clone());
+             Produtos++;
           }
     }
 
@@ -79,8 +89,8 @@ public class Leitura {
         for(String cod : codigos){
                 Cliente cli = new Cliente(cod);
                 hiper.insereCliente(cli.clone());
+                Clientes++;
         }
-        //hiper.imprimeClientes();
     }
     
     
@@ -117,5 +127,8 @@ public class Leitura {
         return r;
 
     }
+    
+    
+    
     
 }

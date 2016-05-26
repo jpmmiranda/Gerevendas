@@ -18,6 +18,7 @@ public class Hipermercado {
     private CatalogoProdutos produtos;
     private Facturacao faturacao;
     private GestaoFilial gestfilial;
+    private Estatistica estatistica;
     
     /* Construtores */
     public Hipermercado() {
@@ -25,13 +26,15 @@ public class Hipermercado {
         this.produtos = new CatalogoProdutos();
         this.faturacao = new Facturacao();
         this.gestfilial=new GestaoFilial();
+        this.estatistica=new Estatistica();
     }
     
-    public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp,Facturacao fact, GestaoFilial gf) {
+    public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp,Facturacao fact, GestaoFilial gf, Estatistica e) {
 		this.clientes= cc;
 		this.produtos = cp;	
                 this.faturacao=fact;
                 this.gestfilial=gf;
+                this.estatistica=e;
     }
 
     
@@ -40,10 +43,16 @@ public class Hipermercado {
         produtos = hiper.getProdutos();
         faturacao = hiper.getFaturacao();
         gestfilial=hiper.getGestfilial();
+        estatistica=hiper.getEstatistica();
        
     }
 
     /* Getters*/
+
+    public Estatistica getEstatistica() {
+        return estatistica;
+    }
+    
     
     public Facturacao getFaturacao() {
         return faturacao;
@@ -81,24 +90,30 @@ public class Hipermercado {
     public void setGestfilial(GestaoFilial gestfilial) {
         this.gestfilial = gestfilial;
     }
+
+    public void setEstatistica(Estatistica estatistica) {
+        this.estatistica = estatistica;
+    }
+    
     
     /*Metodos*/
     
     void insereCliente(Cliente cli) throws CloneNotSupportedException {
-        clientes.adicionaCliente(cli);
+        clientes.adicionaCliente(cli.clone());
         gestfilial.adicionaClienteInicial(cli.clone());
     }
 
     void insereProduto(Produto pro) {
-         produtos.adicionaProduto(pro);
-         faturacao.adicionaProduto(pro);
-         gestfilial.adicionaProdutoInicial(pro);
+         produtos.adicionaProduto(pro.clone());
+         faturacao.adicionaProduto(pro.clone());
+         gestfilial.adicionaProdutoInicial(pro.clone());
     }
     
     void insereVendaValida(Venda v) throws CloneNotSupportedException {
-        faturacao.adicionaFaturacao(v);
+        faturacao.adicionaFaturacao(v.clone());
         gestfilial.adicionaComprasCliente(v.clone());
         gestfilial.adicionaComprasDeProduto(v.clone());
+        
     }
 
     void insereVendaInvalida(Venda v) {
@@ -106,7 +121,35 @@ public class Hipermercado {
     }
     
     
-  
+    public void insereEstatistica(String fichCompras,int clientes, int produtos, int compras, int preco0, int errados){
+        estatistica.setFicheiroVendas(fichCompras);
+        estatistica.setTotalClientes(clientes);
+        estatistica.setTotalProdutos(produtos);
+        estatistica.setTotalComprasZero(preco0);
+        estatistica.setTotalFacturacao(faturacao.getTotalFaturadoGlobal());
+        estatistica.setTotalNaoComprados(faturacao.getTotalProdutosNaoComprados());   
+/*private int totalProdutosDiferentes;
+    private int totalNaoComprados;
+    private int totalClientesCompradores;
+    private int totalClientesNaoCompradores;
+    private int[] totalComprasMes;
+    private double[] totalFacturacaoFilial1;
+    private double[] totalFacturacaoFilial2;
+    private double[] totalFacturacaoFilial3;
+    private double[] totalFacturacaoMensal;
+    private int[] clientesDistintos;*/
+    
+    }
+    
+    public void imprimeEstatisticas(){
+        System.out.println(estatistica.getFicheiroVendas());
+        System.out.println(estatistica.getTotalClientes());
+        System.out.println(estatistica.getTotalProdutos());
+        System.out.println(estatistica.getTotalComprasZero());
+       System.out.println( estatistica.getTotalFacturacao());
+       System.out.println( estatistica.getTotalNaoComprados());   
+        estatistica.toString();
+    }
    
     
     boolean existeCliente(Cliente cli){
