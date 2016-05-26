@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,14 +37,11 @@ public class InfoCliente {
         this.clienteCompras=ic.getClienteCompras();
         this.totalComprados=ic.getTotalComprados();
         
-        /* for (Map.Entry<Produto, InfoProduto> entrada : ic.clienteCompras.entrySet()) {
-            this.clienteCompras.put(entrada.getKey().clone(), entrada.getValue().clone());
-        }*/
     }
     
     
     /*Getters*/
-  public List<Produto> getProdutosCliente() {
+  /*Teste*/public List<Produto> getProdutosCliente() {
         ArrayList<Produto> resultado = new ArrayList<>();
         int r,a=0;
         for (Produto produto : this.clienteCompras.keySet()) {
@@ -57,8 +56,13 @@ public class InfoCliente {
     public TreeMap<Produto, InfoProduto> getClienteCompras() throws CloneNotSupportedException {
         
     TreeMap<Produto,InfoProduto> res = new TreeMap<>();
-        for (Map.Entry<Produto, InfoProduto> entrada : clienteCompras.entrySet()) 
-            res.put(entrada.getKey().clone(), entrada.getValue().clone());
+         clienteCompras.forEach( (k,v) ->  {
+        try {
+            res.put(k.clone(), v.clone());
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(InfoCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    });
         return res;
     }
 

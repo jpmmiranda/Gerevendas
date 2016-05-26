@@ -97,7 +97,7 @@ public class Venda implements Serializable {
         st.append(", quantidade=").append(quantidade);
         st.append(", mes=").append(mes);
         st.append(", tipo=").append(PouN);
-        st.append('}');
+        st.append(", filial=").append(filial);
         return st.toString();    }
 
     @Override

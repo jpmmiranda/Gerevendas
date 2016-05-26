@@ -45,15 +45,15 @@ public class InfoProdutoFacturacao {
     public InfoProdutoFacturacao(int totalVendidas, int[][] unidadesVendidas, double[][] faturado, double[][] totalFaturado, double[][] totalFatFilial1, double[][] totalFatFilial2, double[][] totalFatFilial3, int[][] totalUniFilial1, int[][] totalUniFilial2, int[][] totalUniFilial3) {
         
         this.totalVendidas = totalVendidas;
-        this.unidadesVendidas = unidadesVendidas;
-        this.faturado = faturado;
-        this.totalFaturado = totalFaturado;
-        this.totalFatFilial1 = totalFatFilial1;
-        this.totalFatFilial2 = totalFatFilial2;
-        this.totalFatFilial3 = totalFatFilial3;
-        this.totalUniFilial1 = totalUniFilial1;
-        this.totalUniFilial2 = totalUniFilial2;
-        this.totalUniFilial3 = totalUniFilial3;
+        this.unidadesVendidas = unidadesVendidas.clone();
+        this.faturado = faturado.clone();
+        this.totalFaturado = totalFaturado.clone();
+        this.totalFatFilial1 = totalFatFilial1.clone();
+        this.totalFatFilial2 = totalFatFilial2.clone();
+        this.totalFatFilial3 = totalFatFilial3.clone();
+        this.totalUniFilial1 = totalUniFilial1.clone();
+        this.totalUniFilial2 = totalUniFilial2.clone();
+        this.totalUniFilial3 = totalUniFilial3.clone();
         
     }
    
@@ -67,9 +67,7 @@ public class InfoProdutoFacturacao {
         this.totalFatFilial3 = ipf.getTotalFatFilial3();
         this.totalUniFilial1 = ipf.getTotalUniFilial1();
         this.totalUniFilial2 = ipf.getTotalUniFilial2();
-        this.totalUniFilial3 = ipf.getTotalUniFilial3();
-
-                
+        this.totalUniFilial3 = ipf.getTotalUniFilial3();               
     }
     
     
@@ -158,16 +156,6 @@ public class InfoProdutoFacturacao {
         this.totalUniFilial3 = totalUniFilial3.clone();
     }
 
-    
-    void alteraInfo(Venda ven) {
-        
-    }
-    
-     @Override
-    public InfoProdutoFacturacao clone() throws CloneNotSupportedException {
-        return new InfoProdutoFacturacao(this);
-    }
-
     void incrementaTotalVendidas(int quantidade) {
         this.totalVendidas+=quantidade;
     }
@@ -240,6 +228,11 @@ public class InfoProdutoFacturacao {
                  this.totalUniFilial3[mes-1][1]+=quantidade;
             }
         }
+    }
+
+     @Override
+    public InfoProdutoFacturacao clone() throws CloneNotSupportedException {
+        return new InfoProdutoFacturacao(this);
     }
 
 }

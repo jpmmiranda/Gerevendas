@@ -7,6 +7,8 @@ package gerevendas;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,9 +34,15 @@ public class Facturacao {
         this.totalFaturado = tFaturado;
         this.totalVendas = tVendas;
         this.facturacao = new TreeMap<>();
-        for (Map.Entry<Produto, InfoProdutoFacturacao> ipf : fact.entrySet()) {
-            this.facturacao.put(ipf.getKey().clone(), ipf.getValue().clone());
-        }
+       
+        fact.forEach( (k,v) ->  {
+            try {
+                this.facturacao.put(k.clone(), v.clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(Facturacao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
     }
     
     public Facturacao(Facturacao fact) throws CloneNotSupportedException {
@@ -47,19 +55,22 @@ public class Facturacao {
 
     public Map<Produto, InfoProdutoFacturacao> getFacturacao() throws CloneNotSupportedException {
         TreeMap<Produto, InfoProdutoFacturacao> aux = new TreeMap<>();
-
-        for (Map.Entry<Produto, InfoProdutoFacturacao> ipf : this.facturacao.entrySet()) {
-            aux.put(ipf.getKey().clone(), ipf.getValue().clone());
-        }
+        facturacao.forEach( (k,v) ->  {
+            try {
+                aux.put(k.clone(), v.clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(Facturacao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         return aux;
     }
 
     public int[][] getTotalVendas() {
-        return totalVendas;
+        return totalVendas.clone();
     }
 
     public double[][] getTotalFaturado() {
-        return totalFaturado;
+        return totalFaturado.clone();
     }
 
     
@@ -71,11 +82,11 @@ public class Facturacao {
     }
 
     public void setTotalVendas(int[][] totalVendas) {
-        this.totalVendas = totalVendas;
+        this.totalVendas = totalVendas.clone();
     }
 
     public void setTotalFaturado(double[][] totalFaturado) {
-        this.totalFaturado = totalFaturado;
+        this.totalFaturado = totalFaturado.clone();
     }
     
     

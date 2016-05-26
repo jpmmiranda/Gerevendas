@@ -82,27 +82,27 @@ public class InfoProduto {
 
     
     public int[] getComprasFilial1Normal() {
-        return ComprasFilial1Normal;
+        return ComprasFilial1Normal.clone();
     }
 
     public int[] getComprasFilial2Normal() {
-        return ComprasFilial2Normal;
+        return ComprasFilial2Normal.clone();
     }
 
     public int[] getComprasFilial3Normal() {
-        return ComprasFilial3Normal;
+        return ComprasFilial3Normal.clone();
     }
 
     public int[] getComprasFilial1Promocao() {
-        return ComprasFilial1Promocao;
+        return ComprasFilial1Promocao.clone();
     }
 
     public int[] getComprasFilial2Promocao() {
-        return ComprasFilial2Promocao;
+        return ComprasFilial2Promocao.clone();
     }
 
     public int[] getComprasFilial3Promocao() {
-        return ComprasFilial3Promocao;
+        return ComprasFilial3Promocao.clone();
     }
 
  
@@ -118,37 +118,34 @@ public class InfoProduto {
     }
 
     public void setComprasFilial1Normal(int[] ComprasFilial1Normal) {
-        this.ComprasFilial1Normal = ComprasFilial1Normal;
+        this.ComprasFilial1Normal = ComprasFilial1Normal.clone();
     }
 
     public void setComprasFilial2Normal(int[] ComprasFilial2Normal) {
-        this.ComprasFilial2Normal = ComprasFilial2Normal;
+        this.ComprasFilial2Normal = ComprasFilial2Normal.clone();
     }
 
     public void setComprasFilial3Normal(int[] ComprasFilial3Normal) {
-        this.ComprasFilial3Normal = ComprasFilial3Normal;
+        this.ComprasFilial3Normal = ComprasFilial3Normal.clone();
     }
 
     public void setComprasFilial1Promocao(int[] ComprasFilial1Promocao) {
-        this.ComprasFilial1Promocao = ComprasFilial1Promocao;
+        this.ComprasFilial1Promocao = ComprasFilial1Promocao.clone();
     }
 
     public void setComprasFilial2Promocao(int[] ComprasFilial2Promocao) {
-        this.ComprasFilial2Promocao = ComprasFilial2Promocao;
+        this.ComprasFilial2Promocao = ComprasFilial2Promocao.clone();
     }
 
     public void setComprasFilial3Promocao(int[] ComprasFilial3Promocao) {
-        this.ComprasFilial3Promocao = ComprasFilial3Promocao;
+        this.ComprasFilial3Promocao = ComprasFilial3Promocao.clone();
     }
 
     
     
     /* Métodos */
     
-    @Override
-    public InfoProduto clone() throws CloneNotSupportedException {
-        return new InfoProduto(this);
-    }
+  
 
     void adicionaInfoProduto(Venda v) {
         
@@ -156,7 +153,6 @@ public class InfoProduto {
         this.TotalPago+=v.getPreco()*v.getQuantidade();
         int mes = v.getMes();
         int quantidade= v.getQuantidade();
-        double preco = v.getPreco();
         int filial = v.getFilial();
         if(v.getPouN().equals("N")){
             if(filial==1){
@@ -185,5 +181,10 @@ public class InfoProduto {
             }
         }
         
+    }
+    
+     @Override
+    public InfoProduto clone() throws CloneNotSupportedException {
+        return new InfoProduto(this);
     }
 }
