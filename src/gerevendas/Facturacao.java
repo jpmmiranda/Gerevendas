@@ -17,22 +17,31 @@ import java.util.logging.Logger;
 public class Facturacao {
     
     private Map<Produto, InfoProdutoFacturacao> facturacao;
-    int[][] totalVendas;
-    double[][] totalFaturado;
-          
+    int[][] totalVendas;//Por mes e tipo
+    double totalFaturado;
+    double[][] totalFatFilial1;
+    double[][] totalFatFilial2;
+    double[][] totalFatFilial3;
+     
     
     /*Construtores*/
      
     public Facturacao() {
         this.facturacao = new TreeMap<>(new ComparatorCodigoProduto());
         this.totalVendas = new int[12][2];
-        this.totalFaturado = new double[12][2];
+        this.totalFaturado = 0.0;
+        this.totalFatFilial1 = new double[12][2];
+        this.totalFatFilial2 = new double[12][2];
+        this.totalFatFilial3 = new double[12][2];
 
     }
    
-    public Facturacao(Map<Produto, InfoProdutoFacturacao> fact,int[][] tVendas,double[][] tFaturado) throws CloneNotSupportedException {
+    public Facturacao(Map<Produto, InfoProdutoFacturacao> fact,int[][] tVendas,double tFaturado,double[][] tf1,double[][] tf2,double[][] tf3) throws CloneNotSupportedException {
         this.totalFaturado = tFaturado;
         this.totalVendas = tVendas;
+        this.totalFatFilial1 = tf1;
+        this.totalFatFilial2 = tf2;
+        this.totalFatFilial3 =tf3;
         this.facturacao = new TreeMap<>();
        
         fact.forEach( (k,v) ->  {
@@ -49,6 +58,9 @@ public class Facturacao {
         this.facturacao = fact.getFacturacao();
         this.totalFaturado = fact.getTotalFaturado();
         this.totalVendas = fact.getTotalVendas();
+        this.totalFatFilial1=fact.getTotalFatFilial1();
+         this.totalFatFilial2=fact.getTotalFatFilial2();
+         this.totalFatFilial3=fact.getTotalFatFilial3();
     }
     
     /*Getter*/
@@ -69,17 +81,13 @@ public class Facturacao {
         return totalVendas.clone();
     }
 
-    public double[][] getTotalFaturado() {
-        return totalFaturado.clone();
+    public double getTotalFaturado() {
+        return totalFaturado;
     }
     
     public double getTotalFaturadoGlobal(){
-        double r=0.0;
-        int j,i;
-        for(i=0;i<12;i++)
-            for(j=0;j<2;j++)
-                r+=totalFaturado[i][j];
-        return r;
+        
+        return totalFaturado;
     }
     
     public int getTotalProdutosNaoComprados(){
@@ -101,8 +109,8 @@ public class Facturacao {
         this.totalVendas = totalVendas.clone();
     }
 
-    public void setTotalFaturado(double[][] totalFaturado) {
-        this.totalFaturado = totalFaturado.clone();
+    public void setTotalFaturado(double totalFaturado) {
+        this.totalFaturado = totalFaturado;
     }
     
     
@@ -115,7 +123,17 @@ public class Facturacao {
     
     }
     
+    public int vendasMensais(int mes){
     
+        int i=0,j=0;
+        int vendas=0;
+        for(;i<12;i++){
+            for(;j<2;j++){
+                vendas+=totalVendas[i][j];
+            }
+        }
+        return vendas;
+    }
     
     void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {
         String PouN;
@@ -129,30 +147,42 @@ public class Facturacao {
         filial=ven.getFilial();
         preco=ven.getPreco();
         if(PouN.equals("N")){
+            if(filial==1) totalFatFilial1[mes-1][0]++;
+            else if(filial==2) totalFatFilial2[mes-1][0]++;
+            else totalFatFilial3[mes-1][0]++;
             totalVendas[mes-1][0]++;
-            totalFaturado[mes-1][0]+=preco*quantidade;
-        }else{
+        }else{  
+            if(filial==1) totalFatFilial1[mes-1][1]++;
+            else if(filial==2) totalFatFilial2[mes-1][1]++;
+            else totalFatFilial3[mes-1][1]++;
             totalVendas[mes-1][1]++;
-            totalFaturado[mes-1][1]+=preco*quantidade;
 
         }
         
         
-        if(facturacao.containsKey(ven.getProduto())){
+        //if(facturacao.containsKey(ven.getProduto())){
         
                 ipf=this.facturacao.get(ven.getProduto());
-                ipf.incrementaTotalVendidas(quantidade);
-                ipf.incrementaUnidadesVendidas(PouN, mes, quantidade);
-                ipf.incrementaFaturado( PouN, mes, preco);
-                ipf.incrementaTotalFaturado( PouN, mes, preco,quantidade);
-                ipf.incrementaTotaisFilial( PouN, mes, preco,quantidade, filial);
+                ipf.incrementaTotalVendidas(quantidade);  
              
-            }
+           // }
     }
 
     @Override
     public Facturacao clone() throws CloneNotSupportedException {
         return new Facturacao(this);
+    }
+
+    private double[][] getTotalFatFilial2() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private double[][] getTotalFatFilial1() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private double[][] getTotalFatFilial3() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

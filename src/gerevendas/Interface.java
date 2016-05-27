@@ -7,6 +7,7 @@ package gerevendas;
 
 import java.io.IOException;
 import static java.lang.System.out;
+import java.util.Scanner;
 
 /**
  *
@@ -91,17 +92,26 @@ public class Interface {
 				break;
 			case 2:
 				if(initVendas == 1){
+                                                                                    Crono.start();
+
 					limpaEcra();
 					Leitura.lerProdutos();
 					initPro = 1;
 					initVendas = 0;
-					menuLerFicheiros();
+   Crono.stop();
+                    System.out.println("Tempo: " + Crono.print() ); 
+                    					menuLerFicheiros();
+
 				}
-				else{
+				else{                                                Crono.start();
+
 					limpaEcra();
 					Leitura.lerProdutos();
 					initPro = 1;
-					menuLerFicheiros();
+                                Crono.stop();
+                    System.out.println("Tempo: " + Crono.print() );
+                    					menuLerFicheiros();
+
 				}
 				break;
 			case 3:
@@ -245,7 +255,9 @@ public class Interface {
           
         int opcao;
         boolean r = true;
-        
+        Queries querie = new Queries();
+        Scanner linha = new Scanner(System.in);
+
         while(r){
             System.out.println("################## GEREVENDAS ##################");
             System.out.println("  1. Lista ordenada alfabeticamente com os códigos dos produtos nunca comprados e o seu respectivo total;");
@@ -266,14 +278,32 @@ public class Interface {
                     System.exit(0);
                     break;
                 case 1:
-                    Queries querie = new Queries();
                     querie.Querie1();
                     r = false;
                     break;
                 case 2:
+                    System.out.println("Insira um mês");
+                    int mes= Input.lerInt();
+                    if(mes>=1 && mes<=12){
+                       querie.Querie2(mes);
+                    }else{
+                    System.out.println("Mês invalido, insira mês entre 1 e 12");
+
+                    }
                     printQueries();
                     r = false;
                     break;
+                 case 3:
+                    System.out.println("Insira um Cliente");
+                    String Cliente= linha.next();
+                    
+                       querie.Querie3(Cliente);
+                   
+                    
+                    printQueries();
+                    r = false;
+                    break;
+                    
                 default:
                     break;
             }

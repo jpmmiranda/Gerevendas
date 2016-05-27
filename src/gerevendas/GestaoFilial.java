@@ -5,6 +5,7 @@
  */
 package gerevendas;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -16,12 +17,21 @@ public class GestaoFilial {
     
     private HashMap<Cliente,InfoCliente> comprasDoCliente;
     private HashMap<Produto,InfoProduto> comprasDeProduto; // NAo sei se sera necessario!!!
-
+    //int clientesDistintos[][]
+    private HashMap<Cliente,Double> compradoresFilial1;
+    private HashMap<Cliente,Double> compradoresFilial2;
+    private HashMap<Cliente,Double> compradoresFilial3;
+    
+    
     
     /*Construtor*/
     public GestaoFilial() {
         this.comprasDoCliente = new HashMap<>();
         this.comprasDeProduto = new HashMap<>();
+        this.compradoresFilial1=new HashMap<>();
+        this.compradoresFilial2=new HashMap<>();
+        this.compradoresFilial3=new HashMap<>();
+
     }
     
     
@@ -58,7 +68,20 @@ public class GestaoFilial {
     
     
     void adicionaComprasCliente(Venda v) throws CloneNotSupportedException {
-        
+      
+      int filial = v.getFilial();
+      double d;
+      if(filial==1){
+             d=this.compradoresFilial1.get(v.getCliente());
+             d+=v.getPreco()*v.getQuantidade();
+      }else if(filial==2){
+          d=this.compradoresFilial2.get(v.getCliente());
+              d+=v.getPreco()*v.getQuantidade();
+      } else{
+             d=this.compradoresFilial3.get(v.getCliente());
+             d+=v.getPreco()*v.getQuantidade();
+      }
+          
       this.comprasDoCliente.get(v.getCliente()).adicionaInfo(v.clone());
                     
     }
@@ -68,6 +91,10 @@ public class GestaoFilial {
     void adicionaClienteInicial(Cliente cli) throws CloneNotSupportedException{
         InfoCliente ic = new InfoCliente();
         this.comprasDoCliente.put(cli.clone(), ic);
+        this.compradoresFilial1.put(cli.clone(), 0.0);
+        this.compradoresFilial2.put(cli.clone(), 0.0);
+        this.compradoresFilial3.put(cli.clone(), 0.0);
+
     }
 
     void adicionaProdutoInicial(Produto pro) {
@@ -77,11 +104,52 @@ public class GestaoFilial {
     
     void adicionaComprasDeProduto(Venda v) throws CloneNotSupportedException {
        
-        if(comprasDeProduto.containsKey(v.getProduto())){
-                 this.comprasDeProduto.get(v.getProduto()).adicionaInfoProduto(v.clone());
+        //if(comprasDeProduto.containsKey(v.getProduto())){
+        
+        
+      //  if(!this.comprasDoCliente.get(c).existeProduto(p))
+     
 
-        }
+        
+        double preco=v.getPreco();
+        int quantidade=v.getQuantidade();
+        int mes = v.getMes();
+        this.comprasDeProduto.get(v.getProduto()).adicionaInfoProduto(preco,quantidade,mes);
+
+        //}
     }
+    
+    /*--------------------------- Metodos de apoio a Queries -----------------*/
+    /* Querie 2*/
+    
+      public int getClientesMes(int mes){
+        int totClientes=0;
+        for(InfoCliente ic:comprasDoCliente.values()){
+            if(ic.getComprasMesNindice(mes)!=0 ||ic.getComprasMesPindice(mes)!=0 ){
+                totClientes++;
+            }
+        }
+        
+        return totClientes;
+    }
+    
+    /*Querie 3*/
+      
+    public TrioComProFat getClienteParaCadaMes(Cliente c){
+    
+            int mes,comprasCliente=0;
+            TrioComProFat tab = new TrioComProFat();
+            InfoCliente ic = this.comprasDoCliente.get(c);
+            for (mes = 1; mes <= 12; mes++) {
+                comprasCliente=ic.getComprasMesNindice(mes)+ic.getComprasMesNindice(mes);
+                tab.adicionaDistintos(ic.getProdutosCliente(mes), mes);
+                tab.adicionaFaturacao(ic.getTotalgasto(mes), mes);
+                tab.adicionaCompras(comprasCliente, mes);
+            }
+            return tab.clone();
+        }
+      
+    
     
      public boolean equals(Object o) {
         if (o == this) {

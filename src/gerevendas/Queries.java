@@ -19,6 +19,10 @@ import java.util.TreeSet;
 public class Queries {
   
  
+    public static CatalogoClientes catalogoClientes;
+    public static CatalogoProdutos catalogoProdutos;
+    public static Facturacao facturacao;
+    public static GestaoFilial gestaofilial;
     private ArrayList<Venda> Vendas;
     
    // Mostra Os codigos dos produtos nao vendidos
@@ -37,17 +41,29 @@ public class Queries {
     }
       
        
-    static void Querie2(){
+    public void Querie2(int mes){
+        
+        facturacao = Gerevendas.getHipermercado().getFaturacao();
+        gestaofilial = Gerevendas.getHipermercado().getGestfilial();
+        int clientes=gestaofilial.getClientesMes(mes);
+        int vendas =  facturacao.vendasMensais(mes);
+        System.out.println("Total de compras no mes "+mes+"->"+vendas);
+        System.out.println("Total de clientes que compraram no mes "+mes+"->"+clientes);
         
         
     }
     
-    static void Querie3(){
+    public void Querie3(String cliente){
+         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
+        Cliente cli = new Cliente(cliente);
         
+        TrioComProFat  tcpf = gestaofilial.getClienteParaCadaMes(cli);
+        System.out.println(tcpf.toString());
+                    
     }
      
-    static void Querie4(){
+    public void Querie4(){
         
         
     }
