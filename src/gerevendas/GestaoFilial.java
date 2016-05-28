@@ -7,6 +7,7 @@ package gerevendas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -120,6 +121,26 @@ public class GestaoFilial {
     }
     
     /*--------------------------- Metodos de apoio a Queries -----------------*/
+    
+    /* Querie 1*/
+    
+    public ArrayList getProdutosNaoComprados (){
+        ArrayList <String> Produtos = new ArrayList<>();
+        for (Map.Entry<Produto, InfoProduto> ip : comprasDeProduto.entrySet()){
+            if (ip.getValue().getUnidadesVendidas()==0){
+                Produtos.add(ip.getKey().getCodigo());
+            }
+        }
+        return Produtos;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     /* Querie 2*/
     
       public int getClientesMes(int mes){
