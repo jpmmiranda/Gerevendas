@@ -7,6 +7,7 @@
 package gerevendas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -23,21 +24,17 @@ public class Queries {
     public static CatalogoProdutos catalogoProdutos;
     public static Facturacao facturacao;
     public static GestaoFilial gestaofilial;
-    private ArrayList<Venda> Vendas;
+    
     
    // Mostra Os codigos dos produtos nao vendidos
     
     public void Querie1(){
-      this.Vendas=new ArrayList<>();
-      ArrayList<String> Produtos = new ArrayList<>();
-      for (Venda venda: Vendas) {   
-       if (venda.getQuantidade()==0){
-           Produtos.add(venda.getProduto().getCodigo());
-       }
-      }
-       System.out.println(Vendas.size());
-       System.out.println(Produtos);
-       System.out.println(Vendas);
+      gestaofilial = Gerevendas.getHipermercado().getGestfilial();
+      
+      ArrayList ProdutosNaoComprados = gestaofilial.getProdutosNaoComprados();
+      Collections.sort(ProdutosNaoComprados);
+      System.out.println(ProdutosNaoComprados.size());
+      System.out.println(ProdutosNaoComprados.toString());
     }
       
        

@@ -279,6 +279,7 @@ public class Interface {
                     break;
                 case 1:
                     querie.Querie1();
+                    printQueries();
                     r = false;
                     break;
                 case 2:
