@@ -5,8 +5,6 @@
  */
 package gerevendas;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -34,11 +32,11 @@ public class InfoCliente {
         this.totalgasto=new int[12];
     }
     
-    public InfoCliente(TreeMap<Produto, InfoProdutoComprado> clienteCompras, int totalComprados, int[] compraMesN,int[] compraMesP) {
+    public InfoCliente(TreeMap<Produto, InfoProdutoComprado> clienteCompras, int totalComprados, int[] compraN,int[] compraP) {
         this.clienteCompras = clienteCompras;
         this.totalComprados = totalComprados;
-        this.comprasMesN=comprasMesN;
-        this.comprasMesP=comprasMesP;
+        this.comprasMesN=compraN.clone();
+        this.comprasMesP=compraP.clone();
         
     }
     

@@ -34,19 +34,19 @@ public class TrioComProFat {
         this.faturacao = tcpc.getFaturacao();
     }
 
-     public int[] getCompras() {
-        return this.Compras;
+    public int[] getCompras() {
+        return this.Compras.clone();
     }
 
     public int[] getPDistintos() {
-        return this.Pdistintos;
+        return this.Pdistintos.clone();
     }
 
     public float[] getFaturacao() {
-        return this.faturacao;
+        return this.faturacao.clone();
     }
     
-  public void adicionaDistintos(int qtd, int mes) {
+    public void adicionaDistintos(int qtd, int mes) {
         this.Pdistintos[mes - 1] = qtd;
     }
 
@@ -87,17 +87,17 @@ public class TrioComProFat {
        
         sb.append("Produtos Distintos \n");
         for (int i = 0; i < 12; i++) {
-            sb.append(this.Pdistintos[i]+" ");
+            sb.append(this.Pdistintos[i]).append(" \n");
         }
         sb.append("\n");
-        sb.append("Numero de Compras ");
+        sb.append("Numero de Compras \n");
         for (int i = 0; i < 12; i++) {
-            sb.append(this.Compras[i]+" ");
+            sb.append(this.Compras[i]).append("\n ");
         }
         sb.append("\n");
         sb.append("Faturação  \n");
         for (int i = 0; i < 12; i++) {
-            sb.append(this.faturacao[i] + "€  ");
+            sb.append(this.faturacao[i]).append("€ \n ");
         }
         return sb.toString();
     }

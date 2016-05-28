@@ -125,6 +125,24 @@ public class Facturacao {
     
     public int vendasMensais(int mes){
     
+        int vendas=0;
+       
+        vendas=totalVendas[mes][0]+totalVendas[mes][1];
+         
+        return vendas;
+    }
+    
+    public double totalFacturadoMensal(int mes){
+    
+        double fat=0;
+       
+        fat=totalFatFilial1[mes][0]+totalFatFilial1[mes][1]+totalFatFilial2[mes][0]+totalFatFilial2[mes][1]+totalFatFilial3[mes][0]+totalFatFilial3[mes][1];
+         
+        return fat;
+    }
+    
+    public int vendasglobais(){
+    
         int i=0,j=0;
         int vendas=0;
         for(;i<12;i++){
@@ -133,6 +151,36 @@ public class Facturacao {
             }
         }
         return vendas;
+    }
+    
+    public double totalFaturadoFilial1(int mes){
+    
+        double r=0.0;
+        
+         r=totalFatFilial1[mes][0]+totalFatFilial1[mes][1];
+        
+        return r;
+    
+    }
+    
+    public double totalFaturadoFilial2(int mes){
+    
+        double r=0.0;
+        
+         r=totalFatFilial2[mes][0]+totalFatFilial2[mes][1];
+        
+        return r;
+    
+    }
+    
+    public double totalFaturadoFilial3(int mes){
+    
+        double r=0.0;
+        
+         r=totalFatFilial3[mes][0]+totalFatFilial3[mes][1];
+        
+        return r;
+    
     }
     
     void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {
@@ -146,6 +194,7 @@ public class Facturacao {
         mes=ven.getMes();
         filial=ven.getFilial();
         preco=ven.getPreco();
+        totalFaturado+=preco*quantidade;
         if(PouN.equals("N")){
             if(filial==1) totalFatFilial1[mes-1][0]++;
             else if(filial==2) totalFatFilial2[mes-1][0]++;

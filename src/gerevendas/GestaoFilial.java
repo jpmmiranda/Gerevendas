@@ -120,6 +120,21 @@ public class GestaoFilial {
         //}
     }
     
+    public int getTotalDeClientesCompradores(){
+    
+        return comprasDoCliente.size();
+    }
+    
+       
+    public int getTotalProdutosDiferentesComprados(){
+        int r=0;
+        
+        for(InfoProduto ip : comprasDeProduto.values()){
+            if(ip.getUnidadesVendidas()!=0) r++;
+        }
+        return r;
+    }
+    
     /*--------------------------- Metodos de apoio a Queries -----------------*/
     
     /* Querie 1*/

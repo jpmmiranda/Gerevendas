@@ -44,14 +44,14 @@ public class Queries {
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         int clientes=gestaofilial.getClientesMes(mes);
         int vendas =  facturacao.vendasMensais(mes);
-        System.out.println("Total de compras no mes "+mes+"->"+vendas);
+        System.out.println("Total de vendas no mes "+mes+"->"+vendas);
         System.out.println("Total de clientes que compraram no mes "+mes+"->"+clientes);
         
         
     }
     
     public void Querie3(String cliente){
-         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
+        gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
         Cliente cli = new Cliente(cliente);
         

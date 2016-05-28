@@ -127,16 +127,23 @@ public class Hipermercado {
         estatistica.setTotalProdutos(produtos);
         estatistica.setTotalComprasZero(preco0);
         estatistica.setTotalFacturacao(faturacao.getTotalFaturadoGlobal());
-        estatistica.setTotalNaoComprados(faturacao.getTotalProdutosNaoComprados());   
-/*private int totalProdutosDiferentes;
-    private int totalNaoComprados;
-    private int totalClientesCompradores;
-    private int totalClientesNaoCompradores;
-    private int[] totalComprasMes;
-    private double[] totalFacturacaoFilial1;
-    private double[] totalFacturacaoFilial2;
-    private double[] totalFacturacaoFilial3;
-    private double[] totalFacturacaoMensal;
+        estatistica.setTotalNaoComprados(faturacao.getTotalProdutosNaoComprados());
+        estatistica.setTotalClientesCompradores(gestfilial.getTotalDeClientesCompradores());
+        estatistica.setTotalClientesNaoCompradores(clientes-gestfilial.getTotalDeClientesCompradores());
+        estatistica.setTotalProdutosDiferentes(gestfilial.getTotalProdutosDiferentesComprados());
+        estatistica.setTotalNaoComprados(produtos-gestfilial.getTotalProdutosDiferentesComprados());
+
+        int i;
+        for(i=0;i<12;i++){
+            estatistica.setTotalComprasMes(i,faturacao.vendasMensais(i));
+            estatistica.setTotalFacturacaoFilial1(i,faturacao.totalFaturadoFilial1(i));
+            estatistica.setTotalFacturacaoFilial2(i,faturacao.totalFaturadoFilial2(i));
+            estatistica.setTotalFacturacaoFilial3(i,faturacao.totalFaturadoFilial3(i));
+            estatistica.setTotalFacturacaoMensal(i,faturacao.totalFacturadoMensal(i));
+            
+        }
+        /*
+    
     private int[] clientesDistintos;*/
     
     }

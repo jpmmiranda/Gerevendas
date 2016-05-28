@@ -209,24 +209,24 @@ public class Estatistica {
         this.totalFacturacao = totalFacturacao;
     }
 
-    public void setTotalComprasMes(int[] totalComprasMes) {
-        this.totalComprasMes = totalComprasMes.clone();
+    public void setTotalComprasMes(int mes,int total) {
+        this.totalComprasMes[mes] = total;
     }
 
-    public void setTotalFacturacaoFilial1(double[] totalFacturacaoFilial1) {
-        this.totalFacturacaoFilial1 = totalFacturacaoFilial1.clone();
+    public void setTotalFacturacaoFilial1(int mes,double totalFacturacaoFilial1) {
+        this.totalFacturacaoFilial1[mes] = totalFacturacaoFilial1;
     }
 
-    public void setTotalFacturacaoFilial2(double[] totalFacturacaoFilial2) {
-        this.totalFacturacaoFilial2 = totalFacturacaoFilial2.clone();
+    public void setTotalFacturacaoFilial2(int mes,double totalFacturacaoFilial2) {
+        this.totalFacturacaoFilial2[mes] = totalFacturacaoFilial2;
     }
 
-    public void setTotalFacturacaoFilial3(double[] totalFacturacaoFilial3) {
-        this.totalFacturacaoFilial3 = totalFacturacaoFilial3.clone();
+    public void setTotalFacturacaoFilial3(int mes,double totalFacturacaoFilial3) {
+        this.totalFacturacaoFilial3[mes] = totalFacturacaoFilial3;
     }
 
-    public void setTotalFacturacaoMensal(double[] totalFacturacaoMensal) {
-        this.totalFacturacaoMensal = totalFacturacaoMensal.clone();
+    public void setTotalFacturacaoMensal(int mes,double totalFacturacao) {
+        this.totalFacturacaoMensal[mes] = totalFacturacao;
     }
 
     public void setClientesDistintos(int[] clientesDistintos) {
@@ -237,14 +237,6 @@ public class Estatistica {
         return new Estatistica(this);
     }
     
-      
-    
-    
-     /**
-     * Devolve a informação do objecto sobre a forma de texto
-     *
-     * @return string com a informação
-     */
     public String toString() {
         
         StringBuilder s = new StringBuilder();
@@ -313,12 +305,6 @@ public class Estatistica {
         return s.toString();
     }
     
-    /**
-     * Verifica se dois objectos são iguais
-     *
-     * @param o objecto a qual deve ser comparado
-     * @return true se foram iguais, false caso contrário
-     */
     public boolean equals(Object o) {
         if (o == this) {
             return true;
