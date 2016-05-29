@@ -304,6 +304,16 @@ public class Interface {
                     printQueries();
                     r = false;
                     break;
+                 case 4:
+                    System.out.println("Insira um Produto");
+                    String Produto= linha.next();
+                    
+                       querie.Querie4(Produto);
+                   
+                    
+                    printQueries();
+                    r = false;
+                    break;
                     
                 default:
                     break;

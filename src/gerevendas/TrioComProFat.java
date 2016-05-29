@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 public class TrioComProFat {
     
-    private int Pdistintos[], Compras[];
+    private int Pdistintos[], Cdistintos[],Compras[];
     private float faturacao[];
 
     /**
@@ -24,6 +24,7 @@ public class TrioComProFat {
        this.Pdistintos = new int[12];
         this.Compras = new int[12];
         this.faturacao = new float[12];
+        this.Cdistintos= new int[12];
     }
 
     
@@ -32,6 +33,7 @@ public class TrioComProFat {
          this.Pdistintos = tcpc.getPDistintos();
         this.Compras = tcpc.getCompras();
         this.faturacao = tcpc.getFaturacao();
+        this.Cdistintos = tcpc.getCDistintos();
     }
 
     public int[] getCompras() {
@@ -41,6 +43,10 @@ public class TrioComProFat {
     public int[] getPDistintos() {
         return this.Pdistintos.clone();
     }
+    
+    public int[] getCDistintos() {
+        return this.Cdistintos.clone();
+    }
 
     public float[] getFaturacao() {
         return this.faturacao.clone();
@@ -48,6 +54,10 @@ public class TrioComProFat {
     
     public void adicionaDistintos(int qtd, int mes) {
         this.Pdistintos[mes - 1] = qtd;
+    }
+    
+    public void adicionaClientesDistintos(int qtd, int mes) {
+        this.Cdistintos[mes - 1] = qtd;
     }
 
     public void adicionaFaturacao(float fat, int mes) {
@@ -73,7 +83,7 @@ public class TrioComProFat {
             return false;
         } else {
             TrioComProFat t = (TrioComProFat) o;
-            return  this.Pdistintos.equals(t.getPDistintos()) && this.faturacao.equals(t.getFaturacao())  && this.Compras.equals(t.getCompras());
+            return  this.Pdistintos.equals(t.getPDistintos()) && this.faturacao.equals(t.getFaturacao())  && this.Compras.equals(t.getCompras()) && this.Cdistintos.equals(t.getCDistintos());
         }
 
     }
@@ -90,9 +100,14 @@ public class TrioComProFat {
             sb.append(this.Pdistintos[i]).append(" \n");
         }
         sb.append("\n");
+        sb.append("Clientes Distintos \n");
+        for (int i = 0; i < 12; i++) {
+            sb.append(this.Cdistintos[i]).append(" \n");
+        }
+        sb.append("\n");
         sb.append("Numero de Compras \n");
         for (int i = 0; i < 12; i++) {
-            sb.append(this.Compras[i]).append("\n ");
+            sb.append(this.Compras[i]).append("\n");
         }
         sb.append("\n");
         sb.append("Faturação  \n");
@@ -101,5 +116,7 @@ public class TrioComProFat {
         }
         return sb.toString();
     }
+
+    
 
 }

@@ -60,10 +60,18 @@ public class Queries {
                     
     }
      
-    public void Querie4(){
+    public void Querie4(String produto){
+        gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
+        Produto prod = new Produto(produto);
         
+        TrioComProFat  tcpf = gestaofilial.getProdutoParaCadaMes(prod);
+        System.out.println(tcpf.toString());
+                    
     }
+        
+        
+    
 
     
 }

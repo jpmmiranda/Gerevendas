@@ -185,6 +185,21 @@ public class GestaoFilial {
             return tab.clone();
         }
       
+     /*Querie 4*/
+      
+    public TrioComProFat getProdutoParaCadaMes(Produto p){
+    
+            int mes,comprasProduto=0;
+            TrioComProFat tab = new TrioComProFat();
+            InfoProduto ip = this.comprasDeProduto.get(p);
+            for (mes = 1; mes <= 12; mes++) {
+                comprasProduto=ip.getCompradoMesIndice(mes);
+                tab.adicionaClientesDistintos(ip.getProdutosCliente(mes), mes);
+                tab.adicionaFaturacao((float) ip.getTotalPagoMesIndice(mes), mes);
+                tab.adicionaCompras(comprasProduto, mes);
+            }
+            return tab.clone();
+        }
     
     
      public boolean equals(Object o) {
