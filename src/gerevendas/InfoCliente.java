@@ -7,6 +7,7 @@ package gerevendas;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,20 +33,21 @@ public class InfoCliente {
         this.totalgasto=new int[12];
     }
     
-    public InfoCliente(TreeMap<Produto, InfoProdutoComprado> clienteCompras, int totalComprados, int[] compraN,int[] compraP) {
+    public InfoCliente(TreeMap<Produto, InfoProdutoComprado> clienteCompras, int totalComprados, int[] compraN,int[] compraP,int[] tg) {
         this.clienteCompras = clienteCompras;
         this.totalComprados = totalComprados;
         this.comprasMesN=compraN.clone();
         this.comprasMesP=compraP.clone();
-        
+        this.totalgasto=tg.clone();
+
     }
     
     public InfoCliente(InfoCliente ic) throws CloneNotSupportedException{
         this.clienteCompras=ic.getClienteCompras();
         this.totalComprados=ic.getTotalComprados();
-        this.comprasMesN=getComprasMesN();
-        this.comprasMesP=getComprasMesP();
-        
+        this.comprasMesN=ic.getComprasMesN();
+        this.comprasMesP=ic.getComprasMesP();
+        this.totalgasto=ic.getTotalgasto();
     }
     
     
@@ -98,6 +100,27 @@ public class InfoCliente {
         return totalgasto[mes-1];
     }
     
+   private int[] getTotalgasto() {
+    return totalgasto.clone();
+   }
+
+    
+    
+    public TreeSet<ParCliProdsComprados> getCodigoProduto(){
+      TreeSet<ParCliProdsComprados> cod;
+      cod = new TreeSet<>(new ComparatorProdutosEQuantidade());
+      InfoProdutoComprado ipc = new InfoProdutoComprado(); 
+      for(Produto p : clienteCompras.keySet()){
+         ParCliProdsComprados pcpc=new ParCliProdsComprados();
+
+          ipc=clienteCompras.get(p);
+          pcpc.adicionaTotal(ipc.getUnidadesVendidas());
+          pcpc.adicionaProduto(p.getCodigo());
+          cod.add(pcpc.clone());
+      }
+        return cod;
+    }
+    
     public boolean existeProduto(Produto p){
         return clienteCompras.containsKey(p);
     }
@@ -125,7 +148,6 @@ public class InfoCliente {
             comprasMesN[mes-1]++;
         }else{
             comprasMesP[mes-1]++;
-
         }
        totalgasto[mes-1]+=preco*quantidade;
         if(!clienteCompras.containsKey(v.getProduto())){
@@ -136,6 +158,29 @@ public class InfoCliente {
         
     }
     
+    
+    public int calculaDistintos(int mes,Produto p) {
+        int r=0;
+        if(clienteCompras.containsKey(p)){
+            
+            InfoProdutoComprado ipc;
+            ipc = clienteCompras.get(p);
+            if(ipc.totalComprasMes(mes)!=0) r++; 
+        }
+        return r;
+    }
+
+    public int quantidadeDeProdDistintos(){
+        return clienteCompras.size();
+    }   
+    
+    public int gastoNoProduto(Produto p){
+    
+        int gasto;
+        
+        gasto=(int)clienteCompras.get(p).getTotalPago();
+        return gasto;
+    }
        
     public boolean equals(Object o) {
         if (o == this) {
@@ -151,5 +196,7 @@ public class InfoCliente {
         return new InfoCliente(this);
     }
 
+   
+   
   
 }

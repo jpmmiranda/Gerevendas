@@ -7,6 +7,7 @@ package gerevendas;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -232,6 +233,21 @@ public class Facturacao {
 
     private double[][] getTotalFatFilial3() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   public TreeSet<ParCliProdsComprados> listaDeXProdutos() {
+         TreeSet<ParCliProdsComprados> cod=new TreeSet<>(new ComparatorProdutosEQuantidade());
+       for(Produto p : facturacao.keySet()){
+                InfoProdutoFacturacao ip = facturacao.get(p);
+                if(ip.getTotalVendidas()!=0){
+                    ParCliProdsComprados pcpc = new ParCliProdsComprados();
+                    pcpc.adicionaProduto(p.getCodigo());
+                    pcpc.adicionaTotal(ip.getTotalVendidas());
+                    cod.add(pcpc);
+                }
+       
+       }
+        return cod;
     }
 
     

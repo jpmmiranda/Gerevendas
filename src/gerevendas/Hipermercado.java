@@ -140,12 +140,9 @@ public class Hipermercado {
             estatistica.setTotalFacturacaoFilial2(i,faturacao.totalFaturadoFilial2(i));
             estatistica.setTotalFacturacaoFilial3(i,faturacao.totalFaturadoFilial3(i));
             estatistica.setTotalFacturacaoMensal(i,faturacao.totalFacturadoMensal(i));
-            
+            estatistica.setClientesDistintos(i,gestfilial.compradoresMes(i));
         }
-        /*
-    
-    private int[] clientesDistintos;*/
-    
+        
     }
     
     public void imprimeEstatisticas(){
@@ -155,7 +152,7 @@ public class Hipermercado {
         System.out.println(estatistica.getTotalComprasZero());
        System.out.println( estatistica.getTotalFacturacao());
        System.out.println( estatistica.getTotalNaoComprados());   
-        estatistica.toString();
+        estatistica.toString();//Nao funciona
     }
    
     

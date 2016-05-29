@@ -92,25 +92,25 @@ public class Interface {
 				break;
 			case 2:
 				if(initVendas == 1){
-                                                                                    Crono.start();
+                                        Crono.start();
 
 					limpaEcra();
 					Leitura.lerProdutos();
 					initPro = 1;
 					initVendas = 0;
-   Crono.stop();
-                    System.out.println("Tempo: " + Crono.print() ); 
-                    					menuLerFicheiros();
+                                        Crono.stop();
+                                        System.out.println("Tempo: " + Crono.print() ); 
+                    			menuLerFicheiros();
 
 				}
-				else{                                                Crono.start();
+				else{   Crono.start();
 
 					limpaEcra();
 					Leitura.lerProdutos();
 					initPro = 1;
-                                Crono.stop();
-                    System.out.println("Tempo: " + Crono.print() );
-                    					menuLerFicheiros();
+                                        Crono.stop();
+                                        System.out.println("Tempo: " + Crono.print() );
+                                        menuLerFicheiros();
 
 				}
 				break;
@@ -121,14 +121,17 @@ public class Interface {
 					menuLerFicheiros();					
 				}
 				else{
+                                    Crono.start();
 					limpaEcra();
 					Leitura.lerVendas();
 					initVendas = 1;
+                                        Crono.stop();
+                    System.out.println("Tempo: " + Crono.print() );
 					menuLerFicheiros();
 				}
 				break;
 			case 4:
-                                                Crono.start();
+                                Crono.start();
 
 				limpaEcra();
 				Leitura.lerClientes();
@@ -242,7 +245,7 @@ public class Interface {
                     r = false;
                     break;
                 case 2:
-                    printQueries();
+                    //printQueries();
                     r = false;
                     break;
                 default:
@@ -257,7 +260,8 @@ public class Interface {
         boolean r = true;
         Queries querie = new Queries();
         Scanner linha = new Scanner(System.in);
-
+        String Cliente;
+        int valor;
         while(r){
             System.out.println("################## GEREVENDAS ##################");
             System.out.println("  1. Lista ordenada alfabeticamente com os códigos dos produtos nunca comprados e o seu respectivo total;");
@@ -296,7 +300,7 @@ public class Interface {
                     break;
                  case 3:
                     System.out.println("Insira um Cliente");
-                    String Cliente= linha.next();
+                    Cliente= linha.next();
                     
                        querie.Querie3(Cliente);
                    
@@ -314,7 +318,52 @@ public class Interface {
                     printQueries();
                     r = false;
                     break;
+               case 5:
+                    System.out.println("Insira um Cliente");
+                     Cliente= linha.next();
                     
+                       querie.Querie5(Cliente);
+                   
+                    
+                    printQueries();
+                    r = false;
+                    break;
+              case 6:
+                    System.out.println("Insira um valor");
+                     valor= linha.nextInt();
+                    
+                       querie.Querie6(valor);
+                   
+                    
+                    printQueries();
+                    r = false;
+                    break;
+              case 7:
+                    
+                   querie.Querie7();
+                   
+                    
+                    printQueries();
+                    r = false;
+                    break;
+             case 8:
+                   System.out.println("Insira um valor");
+                   valor= linha.nextInt();
+                    
+                   querie.Querie8(valor);
+                    
+                    printQueries();
+                    r = false;
+                    break;
+             case 9:
+                    System.out.println("Insira um Produto");
+                    Produto= linha.next();
+                    System.out.println("Insira um valor");
+                    valor= linha.nextInt();
+                    querie.Querie9(Produto,valor);
+                    printQueries();
+                    r = false;
+                    break;
                 default:
                     break;
             }
@@ -324,7 +373,7 @@ public class Interface {
 
 
     private static void limpaEcra(){
-        System.out.print("\033");
+        System.out.print("\033");//Nao funciona
     }
 
 }

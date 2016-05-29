@@ -67,7 +67,7 @@ public class InfoProdutoFacturacao {
         this.unidadesVendidas = unidadesVendidas.clone();
     }
 
-
+    
 
 
     void incrementaTotalVendidas(int quantidade) {

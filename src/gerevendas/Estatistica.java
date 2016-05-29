@@ -229,14 +229,15 @@ public class Estatistica {
         this.totalFacturacaoMensal[mes] = totalFacturacao;
     }
 
-    public void setClientesDistintos(int[] clientesDistintos) {
-        this.clientesDistintos = clientesDistintos.clone();
+    public void setClientesDistintos(int mes,int clientesDistintos) {
+        this.clientesDistintos[mes] = clientesDistintos;
     }
     
     public Estatistica clone() {
         return new Estatistica(this);
     }
     
+    @Override
     public String toString() {
         
         StringBuilder s = new StringBuilder();
@@ -305,6 +306,7 @@ public class Estatistica {
         return s.toString();
     }
     
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;

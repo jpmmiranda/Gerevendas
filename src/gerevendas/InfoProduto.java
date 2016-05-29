@@ -106,7 +106,7 @@ public class InfoProduto {
     void adicionaInfoProduto(double preco, int quant,int mes) {
         UnidadesVendidas++;
         TotalPago+=preco*quant;
-        compradoMes[mes-1]++;
+        compradoMes[mes-1]+=quant;
         TotalPagoMes[mes-1]=preco*getCompradoMesIndice(mes);
      //   clientesComp.add(cli.clone());
     }

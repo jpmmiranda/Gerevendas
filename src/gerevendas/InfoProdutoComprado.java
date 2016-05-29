@@ -93,7 +93,7 @@ public class InfoProdutoComprado {
     }
     
     void adicionaInfoProduto(double preco, int quant,int mes,String PouN) {
-        UnidadesVendidas++;
+        UnidadesVendidas+=quant;
         TotalPago+=preco*quant;
         if(PouN.equals("N")) ComprasN[mes-1]++;
         else ComprasP[mes-1]++;
