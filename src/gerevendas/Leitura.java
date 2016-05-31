@@ -8,6 +8,7 @@ package gerevendas;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import static java.lang.System.out;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Rui
  */
-public class Leitura {
+public class Leitura implements Serializable {
     
      private static int Clientes = 0, Produtos = 0,Compras = 0, Preco0 = 0, Errados=0;
     

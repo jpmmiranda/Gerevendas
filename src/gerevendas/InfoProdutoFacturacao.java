@@ -5,11 +5,13 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rui
  */
-public class InfoProdutoFacturacao {
+public class InfoProdutoFacturacao implements Serializable{
     
     
    int totalVendidas; /* Total de unidades vendidas de cada produto*/

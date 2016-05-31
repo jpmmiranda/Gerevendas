@@ -1,5 +1,6 @@
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /*
@@ -12,7 +13,7 @@ import java.util.Arrays;
  *
  * @author Rui
  */
-public class TrioCliComProFat {
+public class TrioCliComProFat implements Serializable {
     
     private int Pdistintos[],Compras[];
     private double faturacao[];

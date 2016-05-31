@@ -5,6 +5,7 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Rui
  */
-public class InfoCliente {
+public class InfoCliente implements Serializable {
     
     private Map<Produto, InfoProdutoComprado> clienteCompras; // Cada cliente tem os seus produtos
     private int totalComprados;

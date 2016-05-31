@@ -5,11 +5,13 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rui
  */
-public class TrioProdCompCliFat {
+public class TrioProdCompCliFat implements Serializable{
     
     private int Cdistintos[],Compras[];
     private double faturacao[];

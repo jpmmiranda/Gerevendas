@@ -6,16 +6,17 @@
 package gerevendas;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  *
  * @author Rui
  */
-public class Gerevendas {
+public class Gerevendas implements Serializable {
     
-    public static Hipermercado hipermercado;
+    private static Hipermercado hipermercado;
 
-    public static void main(String[] args) throws CloneNotSupportedException, IOException {
+    public static void main(String[] args) throws CloneNotSupportedException, IOException, ClassNotFoundException {
         hipermercado = new Hipermercado();
         Interface.printMenu();
     }
@@ -23,6 +24,10 @@ public class Gerevendas {
     
     public static Hipermercado getHipermercado() {
         return hipermercado;
+    }
+
+    public static void setHipermercado(Hipermercado aHipermercado) {
+        hipermercado = aHipermercado;
     }
      
 }

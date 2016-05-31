@@ -5,13 +5,14 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.TreeMap;
 
 /**
  *
  * @author Rui
  */
-public class InfoProdutoComprado {
+public class InfoProdutoComprado implements Serializable{
     
     
    private int UnidadesVendidas;

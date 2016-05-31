@@ -5,26 +5,16 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rui
  */
 
 
-/*1.1.- Apresenta ao utilizador os dados referentes ao último ficheiro de vendas lido,
-designadamente, nome do ficheiro, número total de registos de venda errados,
-número total de produtos, total de diferentes produtos comprados, total de não
-comprados, número total de clientes e total dos que realizaram compras, total de
-clientes que nada compraram, total de compras de valor total igual a 0.0 e
-facturação total.
-1.2.- Apresenta em ecrã ao utilizador os números gerais respeitantes aos dados
-actuais já registados nas estruturas, designadamente:
-· Número total de compras por mês (não é a facturação);
-· Facturação total por mês (valor total das compras/vendas) para cada filial e
-o valor total global;
-· Número de distintos clientes que compraram em cada mês (não interessa
-quantas vezes o cliente comprou mas apenas quem de facto comprou);*/
-public class Estatistica {
+
+public class Estatistica implements Serializable {
     
     private String ficheiroVendas;
     private int totalRegistosErrados;
@@ -271,11 +261,6 @@ public class Estatistica {
         s.append("Número de Compras Mensal: \n");
         for(int i=0;i<12;i++){
             s.append(this.getTotalComprasMes()[i]).append(" ");
-        }
-        s.append("\n");
-        s.append("Faturação Mensal: \n");
-        for(int i=0;i<12;i++){
-            s.append(this.getTotalFacturacaoMensal()[i]).append(" ");
         }
         s.append("\n");
         s.append("Clientes Compradores em cada Mês: \n");

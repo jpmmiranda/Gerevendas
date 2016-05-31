@@ -5,11 +5,13 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rui
  */
-public class ParCliProdsComprados {
+public class ParCliProdsComprados implements Serializable {
     
     private int total=0;
     private String produto;

@@ -5,13 +5,14 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  *
  * @author Rui
  */
-public class ComparatorProdutosEQuantidade implements Comparator<ParCliProdsComprados>{
+public class ComparatorProdutosEQuantidade implements Comparator<ParCliProdsComprados>,Serializable{
     @Override
     public int compare(ParCliProdsComprados o1, ParCliProdsComprados o2) {
         float tot1=o1.getTotal();

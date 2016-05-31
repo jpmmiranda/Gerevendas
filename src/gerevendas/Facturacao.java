@@ -5,6 +5,7 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Rui
  */
-public class Facturacao {
+public class Facturacao implements Serializable {
     
     private Map<Produto, InfoProdutoFacturacao> facturacao;
     int[][] totalVendas;//Por mes e tipo
@@ -197,14 +198,14 @@ public class Facturacao {
         preco=ven.getPreco();
         totalFaturado+=preco*quantidade;
         if(PouN.equals("N")){
-            if(filial==1) totalFatFilial1[mes-1][0]++;
-            else if(filial==2) totalFatFilial2[mes-1][0]++;
-            else totalFatFilial3[mes-1][0]++;
+            if(filial==1) totalFatFilial1[mes-1][0]+=preco*quantidade;
+            else if(filial==2) totalFatFilial2[mes-1][0]+=preco*quantidade;
+            else totalFatFilial3[mes-1][0]+=preco*quantidade;
             totalVendas[mes-1][0]++;
         }else{  
-            if(filial==1) totalFatFilial1[mes-1][1]++;
-            else if(filial==2) totalFatFilial2[mes-1][1]++;
-            else totalFatFilial3[mes-1][1]++;
+            if(filial==1) totalFatFilial1[mes-1][1]+=preco*quantidade;
+            else if(filial==2) totalFatFilial2[mes-1][1]+=preco*quantidade;
+            else totalFatFilial3[mes-1][1]+=preco*quantidade;
             totalVendas[mes-1][1]++;
 
         }

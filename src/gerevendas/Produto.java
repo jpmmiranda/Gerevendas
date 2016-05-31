@@ -5,13 +5,14 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Rui
  */
-public class Produto {
+public class Produto implements Serializable {
      
     private String codigo;
 

@@ -5,11 +5,18 @@
  */
 package gerevendas;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  *
  * @author Rui
  */
-public class Hipermercado {
+public class Hipermercado  implements Serializable{
 
     
     
@@ -145,16 +152,7 @@ public class Hipermercado {
         
     }
     
-    public void imprimeEstatisticas(){
-        System.out.println(estatistica.getFicheiroVendas());
-        System.out.println(estatistica.getTotalClientes());
-        System.out.println(estatistica.getTotalProdutos());
-        System.out.println(estatistica.getTotalComprasZero());
-       System.out.println( estatistica.getTotalFacturacao());
-       System.out.println( estatistica.getTotalNaoComprados());   
-        estatistica.toString();//Nao funciona
-    }
-   
+    
     
     boolean existeCliente(Cliente cli){
     Boolean r=false;
@@ -167,6 +165,21 @@ public class Hipermercado {
         r=produtos.existeProduto(pro);
     return r;
     }
+    
+    
+     public void guardaObj(String filename) throws IOException{
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
+        oos.writeObject(Gerevendas.getHipermercado());
+        oos.flush();
+        oos.close();
+    }
+    public  Hipermercado carregaObj(String ficheiro) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois= new ObjectInputStream(new FileInputStream(ficheiro));
+        Hipermercado res=(Hipermercado) ois.readObject();
+        ois.close();
+        return res;
+    }
+
     
     @Override
     public boolean equals(Object obj) {
@@ -182,7 +195,7 @@ public class Hipermercado {
                 && this.produtos.equals(other.produtos);
     }
 
-    
+  
 
   
     

@@ -6,6 +6,7 @@
 package gerevendas;
 
 import java.io.IOException;
+import java.io.Serializable;
 import static java.lang.System.out;
 import java.util.Scanner;
 
@@ -13,12 +14,15 @@ import java.util.Scanner;
  *
  * @author Rui
  */
-public class Interface {
+public class Interface implements Serializable{
 
     
     private static int initCli;
     private static int initPro;
     private static int initVendas;
+
+   
+   
     
     
     private Interface() {
@@ -28,7 +32,7 @@ public class Interface {
         initVendas=0;
     }
     
-    public static void printMenu() throws CloneNotSupportedException, IOException {
+    public static void printMenu() throws CloneNotSupportedException, IOException, ClassNotFoundException {
         
         int opcao;
         boolean r = true;
@@ -60,7 +64,7 @@ public class Interface {
                 r = false;
                 break;
             case 4:
-                
+                menuCarregarGuardar();
                 r = false;
                 break;
             default:
@@ -69,7 +73,7 @@ public class Interface {
         }
    }
     
-    public static void menuLerFicheiros() throws CloneNotSupportedException, IOException{
+    public static void menuLerFicheiros() throws CloneNotSupportedException, IOException, ClassNotFoundException{
 	int r = 0, n = 0;
 
 	printInicializar();
@@ -77,16 +81,23 @@ public class Interface {
             switch(r){
 			case 1:
 				if(initVendas == 1){
-					limpaEcra();
+				        Crono.start();
+                                        limpaEcra();
 					Leitura.lerClientes();
 					initCli = 1;
 					initVendas = 0;
+                                        Crono.stop();
+                                        System.out.println("Tempo: " + Crono.print() ); 
 					menuLerFicheiros();
 				}
 				else{
+                                        Crono.start();
+
 					limpaEcra();
 					Leitura.lerClientes();
 					initCli = 1;
+                                        Crono.stop();
+                                        System.out.println("Tempo: " + Crono.print() );    
 					menuLerFicheiros();
 				}
 				break;
@@ -141,7 +152,7 @@ public class Interface {
 				Leitura.lerVendas();
 				initVendas = 1;
                                 Crono.stop();
-                    System.out.println("Tempo: " + Crono.print() );
+                                System.out.println("Tempo: " + Crono.print() );
 			        menuLerFicheiros();
                                                     
 
@@ -222,30 +233,26 @@ public class Interface {
 
     
     
-    public static void printEstatisticas() throws CloneNotSupportedException, IOException{
+    public static void printEstatisticas() throws CloneNotSupportedException, IOException, ClassNotFoundException{
       
          
         int opcao;
         boolean r = true;
-        Hipermercado hiper=Gerevendas.getHipermercado();
+                Queries querie = new Queries();
+
         while(r){
-            System.out.println("################## GEREVENDAS ##################");
-            System.out.println("  1. Dados acerca do último ficheiro lido      #");
-            System.out.println("  2. Dados gerais                              #");
-            System.out.println("  0. Sair                                      #");
-            System.out.println("################################################");
+            System.out.println("####################### GEREVENDAS #################################");
+            System.out.println("  1. Dados gerais acerca do último ficheiro lido e estruturais     #");
+            System.out.println("  0. Sair                                                          #");
+            System.out.println("####################################################################");
             System.out.print(">");
             opcao = Input.lerInt();
             switch (opcao) {
                 case 0:
-                    System.exit(0);
+                    printMenu();
                     break;
                 case 1:
-                    hiper.imprimeEstatisticas();
-                    r = false;
-                    break;
-                case 2:
-                    //printQueries();
+                    querie.querieEstat();
                     r = false;
                     break;
                 default:
@@ -254,7 +261,7 @@ public class Interface {
         }
 }
     
-    public static void printQueries() throws CloneNotSupportedException, IOException{
+    public static void printQueries() throws CloneNotSupportedException, IOException, ClassNotFoundException{
           
         int opcao;
         boolean r = true;
@@ -263,7 +270,7 @@ public class Interface {
         String Cliente;
         int valor;
         while(r){
-            System.out.println("################## GEREVENDAS ##################");
+            System.out.println("################################################################################## GEREVENDAS ##################################################################################");
             System.out.println("  1. Lista ordenada alfabeticamente com os códigos dos produtos nunca comprados e o seu respectivo total;");
             System.out.println("  2. Dado um mês válido, determinar o número total global de vendas realizadas e o número total de clientes distintos que as fizeram;");
             System.out.println("  3. Dado um código de cliente, determinar, para cada mês, quantas compras fez, quantos produtos distintos comprou e quanto gastou no total.");
@@ -274,12 +281,12 @@ public class Interface {
             System.out.println("  8. Determinar os códigos dos X clientes (sendo X dado pelo utilizador) que compraram mais produtos diferentes (não interessa a quantidade nem o valor), indicando quantos, sendo o critério de ordenação a ordem decrescente do número de produtos;");
             System.out.println("  9. Dado o código de um produto que deve existir, determinar o conjunto dos X clientes que mais o compraram e, para cada um, qual o valor gasto (ordenação cf. 5);");
             System.out.println("  0. Sair ");
-            System.out.println("################################################");
+            System.out.println("################################################################################################################################################################################");
             System.out.print(">");
             opcao = Input.lerInt();
             switch (opcao) {
                 case 0:
-                    System.exit(0);
+                    printMenu();
                     break;
                 case 1:
                     querie.Querie1();
@@ -370,7 +377,43 @@ public class Interface {
             }
     }
 
+ private static void menuCarregarGuardar() throws CloneNotSupportedException, IOException, ClassNotFoundException {
 
+        int opcao;
+        boolean r = true;
+        Queries querie = new Queries();
+        String input;
+        while(r){
+            System.out.println("####################### GEREVENDAS #################################");
+            System.out.println("  1.Guardar  Ficheiro objecto                                      #");
+            System.out.println("  2.Carregar Ficheiro objecto                                      #");
+            System.out.println("  0. Sair                                                          #");
+            System.out.println("####################################################################");
+            System.out.print(">");
+            opcao = Input.lerInt();
+            switch (opcao) {
+                case 0:
+                    printMenu();
+                    break;
+                case 1:
+                    System.out.println("Insira o nome do ficheiro a gravar(Prima Enter para hipermercado.dat): ");
+                    input = Input.lerString();
+                    querie.guardaDados(input);
+                    r = false;
+                    menuCarregarGuardar();
+                    break;
+                case 2:
+                    System.out.println("Insira o nome do ficheiro a carregar(Prima Enter para hipermercado.dat): ");
+                    input = Input.lerString();
+                    querie.carregaDados(input);
+                    r = false;
+                    menuCarregarGuardar();
+                    break;    
+                default:
+                    break;
+            }
+        }
+    }
 
     private static void limpaEcra(){
         System.out.print("\033");//Nao funciona

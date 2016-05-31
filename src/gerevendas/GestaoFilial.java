@@ -5,6 +5,7 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.TreeSet;
  *
  * @author Rui
  */
-public class GestaoFilial {
+public class GestaoFilial implements Serializable {
     
     private HashMap<Cliente,InfoCliente> comprasDoCliente;
     private HashMap<Produto,InfoProduto> comprasDeProduto;

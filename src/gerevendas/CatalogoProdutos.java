@@ -5,6 +5,7 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -12,7 +13,7 @@ import java.util.TreeSet;
  *
  * @author Rui
  */
-public class CatalogoProdutos {
+public class CatalogoProdutos implements Serializable{
     
   private HashMap<Character,TreeSet<Produto>> CatProdutos;
     

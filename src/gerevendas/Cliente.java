@@ -5,13 +5,14 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Rui
  */
-public class Cliente {
+public class Cliente implements Serializable{
     private String codigo;
 
     /*Construtores*/

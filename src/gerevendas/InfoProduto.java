@@ -5,6 +5,7 @@
  */
 package gerevendas;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Rui
  */
-public class InfoProduto {
+public class InfoProduto implements Serializable{
      
    private Map<Produto, InfoProdutoComprado> produtoCompras;
    private int UnidadesVendidas;
