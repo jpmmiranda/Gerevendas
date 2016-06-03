@@ -6,6 +6,7 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  *
@@ -17,7 +18,6 @@ public class InfoProdutoFacturacao implements Serializable{
    int totalVendidas; /* Total de unidades vendidas de cada produto*/
    int[][] unidadesVendidas; /* Unidades vendidas cada mes de cada tipo*/
   
-   //totalVendas
    /*Construtores*/
      
     public InfoProdutoFacturacao() {
@@ -86,10 +86,29 @@ public class InfoProdutoFacturacao implements Serializable{
         }
     }
 
- 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
 
-   
-
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final InfoProdutoFacturacao other = (InfoProdutoFacturacao) obj;
+        if (this.totalVendidas != other.totalVendidas) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.unidadesVendidas, other.unidadesVendidas)) {
+            return false;
+        }
+        return true;
+    }
 
 
      @Override

@@ -6,6 +6,7 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.TreeMap;
 
 /**
@@ -99,6 +100,35 @@ public class InfoProdutoComprado implements Serializable{
         if(PouN.equals("N")) ComprasN[mes-1]++;
         else ComprasP[mes-1]++;
     }
+
+  
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final InfoProdutoComprado other = (InfoProdutoComprado) obj;
+        if (this.UnidadesVendidas != other.UnidadesVendidas) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.TotalPago) != Double.doubleToLongBits(other.TotalPago)) {
+            return false;
+        }
+        if (!Arrays.equals(this.ComprasN, other.ComprasN)) {
+            return false;
+        }
+        if (!Arrays.equals(this.ComprasP, other.ComprasP)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
     
      @Override
     public InfoProdutoComprado clone() throws CloneNotSupportedException {

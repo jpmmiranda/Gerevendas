@@ -7,6 +7,7 @@ package gerevendas;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.TreeSet;
 
 /**
@@ -63,5 +64,28 @@ public class CatalogoProdutos implements Serializable{
         return this.CatProdutos.get(c).contains(pro);
         
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CatalogoProdutos other = (CatalogoProdutos) obj;
+        if (!Objects.equals(this.CatProdutos, other.CatProdutos)) {
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public CatalogoProdutos clone() throws CloneNotSupportedException {
+        return new CatalogoProdutos(this);
+    }
+    
+    
     
 }

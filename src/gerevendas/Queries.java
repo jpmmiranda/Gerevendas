@@ -84,15 +84,14 @@ public class Queries {
     public void Querie1(){
        Crono.start();
       gestaofilial = Gerevendas.getHipermercado().getGestfilial();
-      
-      ArrayList ProdutosNaoComprados = gestaofilial.getProdutosNaoComprados();
+      int aux=0;
+      ArrayList<String> ProdutosNaoComprados = gestaofilial.getProdutosNaoComprados();
       Collections.sort(ProdutosNaoComprados);
       Crono.stop();
       System.out.println("Tempo: " + Crono.print() );
       saiTempos(); 
-      System.out.println(ProdutosNaoComprados.size());
-      System.out.println(ProdutosNaoComprados.toString());
-      sair();   
+      printQuerie1(ProdutosNaoComprados,aux,aux,ProdutosNaoComprados.size());
+     
 
     }
       
@@ -148,6 +147,7 @@ public class Queries {
     public void Querie5(String cliente){
     
         Crono.start();
+        int tamanho=0,aux=0;
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
         Cliente cli = new Cliente(cliente);
@@ -156,29 +156,24 @@ public class Queries {
          Crono.stop();
         System.out.println("Tempo: " + Crono.print() );
         saiTempos();
-        System.out.println(pcpc.toString());
-        sair();
+         ArrayList<ParCliProdsComprados> imprime = new ArrayList<>(pcpc);
+        tamanho = imprime.size();
+        printQuerie5(imprime,aux,aux,tamanho);
     }
     
     
     public void Querie6(int X){
         Crono.start(); 
         facturacao = Gerevendas.getHipermercado().getFaturacao();
-         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
-        int i=0;
+        int tamanho=0,aux=0;
         TreeSet<ParCliProdsComprados>  pcpc = facturacao.listaDeXProdutos();
 
        Crono.stop();
-      System.out.println("Tempo: " + Crono.print() );
+       System.out.println("Tempo: " + Crono.print() );
       saiTempos();
-        Iterator<ParCliProdsComprados> iterator = pcpc.iterator();
-            while (iterator.hasNext() && i<X) {
-                ParCliProdsComprados pc=iterator.next();
-                System.out.println(pc.toString() + "Clientes Distintos: " + gestaofilial.quantidadeDeCompradores(pc.getProdutos()) + "\n");
-                 i++;
-
-                }
-                sair();
+       ArrayList<ParCliProdsComprados> imprime = new ArrayList<>(pcpc);
+        tamanho = imprime.size();
+        printQuerie6(imprime,aux,aux,tamanho,X);
 
     }
     
@@ -234,19 +229,15 @@ public class Queries {
         
          Crono.start();
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
-        int i=0;
+        int tamanho=0,aux=0;
+        
         TreeSet<ParCliProdsComprados>  pcpc = gestaofilial.compradoresProdutosDiferentes();
         Crono.stop();
          System.out.println("Tempo: " + Crono.print() );
          saiTempos();
-        Iterator<ParCliProdsComprados> iterator = pcpc.iterator();
-            while (iterator.hasNext() && i<X) {
-                ParCliProdsComprados pc=iterator.next();
-                System.out.println("Cliente: " + pc.getProdutos() + "\n" + "Numero de Produtos Comprados: "+pc.getTotal() + "\n");
-                i++;
-
-                }
-                sair();
+        ArrayList<ParCliProdsComprados> imprime = new ArrayList<>(pcpc);
+        tamanho = imprime.size();
+        printQuerie8(imprime,aux,aux,tamanho,X);
     }
     
     public void Querie9(String produto, int X){
@@ -255,21 +246,240 @@ public class Queries {
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
         Produto pro = new Produto(produto);
-        int i=0;
-         TreeSet<ParCliProdsComprados>  pcpc = gestaofilial.listaDeClientes(pro.clone());
+        int tamanho=0;
+        int aux=0;
+        TreeSet<ParCliProdsComprados>  pcpc = gestaofilial.listaDeClientes(pro.clone());
         Crono.stop();
         System.out.println("Tempo: " + Crono.print() );
         saiTempos();
-        Iterator<ParCliProdsComprados> iterator = pcpc.iterator();
-            while (iterator.hasNext() && i<X) {
-                ParCliProdsComprados pc=iterator.next();
-                System.out.println("Cliente: " + pc.getProdutos() + "\n" + "Valor: "+pc.getTotal() + "\n");
-                 i++;
+        ArrayList<ParCliProdsComprados> imprime = new ArrayList<>(pcpc);
+        tamanho = imprime.size();
+        printQuerie9(imprime,aux,aux,tamanho,X);
 
-                }
-            sair();
+      
     }
     
+     void printQuerie1(ArrayList<String> pcpc, int contador, int index,int tamanho){
+	int n = 0, i,c = 0,j=0;
+        gestaofilial = Gerevendas.getHipermercado().getGestfilial();
+
+	System.out.println("########################## GEREVENDAS ##########################\n");
+        
+        for (i=0;i < 10 && index < tamanho; i++){
+            System.out.println("Produto: " + pcpc.get(index) + "\n");
+	    contador++;
+	    index++;
+            
+	}		
+        System.out.println("# Total:  " + tamanho +"                                           #\n");
+	System.out.println("################################################################\n");
+	System.out.println("# 1. Continuar.                                                #\n");
+	System.out.println("# 2. Retroceder.                                               #\n");
+	System.out.println("# 0. Sair.                                                     #\n");
+	System.out.println("################################################################\n");
+	System.out.println(">");
+	n = Input.lerInt();
+	if(n > 0){
+		if(n == 1 && contador != tamanho){
+			printQuerie1(pcpc, contador, index++,tamanho);
+		}
+		else if(n == 1 && contador ==tamanho){
+			System.out.println("Impossível continuar.\n");
+			printQuerie1(pcpc, contador-i, index-i,tamanho);
+		}
+		else if(n == 2 && (contador-10) > 0){
+			printQuerie1(pcpc, contador-20, index-20,tamanho);
+		}
+		else if(n == 2 && (contador-10) <= 0){
+			System.out.println("Impossível retroceder.\n");
+			printQuerie1(pcpc, 0, 0,tamanho);
+		}
+		else if(n == 0){
+			sair();
+		}
+		else{
+			System.out.println("Comando inválido\n");
+			printQuerie1(pcpc, contador-i, index-i,tamanho);
+		}
+	}
+}
+    
+    void printQuerie5(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho){
+	int n = 0, i,c = 0,j=0;
+        gestaofilial = Gerevendas.getHipermercado().getGestfilial();
+
+	System.out.println("########################## GEREVENDAS ##########################\n");
+        
+        for (i=0;i < 10 && index < tamanho; i++){
+            System.out.println("Produto: " + pcpc.get(index).getProdutos() + "\n" + "Quantidade: "+ pcpc.get(index).getTotal() + "\n");
+	    contador++;
+	    index++;
+            
+	}			
+	System.out.print("################################################################\n");
+	System.out.print("# 1. Continuar.                                                #\n");
+	System.out.print("# 2. Retroceder.                                               #\n");
+	System.out.print("# 0. Sair.                                                     #\n");
+	System.out.print("################################################################\n");
+	System.out.print(">");
+	n = Input.lerInt();
+	if(n > 0){
+		if(n == 1 && contador != tamanho){
+			printQuerie5(pcpc, contador, index++,tamanho);
+		}
+		else if(n == 1 && contador ==tamanho){
+			System.out.println("Impossível continuar.\n");
+			printQuerie5(pcpc, contador-i, index-i,tamanho);
+		}
+		else if(n == 2 && (contador-10) > 0){
+			printQuerie5(pcpc, contador-20, index-20,tamanho);
+		}
+		else if(n == 2 && (contador-10) <= 0){
+			System.out.println("Impossível retroceder.\n");
+			printQuerie5(pcpc, 0, 0,tamanho);
+		}
+		else if(n == 0){
+			sair();
+		}
+		else{
+			System.out.println("Comando inválido\n");
+			printQuerie5(pcpc, contador-i, index-i,tamanho);
+		}
+	}
+}
+    
+    
+    void printQuerie6(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho,int X){
+	int n = 0, i,c = 0,j=0;
+        gestaofilial = Gerevendas.getHipermercado().getGestfilial();
+
+	System.out.println("########################## GEREVENDAS ##########################\n");
+        
+        for (i=0;i < 10 && index < X && j<tamanho; i++){
+             System.out.println(pcpc.get(index).toString() + "Clientes Distintos: " + gestaofilial.quantidadeDeCompradores(pcpc.get(index).getProdutos()) + "\n");
+	    contador++;
+	    index++;
+            j++;
+	}			
+	System.out.print("################################################################\n");
+	System.out.print("# 1. Continuar.                                                #\n");
+	System.out.print("# 2. Retroceder.                                               #\n");
+	System.out.print("# 0. Sair.                                                     #\n");
+	System.out.print("################################################################\n");
+	System.out.print(">");
+	n = Input.lerInt();
+	if(n > 0){
+		if(n == 1 && contador != X && i<tamanho){
+			printQuerie6(pcpc, contador, index++,tamanho,X);
+		}
+		else if(n == 1 && (contador == X || i<tamanho)){
+			System.out.println("Impossível continuar.\n");
+			printQuerie6(pcpc, contador-i, index-i,tamanho,X);
+		}
+		else if(n == 2 && (contador-20) >= 0){
+			printQuerie6(pcpc, contador-20, index-20,tamanho,X);
+		}
+		else if(n == 2 && (contador-20) <= 0){
+			System.out.println("Impossível retroceder.\n");
+			printQuerie6(pcpc, 0, 0,tamanho,X);
+		}
+		else if(n == 0){
+			sair();
+		}
+		else{
+			System.out.println("Comando inválido\n");
+			printQuerie6(pcpc, contador-i, index-i,tamanho,X);
+		}
+	}
+}
+    
+     void printQuerie8(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho,int X){
+	int n = 0, i,c = 0,j=0;
+
+	System.out.println("########################## GEREVENDAS ##########################\n");
+        
+        for (i=0;i < 10 && index < X && j<tamanho; i++){
+            System.out.println("Cliente: " + pcpc.get(index).getProdutos() + "\n" + "Numero de Produtos Comprados: "+ pcpc.get(index).getTotal() + "\n");
+	    contador++;
+	    index++;
+            j++;
+	}			
+	System.out.print("################################################################\n");
+	System.out.print("# 1. Continuar.                                                #\n");
+	System.out.print("# 2. Retroceder.                                               #\n");
+	System.out.print("# 0. Sair.                                                     #\n");
+	System.out.print("################################################################\n");
+	System.out.print(">");
+	n = Input.lerInt();
+	if(n > 0){
+		if(n == 1 && contador != X && i<tamanho){
+			printQuerie8(pcpc, contador, index++,tamanho,X);
+		}
+		else if(n == 1 && (contador == X || i<tamanho)){
+			System.out.println("Impossível continuar.\n");
+			printQuerie8(pcpc, contador-i, index-i,tamanho,X);
+		}
+		else if(n == 2 && (contador-20) >= 0){
+			printQuerie8(pcpc, contador-20, index-20,tamanho,X);
+		}
+		else if(n == 2 && (contador-20) <= 0){
+			System.out.println("Impossível retroceder.\n");
+			printQuerie8(pcpc, 0, 0,tamanho,X);
+		}
+		else if(n == 0){
+			sair();
+		}
+		else{
+			System.out.println("Comando inválido\n");
+			printQuerie8(pcpc, contador-i, index-i,tamanho,X);
+		}
+	}
+}
+    
+    
+    void printQuerie9(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho,int X){
+	int n = 0, i,c = 0,j=0;
+
+	System.out.println("########################## GEREVENDAS ##########################\n");
+        
+        for (i=0;i < 10 && index < X && i<tamanho ; i++){
+            System.out.println("Cliente: " + pcpc.get(index).getProdutos() + "\n" + "Valor: "+ pcpc.get(index).getTotal() + "\n");
+	    contador++;
+	    index++;
+            j++;
+            
+	}			
+	System.out.print("################################################################\n");
+	System.out.print("# 1. Continuar.                                                #\n");
+	System.out.print("# 2. Retroceder.                                               #\n");
+	System.out.print("# 0. Sair.                                                     #\n");
+	System.out.print("################################################################\n");
+	System.out.print(">");
+	n = Input.lerInt();
+	if(n > 0){
+		if(n == 1 && contador != X && i<tamanho){
+			printQuerie9(pcpc, contador, index++,tamanho,X);
+		}
+		else if(n == 1 && (contador == X || i<tamanho)){
+			System.out.println("Impossível continuar.\n");
+			printQuerie9(pcpc, contador-X, index-X,tamanho,X);
+		}
+		else if(n == 2 && (contador-40) >= 0){
+			printQuerie9(pcpc, contador-i, index-i,tamanho,X);
+		}
+		else if(n == 2 && (contador-40) <= 0){
+			System.out.println("Impossível retroceder.\n");
+			printQuerie9(pcpc, 0, 0,tamanho,X);
+		}
+		else if(n == 0){
+			sair();
+		}
+		else{
+			System.out.println("Comando inválido\n");
+			printQuerie9(pcpc, contador-i, index-i,tamanho,X);
+		}
+	}
+}
     
     private static void sair(){
         System.out.println("Prima Enter para sair");

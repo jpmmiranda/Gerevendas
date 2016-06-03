@@ -6,7 +6,9 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -110,15 +112,15 @@ public class InfoCliente implements Serializable {
     public TreeSet<ParCliProdsComprados> getCodigoProduto(){
       TreeSet<ParCliProdsComprados> cod;
       cod = new TreeSet<>(new ComparatorProdutosEQuantidade());
-      InfoProdutoComprado ipc = new InfoProdutoComprado(); 
-      for(Produto p : clienteCompras.keySet()){
-         ParCliProdsComprados pcpc=new ParCliProdsComprados();
+      
+      
+      clienteCompras.forEach( (k, v) ->  {
+          ParCliProdsComprados pcpc=new ParCliProdsComprados();
+          pcpc.adicionaTotal(v.getUnidadesVendidas());
+          pcpc.adicionaProduto(k.getCodigo());
+          cod.add(pcpc.clone());      
+         });
 
-          ipc=clienteCompras.get(p);
-          pcpc.adicionaTotal(ipc.getUnidadesVendidas());
-          pcpc.adicionaProduto(p.getCodigo());
-          cod.add(pcpc.clone());
-      }
         return cod;
     }
     
@@ -182,16 +184,36 @@ public class InfoCliente implements Serializable {
         gasto=(int)clienteCompras.get(p).getTotalPago();
         return gasto;
     }
-       
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if ((o == null) || (this.getClass() != o.getClass())) {
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        return false;
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final InfoCliente other = (InfoCliente) obj;
+        if (!Objects.equals(this.clienteCompras, other.clienteCompras)) {
+            return false;
+        }
+        if (this.totalComprados != other.totalComprados) {
+            return false;
+        }
+        if (!Arrays.equals(this.totalgasto, other.totalgasto)) {
+            return false;
+        }
+        if (!Arrays.equals(this.comprasMesN, other.comprasMesN)) {
+            return false;
+        }
+        if (!Arrays.equals(this.comprasMesP, other.comprasMesP)) {
+            return false;
+        }
+        return true;
     }
+    
+    
     @Override
     public InfoCliente clone() throws CloneNotSupportedException {
         return new InfoCliente(this);

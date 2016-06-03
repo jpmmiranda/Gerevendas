@@ -238,7 +238,7 @@ public class Interface implements Serializable{
          
         int opcao;
         boolean r = true;
-                Queries querie = new Queries();
+         Queries querie = new Queries();
 
         while(r){
             System.out.println("####################### GEREVENDAS #################################");
@@ -254,6 +254,7 @@ public class Interface implements Serializable{
                 case 1:
                     querie.querieEstat();
                     r = false;
+                    printEstatisticas();
                     break;
                 default:
                     break;

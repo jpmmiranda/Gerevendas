@@ -6,6 +6,8 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  *
@@ -290,19 +292,69 @@ public class Estatistica implements Serializable {
         s.append("\n");
         return s.toString();
     }
-    
+
+
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if ((o == null) || (this.getClass() != o.getClass())) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Estatistica a = (Estatistica) o;
-
-        return (this.totalClientes == a.getTotalClientes()&& this.totalProdutos == a.getTotalProdutos());
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Estatistica other = (Estatistica) obj;
+        if (!Objects.equals(this.ficheiroVendas, other.ficheiroVendas)) {
+            return false;
+        }
+        if (this.totalRegistosErrados != other.totalRegistosErrados) {
+            return false;
+        }
+        if (this.totalProdutos != other.totalProdutos) {
+            return false;
+        }
+        if (this.totalProdutosDiferentes != other.totalProdutosDiferentes) {
+            return false;
+        }
+        if (this.totalNaoComprados != other.totalNaoComprados) {
+            return false;
+        }
+        if (this.totalClientes != other.totalClientes) {
+            return false;
+        }
+        if (this.totalClientesCompradores != other.totalClientesCompradores) {
+            return false;
+        }
+        if (this.totalClientesNaoCompradores != other.totalClientesNaoCompradores) {
+            return false;
+        }
+        if (this.totalComprasZero != other.totalComprasZero) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.totalFacturacao) != Double.doubleToLongBits(other.totalFacturacao)) {
+            return false;
+        }
+        if (!Arrays.equals(this.totalComprasMes, other.totalComprasMes)) {
+            return false;
+        }
+        if (!Arrays.equals(this.totalFacturacaoFilial1, other.totalFacturacaoFilial1)) {
+            return false;
+        }
+        if (!Arrays.equals(this.totalFacturacaoFilial2, other.totalFacturacaoFilial2)) {
+            return false;
+        }
+        if (!Arrays.equals(this.totalFacturacaoFilial3, other.totalFacturacaoFilial3)) {
+            return false;
+        }
+        if (!Arrays.equals(this.totalFacturacaoMensal, other.totalFacturacaoMensal)) {
+            return false;
+        }
+        if (!Arrays.equals(this.clientesDistintos, other.clientesDistintos)) {
+            return false;
+        }
+        return true;
     }
+    
+    
 
     
 

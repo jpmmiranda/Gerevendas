@@ -90,7 +90,7 @@ public class Venda implements Serializable {
     @Override
     public String toString() {
         StringBuilder st = new StringBuilder();
-        st.append("Venda{");
+        st.append("Venda:");
         st.append("cliente=").append(cliente);
         st.append(", produto=").append(produto);
         st.append(", preço=").append(preco);

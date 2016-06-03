@@ -6,8 +6,10 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -108,8 +110,40 @@ public class InfoProduto implements Serializable{
         UnidadesVendidas++;
         TotalPago+=preco*quant;
         compradoMes[mes-1]+=quant;
-        TotalPagoMes[mes-1]=preco*getCompradoMesIndice(mes);
-     //   clientesComp.add(cli.clone());
+        TotalPagoMes[mes-1]+=preco*quant;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final InfoProduto other = (InfoProduto) obj;
+        if (!Objects.equals(this.produtoCompras, other.produtoCompras)) {
+            return false;
+        }
+        if (this.UnidadesVendidas != other.UnidadesVendidas) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.TotalPago) != Double.doubleToLongBits(other.TotalPago)) {
+            return false;
+        }
+        if (!Arrays.equals(this.compradoMes, other.compradoMes)) {
+            return false;
+        }
+        if (!Arrays.equals(this.TotalPagoMes, other.TotalPagoMes)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public InfoProduto clone() throws CloneNotSupportedException {
+        return new InfoProduto(this);
     }
    
     

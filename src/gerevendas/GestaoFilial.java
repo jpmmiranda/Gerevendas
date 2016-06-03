@@ -8,7 +8,6 @@ package gerevendas;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.TreeSet;
 
@@ -176,13 +175,16 @@ public class GestaoFilial implements Serializable {
     
     /* Querie 1*/
     
-    public ArrayList getProdutosNaoComprados (){
+    public ArrayList<String> getProdutosNaoComprados (){
         ArrayList <String> Produtos = new ArrayList<>();
-        for (Map.Entry<Produto, InfoProduto> ip : comprasDeProduto.entrySet()){
-            if (ip.getValue().getUnidadesVendidas()==0){
-                Produtos.add(ip.getKey().getCodigo());
+        
+         comprasDeProduto.forEach( (k,v) ->  {
+            
+            if (v.getUnidadesVendidas()==0){
+                Produtos.add(k.getCodigo());
             }
-        }
+           });
+        
         return Produtos;
     }
     
@@ -273,31 +275,29 @@ public class GestaoFilial implements Serializable {
     
     public TreeSet<ParCliProdsComprados> maioresCompradoresFilial1(){
        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
-       int valores;
-       for(Cliente p : compradoresFilial1.keySet()){
-                    ParCliProdsComprados pcpc = new ParCliProdsComprados();
-                    pcpc.adicionaProduto(p.getCodigo());
-                    valores = (int)compradoresFilial1.get(p).doubleValue();
-                    pcpc.adicionaTotal(valores);
+       
+       compradoresFilial1.forEach( (Cliente k,Double v) ->  {
+              ParCliProdsComprados pcpc = new ParCliProdsComprados();
+                    pcpc.adicionaProduto(k.getCodigo());
+                    pcpc.adicionaTotal(v.intValue());
                     clientes.add(pcpc);
-       }
-        
-        
+            
+           });
+    
     return clientes;
     } 
     
     
      public TreeSet<ParCliProdsComprados> maioresCompradoresFilial2(){
        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
-       int valores;
-     
-       for(Cliente p : compradoresFilial2.keySet()){
-                    ParCliProdsComprados pcpc = new ParCliProdsComprados();
-                    pcpc.adicionaProduto(p.getCodigo());
-                    valores = (int)compradoresFilial2.get(p).doubleValue();
-                    pcpc.adicionaTotal(valores);
-                    clientes.add(pcpc);
-       }
+       
+       compradoresFilial2.forEach( (Cliente k,Double v) ->  {
+              ParCliProdsComprados pcpc = new ParCliProdsComprados();
+              pcpc.adicionaProduto(k.getCodigo());
+              pcpc.adicionaTotal(v.intValue());
+              clientes.add(pcpc);
+            
+           });
         
         
     return clientes;
@@ -306,15 +306,14 @@ public class GestaoFilial implements Serializable {
      
       public TreeSet<ParCliProdsComprados> maioresCompradoresFilial3(){
        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
-       int valores;
-       for(Cliente p : compradoresFilial3.keySet()){
-                    ParCliProdsComprados pcpc = new ParCliProdsComprados();
-                    pcpc.adicionaProduto(p.getCodigo());
-                    valores = (int)compradoresFilial3.get(p).doubleValue();
-                    pcpc.adicionaTotal(valores);
-                    clientes.add(pcpc);
-       }
-        
+       
+       compradoresFilial3.forEach( (Cliente k,Double v) ->  {
+              ParCliProdsComprados pcpc = new ParCliProdsComprados();
+              pcpc.adicionaProduto(k.getCodigo());
+              pcpc.adicionaTotal(v.intValue());
+              clientes.add(pcpc);
+            
+           });
         
     return clientes;
     } 
@@ -324,16 +323,17 @@ public class GestaoFilial implements Serializable {
     
     public TreeSet<ParCliProdsComprados> compradoresProdutosDiferentes(){
          TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
-       for(Cliente p : comprasDoCliente.keySet()){
-                InfoCliente ip = comprasDoCliente.get(p);
-                    int total = ip.quantidadeDeProdDistintos();
-                    ParCliProdsComprados pcpc = new ParCliProdsComprados();
-                    pcpc.adicionaProduto(p.getCodigo());
-                    pcpc.adicionaTotal(total);
-                    clientes.add(pcpc);
-       }
-        
-        
+       
+         comprasDoCliente.forEach( (k, v) ->  {
+              InfoCliente ip = v;
+              int total = ip.quantidadeDeProdDistintos();
+              ParCliProdsComprados pcpc = new ParCliProdsComprados();
+              pcpc.adicionaProduto(k.getCodigo());
+              pcpc.adicionaTotal(total);
+              clientes.add(pcpc);
+            
+           });
+         
     return clientes;
     }
     
@@ -344,20 +344,17 @@ public class GestaoFilial implements Serializable {
         
         TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());;
         int r=0;
-        for(Cliente cli : comprasDoCliente.keySet()){
-             InfoCliente ic = comprasDoCliente.get(cli);
+        
+        
+         comprasDoCliente.forEach( (k, v) ->  {
+             InfoCliente ic = v;
              if(ic.existeProduto(pro.clone())) {
                   ParCliProdsComprados pcpc = new ParCliProdsComprados();
-                  pcpc.adicionaProduto(cli.getCodigo());
-                  
+                  pcpc.adicionaProduto(k.getCodigo());                  
                   pcpc.adicionaTotal(ic.gastoNoProduto(pro.clone()));
-                  clientes.add(pcpc);
-             
-             }
-            
-        }
-     
-   
+                  clientes.add(pcpc);  
+             }            
+           });
         return clientes;
         
     }

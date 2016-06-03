@@ -6,7 +6,9 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -100,6 +102,19 @@ public class Facturacao implements Serializable {
         }
         return r;
     }
+    
+    
+    private double[][] getTotalFatFilial2() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private double[][] getTotalFatFilial1() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private double[][] getTotalFatFilial3() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     /* Setter*/
     
     
@@ -185,6 +200,25 @@ public class Facturacao implements Serializable {
     
     }
     
+    public TreeSet<ParCliProdsComprados> listaDeXProdutos() {
+         TreeSet<ParCliProdsComprados> cod=new TreeSet<>(new ComparatorProdutosEQuantidade());
+         
+         facturacao.forEach( (k,v) ->  {
+            
+             InfoProdutoFacturacao ip = facturacao.get(k);
+             if(ip.getTotalVendidas()!=0){
+                    ParCliProdsComprados pcpc = new ParCliProdsComprados();
+                    pcpc.adicionaProduto(k.getCodigo());
+                    pcpc.adicionaTotal(ip.getTotalVendidas());
+                    cod.add(pcpc);
+                }
+           });
+      
+        return cod;
+    }    
+
+    
+    
     void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {
         String PouN;
         int mes,quantidade,filial;
@@ -210,46 +244,49 @@ public class Facturacao implements Serializable {
 
         }
         
-        
-        //if(facturacao.containsKey(ven.getProduto())){
-        
+               
                 ipf=this.facturacao.get(ven.getProduto());
                 ipf.incrementaTotalVendidas(quantidade);  
              
-           // }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Facturacao other = (Facturacao) obj;
+        if (!Objects.equals(this.facturacao, other.facturacao)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.totalVendas, other.totalVendas)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.totalFaturado) != Double.doubleToLongBits(other.totalFaturado)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.totalFatFilial1, other.totalFatFilial1)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.totalFatFilial2, other.totalFatFilial2)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.totalFatFilial3, other.totalFatFilial3)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
+    
     @Override
     public Facturacao clone() throws CloneNotSupportedException {
         return new Facturacao(this);
     }
 
-    private double[][] getTotalFatFilial2() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    private double[][] getTotalFatFilial1() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private double[][] getTotalFatFilial3() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   public TreeSet<ParCliProdsComprados> listaDeXProdutos() {
-         TreeSet<ParCliProdsComprados> cod=new TreeSet<>(new ComparatorProdutosEQuantidade());
-       for(Produto p : facturacao.keySet()){
-                InfoProdutoFacturacao ip = facturacao.get(p);
-                if(ip.getTotalVendidas()!=0){
-                    ParCliProdsComprados pcpc = new ParCliProdsComprados();
-                    pcpc.adicionaProduto(p.getCodigo());
-                    pcpc.adicionaTotal(ip.getTotalVendidas());
-                    cod.add(pcpc);
-                }
-       
-       }
-        return cod;
-    }
-
-    
 }

@@ -7,6 +7,7 @@ package gerevendas;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.TreeSet;
 
 /**
@@ -51,6 +52,31 @@ public class CatalogoClientes implements Serializable {
         Character c= Character.toUpperCase(cod.charAt(0));
         return this.CatClientes.get(c).contains(cli);
     }
+
+   
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final CatalogoClientes other = (CatalogoClientes) obj;
+        if (!Objects.equals(this.CatClientes, other.CatClientes)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public CatalogoClientes clone() throws CloneNotSupportedException {
+        return new CatalogoClientes(this);
+    }
+    
+    
+
 }
     
 
