@@ -6,6 +6,7 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -200,9 +201,10 @@ public class Facturacao implements Serializable {
     
     }
     
-    public TreeSet<ParCliProdsComprados> listaDeXProdutos() {
+    public ArrayList<ParCliProdsComprados> listaDeXProdutos(int X) {
          TreeSet<ParCliProdsComprados> cod=new TreeSet<>(new ComparatorProdutosEQuantidade());
-         
+          ArrayList<ParCliProdsComprados> prodFinal=new ArrayList<>();
+         ArrayList<ParCliProdsComprados> prodAux=new ArrayList<>();
          facturacao.forEach( (k,v) ->  {
             
              InfoProdutoFacturacao ip = facturacao.get(k);
@@ -213,8 +215,15 @@ public class Facturacao implements Serializable {
                     cod.add(pcpc);
                 }
            });
-      
-        return cod;
+         
+      cod.forEach( (v) ->  {  
+            prodAux.add(v.clone());
+        });
+        
+        for(int i=0;i<X && i<prodAux.size();i++)
+            prodFinal.add(prodAux.get(i).clone());
+        
+        return prodFinal;
     }    
 
     

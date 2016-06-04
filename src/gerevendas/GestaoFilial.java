@@ -207,15 +207,15 @@ public class GestaoFilial implements Serializable {
     public TrioCliComProFat getClienteParaCadaMes(Cliente c){
     
             int mes,comprasCliente=0;
-            TrioCliComProFat tab = new TrioCliComProFat();
+            TrioCliComProFat tccpf = new TrioCliComProFat();
             InfoCliente ic = this.comprasDoCliente.get(c);
             for (mes = 1; mes <= 12; mes++) {
                 comprasCliente=ic.getComprasMesNindice(mes)+ic.getComprasMesPindice(mes);
-                tab.adicionaDistintos(ic.getProdutosCliente(mes), mes);
-                tab.adicionaFaturacao(ic.getTotalgasto(mes), mes);
-                tab.adicionaCompras(comprasCliente, mes);
+                tccpf.adicionaDistintos(ic.getProdutosCliente(mes), mes);
+                tccpf.adicionaFaturacao(ic.getTotalgasto(mes), mes);
+                tccpf.adicionaCompras(comprasCliente, mes);
             }
-            return tab.clone();
+            return tccpf.clone();
         }
       
      /*Query 4*/
@@ -223,7 +223,7 @@ public class GestaoFilial implements Serializable {
     public TrioProdCompCliFat getProdutoParaCadaMes(Produto p){
     
             int mes,comprasProduto=0;
-            TrioProdCompCliFat tab = new TrioProdCompCliFat();
+            TrioProdCompCliFat tpccf = new TrioProdCompCliFat();
             InfoProduto ip = this.comprasDeProduto.get(p);
             int r[]=new int [12];
             for(InfoCliente ic : comprasDoCliente.values()){
@@ -234,11 +234,11 @@ public class GestaoFilial implements Serializable {
             }
             for (mes = 1; mes <= 12; mes++) {
                 comprasProduto=ip.getCompradoMesIndice(mes);
-                tab.adicionaClientesDistintos(r[mes-1], mes);
-                tab.adicionaFaturacao(ip.getTotalPagoMesIndice(mes), mes);
-                tab.adicionaCompras(comprasProduto, mes);
+                tpccf.adicionaClientesDistintos(r[mes-1], mes);
+                tpccf.adicionaFaturacao(ip.getTotalPagoMesIndice(mes), mes);
+                tpccf.adicionaCompras(comprasProduto, mes);
             }
-            return tab.clone();
+            return tpccf.clone();
         }
     
     
@@ -321,9 +321,11 @@ public class GestaoFilial implements Serializable {
     /*Querie 8*/
     
     
-    public TreeSet<ParCliProdsComprados> compradoresProdutosDiferentes(){
+    public ArrayList<ParCliProdsComprados> compradoresProdutosDiferentes(int X){
          TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
-       
+         ArrayList<ParCliProdsComprados> clientesFinal=new ArrayList<>();
+         ArrayList<ParCliProdsComprados> clientesAux=new ArrayList<>();
+
          comprasDoCliente.forEach( (k, v) ->  {
               InfoCliente ip = v;
               int total = ip.quantidadeDeProdDistintos();
@@ -333,18 +335,26 @@ public class GestaoFilial implements Serializable {
               clientes.add(pcpc);
             
            });
+       
+        clientes.forEach( (v) ->  {  
+            clientesAux.add(v.clone());
+        });
+        
+        for(int i=0;i<X && i<clientesAux.size();i++)
+            clientesFinal.add(clientesAux.get(i).clone());
+        
          
-    return clientes;
+    return clientesFinal;
     }
     
     /* Querie 9 */
     
     
-    public TreeSet<ParCliProdsComprados> listaDeClientes(Produto pro) {
+    public ArrayList<ParCliProdsComprados> listaDeClientes(Produto pro,int X) {
         
-        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());;
-        int r=0;
-        
+        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
+        ArrayList<ParCliProdsComprados> clientesFinal=new ArrayList<>();
+        ArrayList<ParCliProdsComprados> clientesAux=new ArrayList<>();
         
          comprasDoCliente.forEach( (k, v) ->  {
              InfoCliente ic = v;
@@ -355,7 +365,15 @@ public class GestaoFilial implements Serializable {
                   clientes.add(pcpc);  
              }            
            });
-        return clientes;
+        clientes.forEach( (v) ->  {  
+            clientesAux.add(v.clone());
+        });
+        
+        for(int i=0;i<X && i<clientesAux.size();i++)
+            clientesFinal.add(clientesAux.get(i).clone());
+        
+         
+    return clientesFinal;
         
     }
     
@@ -363,6 +381,7 @@ public class GestaoFilial implements Serializable {
     
     
     
+    @Override
      public boolean equals(Object o) {
         if (o == this) {
             return true;
