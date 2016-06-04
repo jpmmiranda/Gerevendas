@@ -7,12 +7,9 @@ package gerevendas;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,26 +21,21 @@ public class InfoProduto implements Serializable{
      
    private Map<Produto, InfoProdutoComprado> produtoCompras;
    private int UnidadesVendidas;
-   private double TotalPago;
    private int compradoMes[];
    private double TotalPagoMes[];
 
-   // private Set<Cliente> clientesComp;
    
     public InfoProduto(){
     this.produtoCompras=new TreeMap<>(new ComparatorCodigoProduto());
     this.UnidadesVendidas = 0;
-    this.TotalPago = 0.0;
     this.TotalPagoMes =new double [12];
     this.compradoMes = new int[12];
 
-  //  this.clientesComp=new HashSet<>();
     }
    
-    public InfoProduto(TreeMap<Produto, InfoProdutoComprado> produtoCompras,int UnidadesVendidas, double TotalPago,double[] TotalPagoMes,int[] compradoMes) {
+    public InfoProduto(TreeMap<Produto, InfoProdutoComprado> produtoCompras,int UnidadesVendidas,double[] TotalPagoMes,int[] compradoMes) {
         this.produtoCompras=produtoCompras;
         this.UnidadesVendidas = UnidadesVendidas;
-        this.TotalPago = TotalPago;
         this.TotalPagoMes = TotalPagoMes.clone();
         this.compradoMes =compradoMes.clone();
     }
@@ -51,7 +43,6 @@ public class InfoProduto implements Serializable{
      public InfoProduto(InfoProduto ip) throws CloneNotSupportedException{
         this.produtoCompras=ip.getProdutoCompras();
         this.UnidadesVendidas=ip.getUnidadesVendidas();
-        this.TotalPago=getTotalPago();
         this.TotalPagoMes=getTotalPagoMes();
         this.compradoMes=getCompradoMes();
         
@@ -86,10 +77,7 @@ public class InfoProduto implements Serializable{
         return UnidadesVendidas;
     }
 
-    public double getTotalPago() {
-        return TotalPago;
-    }
-    
+   
      public double[] getTotalPagoMes() {
         return TotalPagoMes;
     }
@@ -108,7 +96,6 @@ public class InfoProduto implements Serializable{
 
     void adicionaInfoProduto(double preco, int quant,int mes) {
         UnidadesVendidas++;
-        TotalPago+=preco*quant;
         compradoMes[mes-1]+=quant;
         TotalPagoMes[mes-1]+=preco*quant;
     }
@@ -129,9 +116,7 @@ public class InfoProduto implements Serializable{
         if (this.UnidadesVendidas != other.UnidadesVendidas) {
             return false;
         }
-        if (Double.doubleToLongBits(this.TotalPago) != Double.doubleToLongBits(other.TotalPago)) {
-            return false;
-        }
+       
         if (!Arrays.equals(this.compradoMes, other.compradoMes)) {
             return false;
         }

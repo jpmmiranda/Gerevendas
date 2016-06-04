@@ -20,28 +20,20 @@ public class Leitura implements Serializable {
     
      private static int Clientes = 0, Produtos = 0,Compras = 0, Preco0 = 0, Errados=0;
     
-    public Leitura(){}
-
+  
     
     static void lerVendas() throws  IOException, CloneNotSupportedException {
-        String linha;
+       
         Hipermercado hiper = Gerevendas.getHipermercado();
-        int linhasValidas=0;
-        int linhasInvalidas=0;
+      
         Venda v;
         String fich="Vendas_1M.txt";
-       /* BufferedReader in = null;
-            try {
-                in = new BufferedReader(new FileReader("Vendas_3M.txt"));
-            } catch (FileNotFoundException ex) {
-                 out.println(ex.getMessage());
-            }*/
-               ArrayList<String> codigos = new ArrayList<>();
+      
+        ArrayList<String> codigos = new ArrayList<>();
 
         codigos = readLinesWithBuff(fich);
         for(String c : codigos){
-      //  while ((linha = in.readLine())!= null) {
-                 
+     
             String[] partes = c.split(" ");
             Produto pro = new Produto(partes[0]);
             double preco = Double.parseDouble(partes[1]);

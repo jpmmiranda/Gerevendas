@@ -21,7 +21,6 @@ import java.util.logging.Logger;
 public class InfoCliente implements Serializable {
     
     private Map<Produto, InfoProdutoComprado> clienteCompras; // Cada cliente tem os seus produtos
-    private int totalComprados;
     private int[] totalgasto;
     private int[] comprasMesN;
     private int[] comprasMesP;
@@ -30,15 +29,13 @@ public class InfoCliente implements Serializable {
     /* Corrigir erros nos construtores */
     public InfoCliente(){
         this.clienteCompras=new TreeMap<>(new ComparatorCodigoProduto());
-        this.totalComprados=0;
         this.comprasMesN=new int[12];
         this.comprasMesP=new int[12];
         this.totalgasto=new int[12];
     }
     
-    public InfoCliente(TreeMap<Produto, InfoProdutoComprado> clienteCompras, int totalComprados, int[] compraN,int[] compraP,int[] tg) {
+    public InfoCliente(TreeMap<Produto, InfoProdutoComprado> clienteCompras, int[] compraN,int[] compraP,int[] tg) {
         this.clienteCompras = clienteCompras;
-        this.totalComprados = totalComprados;
         this.comprasMesN=compraN.clone();
         this.comprasMesP=compraP.clone();
         this.totalgasto=tg.clone();
@@ -47,7 +44,6 @@ public class InfoCliente implements Serializable {
     
     public InfoCliente(InfoCliente ic) throws CloneNotSupportedException{
         this.clienteCompras=ic.getClienteCompras();
-        this.totalComprados=ic.getTotalComprados();
         this.comprasMesN=ic.getComprasMesN();
         this.comprasMesP=ic.getComprasMesP();
         this.totalgasto=ic.getTotalgasto();
@@ -88,9 +84,7 @@ public class InfoCliente implements Serializable {
         return res;
     }
 
-    public int getTotalComprados() {
-        return totalComprados;
-    }
+   
     
     public int getComprasMesNindice(int i) {
         return comprasMesN[i-1];
@@ -133,16 +127,13 @@ public class InfoCliente implements Serializable {
         this.clienteCompras = clienteCompras;
     }
 
-    public void setTotalComprados(int totalComprados) {
-        this.totalComprados = totalComprados;
-    }
+  
     
     
      /* Métodos */
     
        void adicionaInfo(Venda v) throws CloneNotSupportedException {
         
-        this.totalComprados++;
         String PouN = v.getPouN();
         int mes=v.getMes();
         double preco=v.getPreco();
@@ -196,9 +187,6 @@ public class InfoCliente implements Serializable {
         }
         final InfoCliente other = (InfoCliente) obj;
         if (!Objects.equals(this.clienteCompras, other.clienteCompras)) {
-            return false;
-        }
-        if (this.totalComprados != other.totalComprados) {
             return false;
         }
         if (!Arrays.equals(this.totalgasto, other.totalgasto)) {

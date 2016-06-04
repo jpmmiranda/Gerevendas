@@ -106,15 +106,15 @@ public class Facturacao implements Serializable {
     
     
     private double[][] getTotalFatFilial2() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return  this.totalFatFilial2.clone();
     }
 
     private double[][] getTotalFatFilial1() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return  this.totalFatFilial1.clone();
     }
 
     private double[][] getTotalFatFilial3() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return  this.totalFatFilial3.clone();
     }
     /* Setter*/
     
