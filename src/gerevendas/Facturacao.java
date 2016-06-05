@@ -16,8 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Classe que implementa o módulo de Facturacao
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class Facturacao implements Serializable {
     
@@ -29,7 +30,9 @@ public class Facturacao implements Serializable {
     double[][] totalFatFilial3;
      
     
-    /*Construtores*/
+    /**
+     * Construtor Vazio
+     */
      
     public Facturacao() {
         this.facturacao = new TreeMap<>(new ComparatorCodigoProduto());
@@ -40,7 +43,17 @@ public class Facturacao implements Serializable {
         this.totalFatFilial3 = new double[12][2];
 
     }
-   
+    
+    /**
+     * Construtor Parametrizado
+     * @param fact Map a ser colocado em facturacao
+     * @param tVendas Total de vendas mensais, por tipo P ou N
+     * @param tFaturado Total Facturado
+     * @param tf1 Total Facturado Filial 1
+     * @param tf2 Total Facturado Filial 2
+     * @param tf3 Total Facturado Filial 3
+     * @throws java.lang.CloneNotSupportedException
+     */
     public Facturacao(Map<Produto, InfoProdutoFacturacao> fact,int[][] tVendas,double tFaturado,double[][] tf1,double[][] tf2,double[][] tf3) throws CloneNotSupportedException {
         this.totalFaturado = tFaturado;
         this.totalVendas = tVendas;
@@ -59,16 +72,25 @@ public class Facturacao implements Serializable {
 
     }
     
+    
+    /**
+     * Construtor de Cópia
+     * @param fact Objecto a ser Copiado
+     * @throws java.lang.CloneNotSupportedException
+     */
     public Facturacao(Facturacao fact) throws CloneNotSupportedException {
         this.facturacao = fact.getFacturacao();
-        this.totalFaturado = fact.getTotalFaturado();
+        this.totalFaturado = fact.getTotalFaturadoGlobal();
         this.totalVendas = fact.getTotalVendas();
         this.totalFatFilial1=fact.getTotalFatFilial1();
          this.totalFatFilial2=fact.getTotalFatFilial2();
          this.totalFatFilial3=fact.getTotalFatFilial3();
     }
     
-    /*Getter*/
+    /**
+     * 
+     * @return Map de facturacao
+     */
 
     public Map<Produto, InfoProdutoFacturacao> getFacturacao() throws CloneNotSupportedException {
         TreeMap<Produto, InfoProdutoFacturacao> aux = new TreeMap<>();
@@ -82,19 +104,28 @@ public class Facturacao implements Serializable {
         return aux;
     }
 
+    /**
+     * 
+     * @return Total de vendas
+     */
     public int[][] getTotalVendas() {
         return totalVendas.clone();
     }
 
-    public double getTotalFaturado() {
-        return totalFaturado;
-    }
     
+    /**
+     * 
+     * @return Total facturado
+     */
     public double getTotalFaturadoGlobal(){
         
         return totalFaturado;
     }
     
+    /**
+     * Metodo que calcula os produtos não comprados
+     * @return Total de produtos nao comprados
+     */
     public int getTotalProdutosNaoComprados(){
         int  r=0;
         for(InfoProdutoFacturacao p : facturacao.values()){
@@ -104,43 +135,76 @@ public class Facturacao implements Serializable {
         return r;
     }
     
-    
+    /**
+     * 
+     * @return Total facturado na Filial 2
+     */
     private double[][] getTotalFatFilial2() {
       return  this.totalFatFilial2.clone();
     }
-
+    
+    /**
+     * 
+     * @return Total facturado na Filial 1
+     */
     private double[][] getTotalFatFilial1() {
         return  this.totalFatFilial1.clone();
     }
 
+    /**
+     * 
+     * @return Total facturado na Filial 3
+     */
     private double[][] getTotalFatFilial3() {
         return  this.totalFatFilial3.clone();
     }
-    /* Setter*/
     
+    /**
+     * Actualiza facturacao
+     *
+     * @param facturacao Map a actualizar 
+     */
     
     public void setFacturacao(Map<Produto, InfoProdutoFacturacao> facturacao){
         this.facturacao = facturacao;
     }
 
+    /**
+     * Actualiza total de vendas
+     *
+     * @param totalVendas Vendas a actualizar
+     */
     public void setTotalVendas(int[][] totalVendas) {
         this.totalVendas = totalVendas.clone();
     }
 
+    /**
+     * Actualiza total facturado
+     *
+     * @param totalFaturado Valor a actualizar
+     */
     public void setTotalFaturado(double totalFaturado) {
         this.totalFaturado = totalFaturado;
     }
     
     
-   /* Metodos */
+   /**
+     * Adiciona produto 
+     * @param prod Produto a ser inserido
+     */
     
-    void adicionaProduto(Produto prod){
+   public  void adicionaProduto(Produto prod){
         InfoProdutoFacturacao ipf = new InfoProdutoFacturacao();
 
         this.facturacao.put(prod.clone(),ipf );
     
     }
     
+    /**
+     * Calcula vendas mensais 
+     * @param mes Mês a ser calculadas as vendas
+     * @return Total de vendas mensais
+     */
     public int vendasMensais(int mes){
     
         int vendas=0;
@@ -150,30 +214,27 @@ public class Facturacao implements Serializable {
         return vendas;
     }
     
+    /**
+     * Calcula total facturado mensal
+     * @param mes Mês a ser calculado o total facturado
+     * @return Total Facturado mensal
+     */
     public double totalFacturadoMensal(int mes){
     
-        double fat=0;
-       
+        double fat;
         fat=totalFatFilial1[mes][0]+totalFatFilial1[mes][1]+totalFatFilial2[mes][0]+totalFatFilial2[mes][1]+totalFatFilial3[mes][0]+totalFatFilial3[mes][1];
          
         return fat;
     }
     
-    public int vendasglobais(){
-    
-        int i=0,j=0;
-        int vendas=0;
-        for(;i<12;i++){
-            for(;j<2;j++){
-                vendas+=totalVendas[i][j];
-            }
-        }
-        return vendas;
-    }
-    
+     /**
+     * Calcula total facturado mensal na filial 1
+     * @param mes Mês a ser calculado o total facturado
+     * @return Total Facturado mensal na filial 1
+     */
     public double totalFaturadoFilial1(int mes){
     
-        double r=0.0;
+        double r;
         
          r=totalFatFilial1[mes][0]+totalFatFilial1[mes][1];
         
@@ -181,9 +242,14 @@ public class Facturacao implements Serializable {
     
     }
     
+    /**
+     * Calcula total facturado mensal na filial 2
+     * @param mes Mês a ser calculado o total facturado
+     * @return Total Facturado mensal na filial 2
+     */
     public double totalFaturadoFilial2(int mes){
     
-        double r=0.0;
+        double r;
         
          r=totalFatFilial2[mes][0]+totalFatFilial2[mes][1];
         
@@ -191,15 +257,26 @@ public class Facturacao implements Serializable {
     
     }
     
+    /**
+     * Calcula total facturado mensal na filial 3
+     * @param mes Mês a ser calculado o total facturado
+     * @return Total Facturado mensal na filial 3
+     */
     public double totalFaturadoFilial3(int mes){
     
-        double r=0.0;
+        double r;
         
          r=totalFatFilial3[mes][0]+totalFatFilial3[mes][1];
         
         return r;
     
     }
+    
+    /**
+     * Método que devolve X produtos vendidos
+     * @param X Limite de produtos a retornar
+     * @return Lista com produtos vendidos.
+     */
     
     public ArrayList<ParCliProdsComprados> listaDeXProdutos(int X) {
          TreeSet<ParCliProdsComprados> cod=new TreeSet<>(new ComparatorProdutosEQuantidade());
@@ -227,8 +304,12 @@ public class Facturacao implements Serializable {
     }    
 
     
-    
-    void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {
+    /**
+     * Adiciona dados acerca de uma venda
+     * @param ven Venda de onde serão recolhidos os dados
+     * @throws java.lang.CloneNotSupportedException
+     */
+    public void adicionaFaturacao(Venda ven) throws CloneNotSupportedException {
         String PouN;
         int mes,quantidade,filial;
         double preco ;
@@ -258,7 +339,12 @@ public class Facturacao implements Serializable {
                 ipf.incrementaTotalVendidas(quantidade);  
              
     }
-
+    
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param obj Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -290,8 +376,11 @@ public class Facturacao implements Serializable {
     }
 
     
-    
-    
+    /**
+     *
+     * @return Novo Objecto como cópia da instância Actual
+     * @throws java.lang.CloneNotSupportedException
+     */
     @Override
     public Facturacao clone() throws CloneNotSupportedException {
         return new Facturacao(this);

@@ -9,50 +9,73 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * Classe Cliente
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class Cliente implements Serializable{
     private String codigo;
 
-    /*Construtores*/
+    /**
+     * Construtor vazio
+     */
    
     public Cliente() {
         codigo = "";
     }
 
-    
+    /**
+     * Construtor parametrizado 
+     * @param cod código de cliente
+     */
     public Cliente(String cod) {
         codigo = cod;
     }
 
+    /**
+     * Construtor de cópia de uma instância da classe Cliente
+     *
+     * @param cliente cliente a ser copiado
+     */
     public Cliente(Cliente cliente) {
         codigo = cliente.getCodigo();
     }
 
-    /*Getter*/
+     /**
+     * 
+     * @return Código de Cliente 
+     */
     
     public String getCodigo() {
         return codigo;
     }
     
-    /*Setter*/
+    /**
+     * Insere o Código de Cliente
+     * @param codigo Código de Cliente
+     */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
     
-    /*
-    Metodos
-    */
-
+    
+    /**
+     * 
+     * @return HashCode de Cliente
+     */
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 79 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
-
+    
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param obj Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -68,12 +91,18 @@ public class Cliente implements Serializable{
         return this.codigo.equals(cliente.codigo);
     }
 
-    
+    /**
+     * 
+     * @return Novo objecto como cópia da instância actual
+     */
     @Override
     public Cliente clone() {
         return new Cliente(this);
     }
-
+    /**
+     * Método toString
+     * @return String construída
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -81,6 +110,11 @@ public class Cliente implements Serializable{
         return sb.toString();
     }
     
+     /**
+     * Método compara dois clientes
+     * @param c Cliente a comparar
+     * @return inteiro de comparação
+     */
     public int compareTo(Cliente c) {
         return this.codigo.compareTo(c.getCodigo());
     }

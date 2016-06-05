@@ -47,13 +47,12 @@ public class Leitura implements Serializable {
                     v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
                     if(preco==0) Preco0++;
                     hiper.insereVendaValida(v.clone());
-                    Compras++;
             }else{
                     Errados++;
             } 
                 
         }
-        hiper.insereEstatistica(fich,Clientes,Produtos,Compras,Preco0,Errados);
+        hiper.insereEstatistica(fich,Clientes,Produtos,Preco0,Errados);
 
 
   }

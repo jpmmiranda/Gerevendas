@@ -9,10 +9,19 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- *
- * @author Rui
+ * Classe que permitirá a ordenação de ParCliProdsComprados utilizando o seguinte algoritmo:
+ * -><p>Deverá estar ordenado por quantidade,</p>
+ * -><p>Para quantidades iguais ordenar alfabeticamente</p>
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class ComparatorProdutosEQuantidade implements Comparator<ParCliProdsComprados>,Serializable{
+    
+    /**
+     * Método de comparação 
+     * @param o1 ParCliProdsComprados a comparar
+     * @param o2 ParCliProdsComprados a comparar
+     * @return Valor comparativo entre o1 e o2
+     */
     @Override
     public int compare(ParCliProdsComprados o1, ParCliProdsComprados o2) {
         float tot1=o1.getTotal();

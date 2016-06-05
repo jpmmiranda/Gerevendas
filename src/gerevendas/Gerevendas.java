@@ -9,23 +9,39 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
+ * Classe Inicial
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class Gerevendas implements Serializable {
     
     private static Hipermercado hipermercado;
 
+    /**
+     * Método Main
+     *
+     * @param args Argumentos passados na linha de comando
+     * @throws java.lang.CloneNotSupportedException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
     public static void main(String[] args) throws CloneNotSupportedException, IOException, ClassNotFoundException {
         hipermercado = new Hipermercado();
         Interface.printMenu();
     }
 
-    
+    /**
+     * 
+     * @return Retorna Hipermercado
+     */
     public static Hipermercado getHipermercado() {
         return hipermercado;
     }
-
+    
+    /**
+     * Insere Hipermercado
+     * @param aHipermercado Hipermercado a inserir
+     */
     public static void setHipermercado(Hipermercado aHipermercado) {
         hipermercado = aHipermercado;
     }

@@ -11,15 +11,18 @@ import java.util.Objects;
 import java.util.TreeSet;
 
 /**
+ * Classe que implementa a estrutura de dados de um Catálogo de Produtos
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class CatalogoProdutos implements Serializable{
     
   private HashMap<Character,TreeSet<Produto>> CatProdutos;
     
     
-    /*Construtores*/
+    /**
+     * Construtor vazio
+     */
     public  CatalogoProdutos(){
         this.CatProdutos = new HashMap<>();
         for (Character c = 'A'; c <= 'Z'; c++) {
@@ -27,11 +30,19 @@ public class CatalogoProdutos implements Serializable{
         }
     }
     
+    /**
+     * Construtor de cópia de uma instância da classe CatalogoProdutos
+     *
+     * @param cp Catálogo a ser copiado
+     */
      public CatalogoProdutos(CatalogoProdutos cp) {
         this.CatProdutos = cp.getCatProdutos();
     }
     
-    /* Getters*/
+    /**
+     * 
+     * @return Catálogo de Produtos existente no objecto
+     */
 
     public HashMap<Character, TreeSet<Produto>> getCatProdutos() {
        HashMap<Character, TreeSet<Produto>> res = new HashMap<>();
@@ -48,24 +59,37 @@ public class CatalogoProdutos implements Serializable{
         return res;
     }
      
-    /*Metodos*/
+    /**
+     * Método que adiciona um produto ao catalogo
+     *
+     * @param pro Produto a ser inserido
+     */
     
-    void adicionaProduto(Produto pro) {
+    public void adicionaProduto(Produto pro) {
         String cod = pro.getCodigo();
         Character c= Character.toUpperCase(cod.charAt(0));
         this.CatProdutos.get(c).add(pro.clone());
     }
     
    
-     
-    Boolean existeProduto(Produto pro) {
+     /**
+     * Método de verificação da existência de um Produto no catálogo de Produtos
+     * @param pro Código a ser verificado
+     * @return Existência do Código
+     */
+    
+    public boolean existeProduto(Produto pro) {
         String cod = pro.getCodigo();
         Character c= Character.toUpperCase(cod.charAt(0));
         return this.CatProdutos.get(c).contains(pro);
         
     }
 
-
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param obj Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -81,6 +105,10 @@ public class CatalogoProdutos implements Serializable{
         return true;
     }
     
+    /**
+     * Método clone
+     * @return Uma nova instância de CatalogoClientes 
+     */
     @Override
     public CatalogoProdutos clone() throws CloneNotSupportedException {
         return new CatalogoProdutos(this);

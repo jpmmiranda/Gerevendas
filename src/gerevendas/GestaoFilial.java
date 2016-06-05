@@ -12,8 +12,9 @@ import java.util.Objects;
 import java.util.TreeSet;
 
 /**
+ * Classe que implementa o módulo de Gestão Filial
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class GestaoFilial implements Serializable {
     
@@ -25,7 +26,9 @@ public class GestaoFilial implements Serializable {
     
     
     
-    /*Construtor*/
+   /**
+     * Construtor Vazio
+     */
     public GestaoFilial() {
         this.comprasDoCliente = new HashMap<>();
         this.comprasDeProduto = new HashMap<>();
@@ -35,7 +38,14 @@ public class GestaoFilial implements Serializable {
 
     }
     
-    
+    /**
+     * Construtor Parametrizado
+     * @param comprasDoCliente Map a ser colocado em comprasDoCliente
+     * @param comprasDeProduto Map a ser colocado em comprasDProduto
+     * @param compras1 Map a ser colocado em compradoresFilial1
+     * @param compras2 Map a ser colocado em compradoresFilial2
+     * @param compras3 Map a ser colocado em compradoresFilial3
+     */
     public GestaoFilial(HashMap<Cliente, InfoCliente> comprasDoCliente, HashMap<Produto, InfoProduto> comprasDeProduto,HashMap<Cliente, Double> compras1,HashMap<Cliente, Double> compras2,HashMap<Cliente, Double> compras3) {
         this.comprasDoCliente = comprasDoCliente;
         this.comprasDeProduto = comprasDeProduto;
@@ -44,6 +54,10 @@ public class GestaoFilial implements Serializable {
         this.compradoresFilial3=compras3;
     }
 
+     /**
+     * Construtor de Cópia
+     * @param gf Objecto a ser Copiado
+     */
      public GestaoFilial(GestaoFilial gf) {
         this.comprasDoCliente = gf.getComprasDoCliente();
         this.comprasDeProduto = gf.getComprasDeProduto();
@@ -52,53 +66,99 @@ public class GestaoFilial implements Serializable {
         this.compradoresFilial3=gf.getCompradoresFilial3();
     }
 
-    /*Getters*/
+    /**
+     * 
+     * @return Map de ComprasDoCliente
+     */   
     public HashMap<Cliente,InfoCliente> getComprasDoCliente() {
         return comprasDoCliente;
     }
-
+    
+    /**
+     * 
+     * @return Map de ComprasDeProduto
+     */   
     public HashMap<Produto,InfoProduto> getComprasDeProduto() {
         return comprasDeProduto;
     }
   
+    /**
+     * 
+     * @return Map de CompradoresFilial1
+     */   
     private HashMap<Cliente, Double> getCompradoresFilial1() {
         return compradoresFilial1;
     }
 
+    /**
+     * 
+     * @return Map de CompradoresFilial2
+     */   
     private HashMap<Cliente, Double> getCompradoresFilial2() {
         return compradoresFilial2;
     }
 
+    /**
+     * 
+     * @return Map de CompradoresFilial3
+     */   
     private HashMap<Cliente, Double> getCompradoresFilial3() {
         return compradoresFilial3;
     }
 
-    /*Setters*/
-
+     /**
+     * Actualiza ComprasDoCliente
+     *
+     * @param comprasDoCliente compras do cliente a actualizar
+     */
     public void setComprasDoCliente(HashMap<Cliente,InfoCliente> comprasDoCliente) {
         this.comprasDoCliente = comprasDoCliente;
     }
-
+    
+    /**
+     * Actualiza ComprasDeProduto
+     *
+     * @param comprasDeProduto compras de produto a actualizar
+     */
     public void setComprasDeProduto(HashMap<Produto,InfoProduto> comprasDeProduto) {
         this.comprasDeProduto = comprasDeProduto;
     }
     
-
+     /**
+     * Actualiza CompradoresFilial1
+     *
+     * @param compradoresFilial1 compradores da filial 1 a actualizar
+     */
     public void setCompradoresFilial1(HashMap<Cliente, Double> compradoresFilial1) {
         this.compradoresFilial1 = compradoresFilial1;
     }
-
+    
+    /**
+     * Actualiza CompradoresFilial2
+     *
+     * @param compradoresFilial2 compradores da filial 2 a actualizar
+     */
     public void setCompradoresFilial2(HashMap<Cliente, Double> compradoresFilial2) {
         this.compradoresFilial2 = compradoresFilial2;
     }
-
+    
+    /**
+     * Actualiza CompradoresFilial3
+     *
+     * @param compradoresFilial3 compradores da filial 3 a actualizar
+     */
     public void setCompradoresFilial3(HashMap<Cliente, Double> compradoresFilial3) {
         this.compradoresFilial3 = compradoresFilial3;
     }
     
-    /* Métodos */
+    /**
+     * Adiciona compra de cliente
+     *
+     * @param v Venda de onde serão retirados os dados da inserção
+     * @throws java.lang.CloneNotSupportedException
+     */
 
-    void adicionaComprasCliente(Venda v) throws CloneNotSupportedException {
+    public void adicionaComprasCliente(Venda v) throws CloneNotSupportedException {
       
       int filial = v.getFilial();
       double d;
@@ -118,21 +178,38 @@ public class GestaoFilial implements Serializable {
                     
     }
     
+    /**
+     * Adiciona cliente
+     *
+     * @param cli Cliente a ser adicionado
+     * @throws java.lang.CloneNotSupportedException
+     */
     
-    
-    void adicionaClienteInicial(Cliente cli) throws CloneNotSupportedException{
+    public void adicionaClienteInicial(Cliente cli) throws CloneNotSupportedException{
         InfoCliente ic = new InfoCliente();
         this.comprasDoCliente.put(cli.clone(), ic);
        
 
     }
 
-    void adicionaProdutoInicial(Produto pro) {
+    /**
+     * Adiciona produto
+     *
+     * @param pro Produto a ser adicionado
+     */
+    public void adicionaProdutoInicial(Produto pro) {
         InfoProduto ip = new InfoProduto();
         this.comprasDeProduto.put(pro.clone(), ip);
     }
     
-    void adicionaComprasDeProduto(Venda v) throws CloneNotSupportedException {
+    /**
+     * Adiciona vendas de produto
+     *
+     * @param v Venda de onde serão retirados os dados da inserção
+     * @throws java.lang.CloneNotSupportedException
+     */
+    
+    public void adicionaComprasDeProduto(Venda v) throws CloneNotSupportedException {
        
       
         double preco=v.getPreco();
@@ -142,12 +219,17 @@ public class GestaoFilial implements Serializable {
 
     }
     
+    /**
+     * @return Total de Clientes Compradores  
+     */
     public int getTotalDeClientesCompradores(){
     
         return comprasDoCliente.size();
     }
     
-       
+    /**
+     * @return Total de produtos diferentes vendidos  
+     */  
     public int getTotalProdutosDiferentesComprados(){
         int r=0;
         
@@ -159,7 +241,11 @@ public class GestaoFilial implements Serializable {
     
     
     
-    
+    /**
+     * Calcula número de compradores em determindado mês
+     * @param mes Mês de onde será calculado os compradores
+     * @return Total de compradores em determinada mês  
+     */
     public int compradoresMes(int mes) {
         int res=0;
         for (InfoCliente ic : this.comprasDoCliente.values()) {
@@ -171,9 +257,11 @@ public class GestaoFilial implements Serializable {
         
         return res;
     }
-    /*--------------------------- Metodos de apoio a Queries -----------------*/
     
-    /* Querie 1*/
+     /**
+     * Calcula total produtos não vendidos (Apoio Query 1)
+     * @return Total de produtos não vendidos 
+     */
     
     public ArrayList<String> getProdutosNaoComprados (){
         ArrayList <String> Produtos = new ArrayList<>();
@@ -189,8 +277,12 @@ public class GestaoFilial implements Serializable {
     }
     
     
-    /* Querie 2*/
     
+     /**
+     * Calcula de clientes distintos num dado mês (Apoio Query 2)
+     * @param mes Mês a ser calculado o valor.
+     * @return Total de clientes distintos
+     */
       public int getClientesMes(int mes){
         int totClientes=0;
         for(InfoCliente ic:comprasDoCliente.values()){
@@ -202,7 +294,12 @@ public class GestaoFilial implements Serializable {
         return totClientes;
     }
     
-    /*Querie 3*/
+    
+     /**
+     * Calcula número de compras, número de produtos e total gasto, de um dado cliente, mensalmente (Apoio Query 3)
+     * @param c Cliente
+     * @return TrioCliComProFat com os dados recolhidos
+     */
       
     public TrioCliComProFat getClienteParaCadaMes(Cliente c){
     
@@ -218,11 +315,15 @@ public class GestaoFilial implements Serializable {
             return tccpf.clone();
         }
       
-     /*Query 4*/
+    /**
+     * Calcula número de vendas, número de clientes e total facturado, de um dado produto, mensalmente (Apoio Query 4)
+     * @param p Produto
+     * @return TrioProdCompCliFat com os dados recolhidos
+     */
       
     public TrioProdCompCliFat getProdutoParaCadaMes(Produto p){
     
-            int mes,comprasProduto=0;
+            int mes,comprasProduto;
             TrioProdCompCliFat tpccf = new TrioProdCompCliFat();
             InfoProduto ip = this.comprasDeProduto.get(p);
             int r[]=new int [12];
@@ -243,7 +344,11 @@ public class GestaoFilial implements Serializable {
     
     
     
-    /*Query 5 */
+     /**
+     * Calcula lista de produtos comprados por um dado cliente (Apoio Query 5)
+     * @param c Cliente
+     * @return lista de produtos comprados por um dado cliente
+     */
     
     public TreeSet<ParCliProdsComprados> listaDeProdutos(Cliente c){
        TreeSet<ParCliProdsComprados> cod;
@@ -254,7 +359,11 @@ public class GestaoFilial implements Serializable {
     } 
     
     
-    /*Query6*/
+    /**
+     * Calcula quantidade de compradores para determinado produto (Apoio Query 6)
+     * @param pro Codigo de Produto
+     * @return quantidade de compradores para um dado codigo de produto
+     */
     
     public int quantidadeDeCompradores(String pro){
        int r=0;
@@ -271,7 +380,10 @@ public class GestaoFilial implements Serializable {
     
     
     
-    /*Querie 7 */
+     /**
+     * Calcula lista dos maiores compradores para a filial 1(Apoio Query 7)
+     * @return lista dos maiores compradores para a filial 1
+     */
     
     public TreeSet<ParCliProdsComprados> maioresCompradoresFilial1(){
        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
@@ -287,7 +399,10 @@ public class GestaoFilial implements Serializable {
     return clientes;
     } 
     
-    
+     /**
+     * Calcula lista dos maiores compradores para a filial 2(Apoio Query 7)
+     * @return lista dos maiores compradores para a filial 2
+     */
      public TreeSet<ParCliProdsComprados> maioresCompradoresFilial2(){
        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
        
@@ -303,8 +418,11 @@ public class GestaoFilial implements Serializable {
     return clientes;
     } 
    
-     
-      public TreeSet<ParCliProdsComprados> maioresCompradoresFilial3(){
+    /**
+     * Calcula lista dos maiores compradores para a filial 3(Apoio Query 7)
+     * @return lista dos maiores compradores para a filial 3
+     */
+     public TreeSet<ParCliProdsComprados> maioresCompradoresFilial3(){
        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
        
        compradoresFilial3.forEach( (Cliente k,Double v) ->  {
@@ -318,8 +436,11 @@ public class GestaoFilial implements Serializable {
     return clientes;
     } 
     
-    /*Querie 8*/
-    
+    /**
+     * Calcula lista com X compradores de produtos diferentes(Apoio Query 8)
+     * @param X Tamanho maximo da lista
+     * @return lista de ParCliProdsComprados com a informação desejada
+     */
     
     public ArrayList<ParCliProdsComprados> compradoresProdutosDiferentes(int X){
          TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
@@ -347,9 +468,14 @@ public class GestaoFilial implements Serializable {
     return clientesFinal;
     }
     
-    /* Querie 9 */
+ 
     
-    
+    /**
+     * Calcula lista com X clientes que mais compraram determinado produto (Apoio Query 9)
+     * @param pro Produto de quem se calculará os seus compradores
+     * @param X Tamanho maximo da lista
+     * @return lista de ParCliProdsComprados com a informação desejada
+     */
     public ArrayList<ParCliProdsComprados> listaDeClientes(Produto pro,int X) {
         
         TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
@@ -379,7 +505,11 @@ public class GestaoFilial implements Serializable {
     
     
     
-    
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param o Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     
     @Override
      public boolean equals(Object o) {
@@ -396,6 +526,10 @@ public class GestaoFilial implements Serializable {
                 && this.comprasDeProduto.values().containsAll(other.comprasDeProduto.values());
       }
 
+   /**
+     *
+     * @return Hashcode
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -404,6 +538,11 @@ public class GestaoFilial implements Serializable {
         return hash;
     }
      
+     /**
+     *
+     * @return Novo Objecto como cópia da instância Actual
+     * @throws java.lang.CloneNotSupportedException
+     */
     @Override
     public GestaoFilial clone() throws CloneNotSupportedException {
         return new GestaoFilial(this);

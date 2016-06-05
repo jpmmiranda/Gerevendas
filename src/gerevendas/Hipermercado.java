@@ -13,21 +13,21 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
+ * Classe de convergência dos Módulos
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class Hipermercado  implements Serializable{
 
-    
-    
-    
     private CatalogoClientes clientes;
     private CatalogoProdutos produtos;
     private Facturacao faturacao;
     private GestaoFilial gestfilial;
     private Estatistica estatistica;
     
-    /* Construtores */
+    /**
+     * Construtor Vazio
+     */
     public Hipermercado() {
         this.clientes = new CatalogoClientes();
         this.produtos = new CatalogoProdutos();
@@ -36,6 +36,14 @@ public class Hipermercado  implements Serializable{
         this.estatistica=new Estatistica();
     }
     
+    /**
+     * Construtor Parametrizado
+     * @param cc CatalogoClientes a ser copiado
+     * @param cp CatalogoProdutos a ser copiado  
+     * @param fact Facturacao a ser copiada 
+     * @param gf GestaoFilial a ser copiada
+     * @param e CEstatistica a ser copiada
+     */
     public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp,Facturacao fact, GestaoFilial gf, Estatistica e) {
 		this.clientes= cc;
 		this.produtos = cp;	
@@ -44,7 +52,10 @@ public class Hipermercado  implements Serializable{
                 this.estatistica=e;
     }
 
-    
+    /**
+     * Construtor de copia
+     * @param hiper hipermercado a ser copiado
+     */
     public Hipermercado(Hipermercado hiper) {
         clientes = hiper.getClientes();
         produtos = hiper.getProdutos();
@@ -54,82 +65,134 @@ public class Hipermercado  implements Serializable{
        
     }
 
-    /* Getters*/
+    /**
+     * 
+     * @return Estatistica
+     */
 
     public Estatistica getEstatistica() {
         return estatistica;
     }
     
-    
+    /**
+     * 
+     * @return Facturacao
+     */
     public Facturacao getFaturacao() {
         return faturacao;
     }
 
+    /**
+     * 
+     * @return Catálogo de Clientes
+     */
+    
     public CatalogoClientes getClientes() {
         return clientes;
     }
 
+    /**
+     * 
+     * @return Catálogo de Produtos
+     */
     public CatalogoProdutos getProdutos() {
         return produtos;
     }
     
+    /**
+     * 
+     * @return Gestao de Filial
+     */
     public GestaoFilial getGestfilial() {
         return gestfilial;
     }
 
     
     
-    /* Setters */
-
+   /**
+     * Atualiza faturacao
+     * @param faturacao Nova faturacao
+     */
     public void setFaturacao(Facturacao faturacao) {
         this.faturacao = faturacao;
     }
     
-    
+    /**
+     * Atualiza catalogo de clientes
+     * @param clientes Novo catalogo de clientes
+     */
     public void setClientes(CatalogoClientes clientes) {
         this.clientes = clientes;
     }
-
+    
+    /**
+     * Atualiza catalogo de produtos
+     * @param produtos Novo catalogo de produtos
+     */
     public void setProdutos(CatalogoProdutos produtos) {
         this.produtos = produtos;
     }
     
+    /**
+     * Atualiza gestao de filial
+     * @param gestfilial Novo gestao filial
+     */
     public void setGestfilial(GestaoFilial gestfilial) {
         this.gestfilial = gestfilial;
     }
 
+    /**
+     * Atualiza estatistica
+     * @param estatistica Nova estatistica
+     */
     public void setEstatistica(Estatistica estatistica) {
         this.estatistica = estatistica;
     }
     
     
-    /*Metodos*/
+   /**
+     * Insere um novo Cliente nos módulos
+     * @param cli Cliente a ser inserido
+     * @throws java.lang.CloneNotSupportedException
+     */
     
-    void insereCliente(Cliente cli) throws CloneNotSupportedException {
+    public void insereCliente(Cliente cli) throws CloneNotSupportedException {
         clientes.adicionaCliente(cli.clone());
         gestfilial.adicionaClienteInicial(cli.clone());
     }
 
-    void insereProduto(Produto pro) {
+    /**
+     * Insere um novo Produto nos módulos
+     * @param pro Produto a ser inserido
+     */
+   public void insereProduto(Produto pro) {
          produtos.adicionaProduto(pro.clone());
          faturacao.adicionaProduto(pro.clone());
          gestfilial.adicionaProdutoInicial(pro.clone());
     }
     
-    void insereVendaValida(Venda v) throws CloneNotSupportedException {
+  /**
+     * Insere Venda nos módulos
+     * @param v Venda a ser inserido
+     * @throws java.lang.CloneNotSupportedException
+     */
+   public void insereVendaValida(Venda v) throws CloneNotSupportedException {
         faturacao.adicionaFaturacao(v.clone());
         gestfilial.adicionaComprasCliente(v.clone());
         gestfilial.adicionaComprasDeProduto(v.clone());
         
     }
 
-    void insereVendaInvalida(Venda v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    public void insereEstatistica(String fichCompras,int clientes, int produtos, int compras, int preco0, int errados){
-        estatistica.setFicheiroVendas(fichCompras);
+    /**
+     * Insere estatistica 
+     * @param fichVendas Nome de ficheiro de vendas
+     * @param clientes Numero de clientes
+     * @param produtos Numero de Produtos
+     * @param preco0 Numero de vendas a 0.0
+     * @param errados Numero de registos errados
+     */
+    public void insereEstatistica(String fichVendas,int clientes, int produtos, int preco0, int errados){
+        estatistica.setFicheiroVendas(fichVendas);
         estatistica.setTotalClientes(clientes);
         estatistica.setTotalProdutos(produtos);
         estatistica.setTotalComprasZero(preco0);
@@ -152,52 +215,55 @@ public class Hipermercado  implements Serializable{
         
     }
     
+    /**
+     * Verifica existencia de cliente
+     * @param cli Cliente a verificar a existencia
+     * @return True se cliente existe, false em caso contrario
+     */
     
-    
-    boolean existeCliente(Cliente cli){
-    Boolean r=false;
+    public boolean existeCliente(Cliente cli){
+    Boolean r;
         r=clientes.existeCliente(cli);
     return r;
     }
     
-    boolean existeProduto(Produto pro){
-    Boolean r=false;
+     /**
+     * Verifica existencia de produto
+     * @param pro produto a verificar a existencia
+     * @return True se produto existe, false em caso contrario
+     */
+    public boolean existeProduto(Produto pro){
+    Boolean r;
         r=produtos.existeProduto(pro);
     return r;
     }
     
-    
+     /**
+     * Método de escrita para um ficheiro de Objectos
+     * @param filename Nome do Ficheiro destino
+     * @throws IOException Caso hajam erros 
+     */
      public void guardaObj(String filename) throws IOException{
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
-        oos.writeObject(Gerevendas.getHipermercado());
-        oos.flush();
-        oos.close();
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(Gerevendas.getHipermercado());
+            oos.flush();
+        }
     }
+     /**
+     * Método de leitura de um ficheiro de Objectos
+     * @param ficheiro Nome do Ficheiro 
+     * @return  Hipermercado resultante da leitura
+     * @throws IOException Caso hajam erros 
+     * @throws java.lang.ClassNotFoundException 
+     */
     public  Hipermercado carregaObj(String ficheiro) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois= new ObjectInputStream(new FileInputStream(ficheiro));
-        Hipermercado res=(Hipermercado) ois.readObject();
-        ois.close();
+        Hipermercado res;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheiro))) {
+            res = (Hipermercado) ois.readObject();
+        }
         return res;
     }
 
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Hipermercado other = (Hipermercado) obj;
-        
-        return this.clientes.equals(other.clientes)
-                && this.produtos.equals(other.produtos);
-    }
 
-  
-
-  
-    
     
 }
