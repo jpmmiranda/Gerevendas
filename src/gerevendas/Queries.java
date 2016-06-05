@@ -15,8 +15,9 @@ import java.util.TreeSet;
 
 
 /**
+ * Classe Queries
  *
- * @author José
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class Queries {
   
@@ -28,7 +29,10 @@ public class Queries {
     public static Estatistica estatistica;
   
     
-    
+    /**
+     * Metodo guarda dados em ficheiro objecto
+     * @param input Nome do ficheiro
+    */
     public void guardaDados(String input){
     
             String ficheiro;
@@ -50,7 +54,10 @@ public class Queries {
     }
     
     
-    
+    /**
+     * Metodo carrega dados de ficheiro objecto
+     * @param input Nome do ficheiro
+    */
     public void carregaDados(String input) throws IOException, ClassNotFoundException{
     
       
@@ -68,6 +75,9 @@ public class Queries {
     
     }
     
+    /**
+     * Metodo Query estatistica
+    */
     public void querieEstat(){
       
       Crono.start();
@@ -79,7 +89,9 @@ public class Queries {
       sair(); 
     
     }
-   // Mostra Os codigos dos produtos nao vendidos
+   /**
+     * Metodo Query 1
+    */
   
     public void Querie1(){
        Crono.start();
@@ -95,7 +107,10 @@ public class Queries {
 
     }
       
-       
+   /**
+     * Metodo Query 2
+     * @param mes Mes usado para resolução da query
+    */
     public void Querie2(int mes){
         Crono.start(); 
         facturacao = Gerevendas.getHipermercado().getFaturacao();
@@ -112,6 +127,10 @@ public class Queries {
         
     }
     
+    /**
+     * Metodo Query 3
+     * @param cliente Cliente usado para resolução da query
+    */
     public void Querie3(String cliente){
         
         Crono.start();
@@ -127,7 +146,11 @@ public class Queries {
         sair();
                     
     }
-     
+    
+    /**
+     * Metodo Query 4
+     * @param produto Produto usado para resolução da query
+    */
     public void Querie4(String produto){
         
         Crono.start();  
@@ -143,11 +166,14 @@ public class Queries {
         sair();   
     }
         
-    
+     /**
+     * Metodo Query 5
+     * @param cliente Cliente usado para resolução da query
+    */
     public void Querie5(String cliente){
     
         Crono.start();
-        int tamanho=0,aux=0;
+        int tamanho,aux=0;
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
         Cliente cli = new Cliente(cliente);
@@ -161,14 +187,17 @@ public class Queries {
         printQuerie5(imprime,aux,aux,tamanho);
     }
     
-    
+     /**
+     * Metodo Query 6
+     * @param X Valor usado para resolução da query
+    */
     public void Querie6(int X){
         Crono.start(); 
         
         facturacao = Gerevendas.getHipermercado().getFaturacao();
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
 
-        int tamanho=0,aux=0;
+        int tamanho,aux=0;
         ArrayList<Integer> compradores = new ArrayList<>();
         ArrayList<ParCliProdsComprados> pcpc = facturacao.listaDeXProdutos(X);
         
@@ -184,6 +213,9 @@ public class Queries {
       
     }
     
+     /**
+     * Metodo Query 7
+    */
     public void Querie7(){
         
          Crono.start();
@@ -232,11 +264,15 @@ public class Queries {
     
     }
     
+     /**
+     * Metodo Query 8
+     * @param X Valor usado para resolução da query
+    */
     public void Querie8(int X){
         
          Crono.start();
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
-        int tamanho=0,aux=0;
+        int tamanho,aux=0;
         
         ArrayList<ParCliProdsComprados>  pcpc = gestaofilial.compradoresProdutosDiferentes(X);
         Crono.stop();
@@ -246,13 +282,18 @@ public class Queries {
         printQuerie8(pcpc,aux,aux,tamanho);
     }
     
+     /**
+     * Metodo Query 9
+     * @param produto Produto usado para resolução da query
+     * @param X Valor usado para resolução da query
+    */
     public void Querie9(String produto, int X){
         
          Crono.start();
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
         Produto pro = new Produto(produto);
-        int tamanho=0;
+        int tamanho;
         int aux=0;
         ArrayList<ParCliProdsComprados>  pcpc = gestaofilial.listaDeClientes(pro.clone(),X);
         Crono.stop();
@@ -264,8 +305,15 @@ public class Queries {
       
     }
     
-     void printQuerie1(ArrayList<String> pcpc, int contador, int index,int tamanho){
-	int n = 0, i,c = 0,j=0;
+    /**
+     * Metodo responsavel pelo output do resultado da query 1
+     * @param pcpc Lista de produtos
+     * @param contador Valor usado para a impressao dos resultados
+     * @param index Valor usado para a impressao dos resultados
+     * @param tamanho Tamanho da lista
+    */
+     private void printQuerie1(ArrayList<String> pcpc, int contador, int index,int tamanho){
+	int n,i ;
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
 
 	System.out.println("########################## GEREVENDAS ##########################\n");
@@ -307,10 +355,17 @@ public class Queries {
 			printQuerie1(pcpc, contador-i, index-i,tamanho);
 		}
 	}
-}
+    } 
     
-    void printQuerie5(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho){
-	int n = 0, i,c = 0,j=0;
+    /**
+     * Metodo responsavel pelo output do resultado da query 5
+     * @param pcpc Lista de ParCliProdsComprados
+     * @param contador Valor usado para a impressao dos resultados
+     * @param index Valor usado para a impressao dos resultados
+     * @param tamanho Tamanho da lista
+    */
+     private void printQuerie5(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho){
+	int n , i;
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
 
 	System.out.println("########################## GEREVENDAS ##########################\n");
@@ -351,11 +406,18 @@ public class Queries {
 			printQuerie5(pcpc, contador-i, index-i,tamanho);
 		}
 	}
-}
+ }
     
-    
-    void printQuerie6(ArrayList<ParCliProdsComprados> pcpc,ArrayList<Integer> cp, int contador, int index,int tamanho){
-	int n = 0, i;
+    /**
+     * Metodo responsavel pelo output do resultado da query 6
+     * @param pcpc Lista de ParCliProdsComprados
+     * @param cp Lista de inteiros
+     * @param contador Valor usado para a impressao dos resultados
+     * @param index Valor usado para a impressao dos resultados
+     * @param tamanho Tamanho da lista
+    */
+   private void printQuerie6(ArrayList<ParCliProdsComprados> pcpc,ArrayList<Integer> cp, int contador, int index,int tamanho){
+	int n , i;
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
 
 	System.out.println("########################## GEREVENDAS ##########################\n");
@@ -396,9 +458,15 @@ public class Queries {
 		}
 	}
 }
-    
+    /**
+     * Metodo responsavel pelo output do resultado da query 8
+     * @param pcpc Lista de ParCliProdsComprados
+     * @param contador Valor usado para a impressao dos resultados
+     * @param index Valor usado para a impressao dos resultados
+     * @param tamanho Tamanho da lista
+    */
      void printQuerie8(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho){
-	int n = 0, i;
+	int n , i;
 
 	System.out.println("########################## GEREVENDAS ##########################\n");
         
@@ -440,9 +508,15 @@ public class Queries {
 	}
 }
     
-    
-    void printQuerie9(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho){
-	int n = 0, i;
+    /**
+     * Metodo responsavel pelo output do resultado da query 6
+     * @param pcpc Lista de ParCliProdsComprados
+     * @param contador Valor usado para a impressao dos resultados
+     * @param index Valor usado para a impressao dos resultados
+     * @param tamanho Tamanho da lista
+    */
+   private void printQuerie9(ArrayList<ParCliProdsComprados> pcpc, int contador, int index,int tamanho){
+	int n , i;
 
 	System.out.println("########################## GEREVENDAS ##########################\n");
         
@@ -483,7 +557,9 @@ public class Queries {
 		}
 	}
 }
-    
+    /**
+     * Metodo voltar ao menu 
+    */
     private static void sair(){
         System.out.println("Prima Enter para sair");
         String c=Input.lerString();
@@ -493,6 +569,9 @@ public class Queries {
    
     }
 
+    /**
+     * Metodo sai da apresentacao dos tempos
+    */
     private static void saiTempos(){
         System.out.println("Prima Enter para apresentar resultados");
         String c=Input.lerString();

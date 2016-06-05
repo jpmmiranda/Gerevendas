@@ -9,8 +9,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * Classe Venda
  *
- * @author Asus
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class Venda implements Serializable {   
    
@@ -22,7 +23,9 @@ public class Venda implements Serializable {
    
    
    
-   /*Construtores*/
+   /**
+     * Construtor vazio
+     */
    public Venda(){
        
         this.cliente = null;
@@ -35,7 +38,11 @@ public class Venda implements Serializable {
    
    }
    
-   
+   /**
+     * Construtor de cópia de uma instância da classe Venda
+     *
+     * @param v venda a ser copiado
+     */
    public Venda(Venda v){
       produto = v.getProduto();
       cliente = v.getCliente();
@@ -46,6 +53,16 @@ public class Venda implements Serializable {
       PouN = v.getPouN();
    }
    
+   /**
+     * Construtor parametrizado 
+     * @param p Produto da venda
+     * @param pre Preco da venda
+     * @param q Quantidade vendida
+     * @param PN Modo de venda
+     * @param c Cliente da venda
+     * @param m Mes da venda
+     * @param f Filial da venda
+     */
    public Venda(Produto p, double pre,int q, String PN, Cliente c, int m, int f ){
        produto = p;
        cliente = c;
@@ -56,36 +73,66 @@ public class Venda implements Serializable {
        PouN = PN;
    }
 
-    /*Getters*/
+    /**
+     * 
+     * @return Produto 
+     */
     public Produto getProduto() {
         return produto;
     }
 
+    /**
+     * 
+     * @return Cliente
+     */
     public Cliente getCliente() {
         return cliente;
     }
 
+    /**
+     * 
+     * @return Filial
+     */
     public int getFilial() {
         return filial;
     }
 
+    /**
+     * 
+     * @return Quantidade 
+     */
     public int getQuantidade() {
         return quantidade;
     }
 
+    /**
+     * 
+     * @return Preço
+     */
     public double getPreco() {
         return preco;
     }
 
+    /**
+     * 
+     * @return Modo
+     */
     public String getPouN() {
         return PouN;
     }
 
+    /**
+     * 
+     * @return Mes
+     */
     public int getMes() {
         return mes;
     }
     
-    /*Metodos*/
+    /**
+     * Método toString
+     * @return String construída
+     */
     
     @Override
     public String toString() {
@@ -98,8 +145,14 @@ public class Venda implements Serializable {
         st.append(", mes=").append(mes);
         st.append(", tipo=").append(PouN);
         st.append(", filial=").append(filial);
-        return st.toString();    }
+        return st.toString();    
+    }
 
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param obj Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -121,7 +174,10 @@ public class Venda implements Serializable {
                 && (this.filial == venda.getFilial()));
                 
     }
-
+    /**
+     * 
+     * @return HashCode de Cliente
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -135,6 +191,11 @@ public class Venda implements Serializable {
         return hash;
     }
    
+    /**
+     * 
+     * @return Novo objecto como cópia da instância actual
+     * @throws java.lang.CloneNotSupportedException
+     */
    @Override
     public Venda clone() throws CloneNotSupportedException{
         return new Venda(this);

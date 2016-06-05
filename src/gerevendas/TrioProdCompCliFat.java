@@ -8,8 +8,9 @@ package gerevendas;
 import java.io.Serializable;
 
 /**
+ * Classe TrioProdCompCliFa
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class TrioProdCompCliFat implements Serializable{
     
@@ -27,7 +28,10 @@ public class TrioProdCompCliFat implements Serializable{
     }
 
     
-   
+   /**
+     * Construtor de Cópia
+     * @param tcpc Objecto a ser Copiado
+     */
     public TrioProdCompCliFat(TrioProdCompCliFat tcpc) {
          
         this.Compras = tcpc.getCompras();
@@ -35,40 +39,73 @@ public class TrioProdCompCliFat implements Serializable{
         this.Cdistintos = tcpc.getCDistintos();
     }
 
+    /**
+     *@return compras
+     */
     public int[] getCompras() {
         return this.Compras.clone();
     }
 
-  
+  /**
+     *@return Clientes distintos
+     */
     
     public int[] getCDistintos() {
         return this.Cdistintos.clone();
     }
 
+    /**
+     *@return Faturado
+     */
     public double[] getFaturacao() {
         return this.faturacao.clone();
     }
     
-    
+    /**
+     * Adiciona clientes distintos num dado mes
+     * 
+     * @param qtd Quantidade a adicionar
+     * @param mes Mes a ser adicionado
+    */
     public void adicionaClientesDistintos(int qtd, int mes) {
         this.Cdistintos[mes - 1] = qtd;
     }
 
+    /**
+     * Adiciona faturacao  num dado mes
+     * 
+     * @param fat Valor a adicionar
+     * @param mes Mes a ser adicionado
+    */
     public void adicionaFaturacao(double fat, int mes) {
         this.faturacao[mes - 1] = fat;
     }
     
+     /**
+     * Adiciona  compras num dado mes
+     * 
+     * @param nCompras Compras a adicionar
+     * @param mes Mes a ser adicionado
+    */
     public void adicionaCompras(int nCompras, int mes) {
         this.Compras[mes - 1] = nCompras;
     }
 
     
 
-    
+     /**
+     *
+     * @return Novo Objecto como cópia da instância Actual
+     */
     public TrioProdCompCliFat clone() {
         return new TrioProdCompCliFat(this);
     }
     
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param o Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -82,7 +119,10 @@ public class TrioProdCompCliFat implements Serializable{
 
     }
 
-    
+    /**
+     * 
+     * @return String resultante
+     */
 
    
     public String toString() {

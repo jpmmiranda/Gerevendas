@@ -1,7 +1,6 @@
 package gerevendas;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,8 +9,9 @@ import java.util.Arrays;
  */
 
 /**
+ * Classe TrioCliComProFat
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class TrioCliComProFat implements Serializable {
     
@@ -27,7 +27,10 @@ public class TrioCliComProFat implements Serializable {
         this.faturacao = new double[12];
     }
 
-    
+    /**
+     * Construtor de Cópia
+     * @param tcpc Objecto a ser Copiado
+     */
    
     public TrioCliComProFat(TrioCliComProFat tcpc) {
          this.Pdistintos = tcpc.getPDistintos();
@@ -35,38 +38,72 @@ public class TrioCliComProFat implements Serializable {
         this.faturacao = tcpc.getFaturacao();
     }
 
+    /**
+     *@return compras
+     */
     public int[] getCompras() {
         return this.Compras.clone();
     }
-
+    
+    /**
+     *@return Produtos distintos
+     */
     public int[] getPDistintos() {
         return this.Pdistintos.clone();
     }
-    
+    /**
+     *@return Faturado
+     */
     public double[] getFaturacao() {
         return this.faturacao.clone();
     }
     
+    /**
+     * Adiciona produtos distintos num dado mes
+     * 
+     * @param qtd Quantidade a adicionar
+     * @param mes Mes a ser adicionado
+    */
     public void adicionaDistintos(int qtd, int mes) {
         this.Pdistintos[mes - 1] = qtd;
     }
     
-
+    /**
+     * Adiciona faturacao  num dado mes
+     * 
+     * @param fat Valor a adicionar
+     * @param mes Mes a ser adicionado
+    */
     public void adicionaFaturacao(float fat, int mes) {
         this.faturacao[mes - 1] = fat;
     }
     
+    /**
+     * Adiciona  compras num dado mes
+     * 
+     * @param nCompras Compras a adicionar
+     * @param mes Mes a ser adicionado
+    */
     public void adicionaCompras(int nCompras, int mes) {
         this.Compras[mes - 1] = nCompras;
     }
 
     
-
+    /**
+     *
+     * @return Novo Objecto como cópia da instância Actual
+     */
     
     public TrioCliComProFat clone() {
         return new TrioCliComProFat(this);
     }
     
+    
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param o Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -80,7 +117,10 @@ public class TrioCliComProFat implements Serializable {
     }
 
     
-
+    /**
+     * 
+     * @return String resultante
+     */
    
     public String toString() {
         StringBuilder sb = new StringBuilder();

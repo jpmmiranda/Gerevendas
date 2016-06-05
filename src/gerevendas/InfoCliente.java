@@ -15,8 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Classe InfoCliente
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class InfoCliente implements Serializable {
     
@@ -25,8 +26,9 @@ public class InfoCliente implements Serializable {
     private int[] comprasMesN;
     private int[] comprasMesP;
 
-    /* Cosntrutores*/
-    /* Corrigir erros nos construtores */
+    /**
+     * Construtor Vazio
+     */
     public InfoCliente(){
         this.clienteCompras=new TreeMap<>(new ComparatorCodigoProduto());
         this.comprasMesN=new int[12];
@@ -34,6 +36,13 @@ public class InfoCliente implements Serializable {
         this.totalgasto=new int[12];
     }
     
+     /**
+     * Construtor Parametrizado
+     * @param clienteCompras Map clienteCompras    
+     * @param compraN compras normais
+     * @param compraP compras promocao
+     * @param tg total gasto
+     */
     public InfoCliente(TreeMap<Produto, InfoProdutoComprado> clienteCompras, int[] compraN,int[] compraP,int[] tg) {
         this.clienteCompras = clienteCompras;
         this.comprasMesN=compraN.clone();
@@ -42,6 +51,11 @@ public class InfoCliente implements Serializable {
 
     }
     
+    /**
+     * Construtor de Cópia
+     * @param ic Objecto a ser Copiado
+     * @throws java.lang.CloneNotSupportedException
+     */
     public InfoCliente(InfoCliente ic) throws CloneNotSupportedException{
         this.clienteCompras=ic.getClienteCompras();
         this.comprasMesN=ic.getComprasMesN();
@@ -50,7 +64,11 @@ public class InfoCliente implements Serializable {
     }
     
     
-    /*Getters*/
+    /**
+     * Retorna total de produtos comprados em determinado mes
+     * @param mes Mes a ser utilizado na procura
+     * @return total de produtos comprados em determinado mes
+     */
      public int getProdutosCliente(int mes) {
          int r = 0;
          for(InfoProdutoComprado ipc : clienteCompras.values()){
@@ -61,16 +79,27 @@ public class InfoCliente implements Serializable {
         return r;
     }
 
-
+    /**
+     * 
+     * @return Compras em modo N
+     */
     public int[] getComprasMesN() {
         return comprasMesN;
     }
 
+    /**
+     * 
+     * @return Compras em Modo P
+     */
     public int[] getComprasMesP() {
         return comprasMesP;
     }
   
 
+    /**
+     * 
+     * @return Map de clienteCompras
+     */
     public TreeMap<Produto, InfoProdutoComprado> getClienteCompras() throws CloneNotSupportedException {
         
     TreeMap<Produto,InfoProdutoComprado> res = new TreeMap<>();
@@ -84,24 +113,49 @@ public class InfoCliente implements Serializable {
         return res;
     }
 
-   
+   /**
+     * Calcula Numero de compras em determinada mês, modo Normal
+     * @param i Mês Para efectuar a pesquisa
+     * @return Numero de compras em determinada mês
+     */
     
     public int getComprasMesNindice(int i) {
         return comprasMesN[i-1];
     }
+    
+   /**
+     * Calcula Numero de compras em determinada mês, modo Promocao
+     * @param i Mês Para efectuar a pesquisa
+     * @return Numero de compras em determinada mês
+     */
+    
      public int getComprasMesPindice(int i) {
         return comprasMesP[i-1];
     }
 
+   /**
+     * Calcula total gasto em determinado mes
+     * @param mes Mês Para efectuar a pesquisa
+     * @return total gasto em determinado mes
+     */
+    
     public int getTotalgasto(int mes) {
         return totalgasto[mes-1];
     }
+    
+    /**
+     *  * @return total gasto 
+     */
     
    private int[] getTotalgasto() {
     return totalgasto.clone();
    }
 
-    
+    /**
+     * Calcula lista com produto e unidades vendidas 
+     * @return Lista com ParCliProdsComprados
+     */
+     
     
     public TreeSet<ParCliProdsComprados> getCodigoProduto(){
       TreeSet<ParCliProdsComprados> cod;
@@ -118,10 +172,19 @@ public class InfoCliente implements Serializable {
         return cod;
     }
     
+    /**
+     * Verifica se existe um produto nas compras do cliente
+     * @param p Produto a procurar
+     * @return True se existe, false em caso contrário
+     */
     public boolean existeProduto(Produto p){
         return clienteCompras.containsKey(p);
     }
-    /*Setters*/
+    
+    /**
+     * Actualiza compras de cliente
+     * @param clienteCompras Cliente compras a actualizar
+    */
 
     public void setClienteCompras(TreeMap<Produto, InfoProdutoComprado> clienteCompras) {
         this.clienteCompras = clienteCompras;
@@ -130,9 +193,13 @@ public class InfoCliente implements Serializable {
   
     
     
-     /* Métodos */
+     /**
+     * Adiciona info de cliente
+     * @param v Venda onde serão recolhidos os dados
+     * @throws java.lang.CloneNotSupportedException
+     */
     
-       void adicionaInfo(Venda v) throws CloneNotSupportedException {
+      public void adicionaInfo(Venda v) throws CloneNotSupportedException {
         
         String PouN = v.getPouN();
         int mes=v.getMes();
@@ -152,7 +219,12 @@ public class InfoCliente implements Serializable {
         
     }
     
-    
+    /**
+     * Calcula compradores distintos num dado mês, para um dado produto
+     * @param mes Mês a procurar
+     * @param p Produto a procurar
+     * @return compradores distintos num dado mês, para um dado produto
+     */
     public int calculaDistintos(int mes,Produto p) {
         int r=0;
         if(clienteCompras.containsKey(p)){
@@ -164,10 +236,18 @@ public class InfoCliente implements Serializable {
         return r;
     }
 
+    /**
+     * @return Numero de compras 
+     */
     public int quantidadeDeProdDistintos(){
         return clienteCompras.size();
     }   
     
+    /**
+     * Calcula dinheiro gasto num dado produto
+     * @param p Produto a procurar
+     * @return Dinheiro gasto num dado produto
+     */
     public int gastoNoProduto(Produto p){
     
         int gasto;
@@ -176,7 +256,11 @@ public class InfoCliente implements Serializable {
         return gasto;
     }
 
-
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param obj Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -201,7 +285,11 @@ public class InfoCliente implements Serializable {
         return true;
     }
     
-    
+    /**
+     *
+     * @return Novo Objecto como cópia da instância Actual
+     * @throws java.lang.CloneNotSupportedException
+     */
     @Override
     public InfoCliente clone() throws CloneNotSupportedException {
         return new InfoCliente(this);

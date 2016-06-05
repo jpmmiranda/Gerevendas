@@ -13,23 +13,28 @@ import static java.lang.System.out;
 import java.util.ArrayList;
 
 /**
+ * Classe Leitura
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class Leitura implements Serializable {
     
-     private static int Clientes = 0, Produtos = 0,Compras = 0, Preco0 = 0, Errados=0;
+     private static int Clientes = 0, Produtos = 0, Preco0 = 0, Errados=0;
     
   
-    
-    static void lerVendas() throws  IOException, CloneNotSupportedException {
+   /**
+     * Metodo responsavel pela leitura do ficheiro de vendas
+     * @throws java.io.IOException
+     * @throws java.lang.CloneNotSupportedException
+     */
+    public static void lerVendas() throws  IOException, CloneNotSupportedException {
        
         Hipermercado hiper = Gerevendas.getHipermercado();
       
         Venda v;
         String fich="Vendas_1M.txt";
       
-        ArrayList<String> codigos = new ArrayList<>();
+        ArrayList<String> codigos;
 
         codigos = readLinesWithBuff(fich);
         for(String c : codigos){
@@ -43,22 +48,25 @@ public class Leitura implements Serializable {
             int mes = Integer.parseInt(partes[5]);
             int filial = Integer.parseInt(partes[6]);
             
-            if(verificaVenda(pro,preco,quantidade,PouN,cliente,mes,filial)){
-                    v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
-                    if(preco==0) Preco0++;
-                    hiper.insereVendaValida(v.clone());
+            if(verificaVenda(pro,preco,quantidade,cliente)){
+                v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
+                if(preco==0) Preco0++;
+                hiper.insereVendaValida(v.clone());
             }else{
-                    Errados++;
-            } 
-                
+                Errados++;
+            }
+            
         }
         hiper.insereEstatistica(fich,Clientes,Produtos,Preco0,Errados);
 
 
   }
 
-    static void lerProdutos() {
-        ArrayList<String> codigos = new ArrayList<>();
+    /**
+    * Metodo responsavel pela leitura do ficheiro de produtos
+    */
+    public static void lerProdutos() {
+        ArrayList<String> codigos;
         Hipermercado hiper = Gerevendas.getHipermercado();
                 
         codigos = readLinesWithBuff("Produtos.txt");
@@ -70,9 +78,13 @@ public class Leitura implements Serializable {
         
     }
 
-    static void lerClientes() throws CloneNotSupportedException {
+    /**
+    * Metodo responsavel pela leitura do ficheiro de clientes 
+    * @throws java.lang.CloneNotSupportedException
+    */
+   public static void lerClientes() throws CloneNotSupportedException {
         
-        ArrayList<String> codigos = new ArrayList<>();
+        ArrayList<String> codigos;
         Hipermercado hiper = Gerevendas.getHipermercado();
         
         codigos = readLinesWithBuff("Clientes.txt");
@@ -84,12 +96,14 @@ public class Leitura implements Serializable {
     }
     
     
+    /**
+    * Metodo responsavel por ler linhas de ficheiro 
+    */
      
-     
-    public static ArrayList<String> readLinesWithBuff(String fich) {
+    private static ArrayList<String> readLinesWithBuff(String fich) {
         ArrayList<String> linhas = new ArrayList<>();
-        BufferedReader inStream = null;
-        String linha = null;
+        BufferedReader inStream ;
+        String linha ;
         try {
             inStream = new BufferedReader(new FileReader(fich));
             while ((linha = inStream.readLine()) != null) {
@@ -102,8 +116,10 @@ public class Leitura implements Serializable {
         return linhas;
     }
     
-    
-    public static boolean verificaVenda(Produto pro,double preco,int quantidade,String PouN,Cliente cliente,int mes,int filial) {
+    /**
+    * Metodo responsavel por verificar uma venda
+    */
+    private static boolean verificaVenda(Produto pro,double preco,int quantidade,Cliente cliente) {
         Hipermercado hiper = Gerevendas.getHipermercado();
         Boolean r=false;
         

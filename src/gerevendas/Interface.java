@@ -7,12 +7,12 @@ package gerevendas;
 
 import java.io.IOException;
 import java.io.Serializable;
-import static java.lang.System.out;
 import java.util.Scanner;
 
 /**
+ * Classe Interface
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class Interface implements Serializable{
 
@@ -23,7 +23,9 @@ public class Interface implements Serializable{
 
    
    
-    
+     /**
+     * Construtor Vazio
+     */
     
     private Interface() {
         
@@ -32,6 +34,12 @@ public class Interface implements Serializable{
         initVendas=0;
     }
     
+     /**
+     * Imprime menu inicial
+     * @throws java.lang.CloneNotSupportedException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
     public static void printMenu() throws CloneNotSupportedException, IOException, ClassNotFoundException {
         
         int opcao;
@@ -73,8 +81,14 @@ public class Interface implements Serializable{
         }
    }
     
+    /**
+     * Lê ficheiros
+     * @throws java.lang.CloneNotSupportedException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
     public static void menuLerFicheiros() throws CloneNotSupportedException, IOException, ClassNotFoundException{
-	int r = 0, n = 0;
+	int r;
 
 	printInicializar();
 	r = Input.lerInt();
@@ -82,7 +96,6 @@ public class Interface implements Serializable{
 			case 1:
 				if(initVendas == 1){
 				        Crono.start();
-                                        limpaEcra();
 					Leitura.lerClientes();
 					initCli = 1;
 					initVendas = 0;
@@ -93,7 +106,6 @@ public class Interface implements Serializable{
 				else{
                                         Crono.start();
 
-					limpaEcra();
 					Leitura.lerClientes();
 					initCli = 1;
                                         Crono.stop();
@@ -105,7 +117,6 @@ public class Interface implements Serializable{
 				if(initVendas == 1){
                                         Crono.start();
 
-					limpaEcra();
 					Leitura.lerProdutos();
 					initPro = 1;
 					initVendas = 0;
@@ -116,7 +127,6 @@ public class Interface implements Serializable{
 				}
 				else{   Crono.start();
 
-					limpaEcra();
 					Leitura.lerProdutos();
 					initPro = 1;
                                         Crono.stop();
@@ -127,24 +137,21 @@ public class Interface implements Serializable{
 				break;
 			case 3:
 				if(initCli == 0 || initPro == 0){
-					limpaEcra();
 					System.out.print("Tem que inicializar clientes e produtos primeiro.\n");
 					menuLerFicheiros();					
 				}
 				else{
                                     Crono.start();
-					limpaEcra();
-					Leitura.lerVendas();
-					initVendas = 1;
-                                        Crono.stop();
-                    System.out.println("Tempo: " + Crono.print() );
-					menuLerFicheiros();
+				    Leitura.lerVendas();	
+                                    initVendas = 1;   
+                                    Crono.stop();
+                                    System.out.println("Tempo: " + Crono.print() );
+                                    menuLerFicheiros();
+                                        
 				}
 				break;
 			case 4:
                                 Crono.start();
-
-				limpaEcra();
 				Leitura.lerClientes();
 				initCli = 1;
 				Leitura.lerProdutos();
@@ -158,7 +165,6 @@ public class Interface implements Serializable{
 
 				break;
 			case 0:
-				limpaEcra();
 				printMenu();
 				r = 0;
 				break;
@@ -172,7 +178,9 @@ public class Interface implements Serializable{
 
     
     
-    
+    /**
+     * Imprime menu Leitura de ficheiros
+     */
     
     private static void printInicializar(){
     
@@ -232,7 +240,12 @@ public class Interface implements Serializable{
 }
 
     
-    
+    /**
+     * Imprime menu estatisticas
+     * @throws java.lang.CloneNotSupportedException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
     public static void printEstatisticas() throws CloneNotSupportedException, IOException, ClassNotFoundException{
       
          
@@ -261,7 +274,13 @@ public class Interface implements Serializable{
             }
         }
 }
-    
+ 
+    /**
+     * Imprime menu Queries
+     * @throws java.lang.CloneNotSupportedException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
     public static void printQueries() throws CloneNotSupportedException, IOException, ClassNotFoundException{
           
         int opcao;
@@ -378,7 +397,13 @@ public class Interface implements Serializable{
             }
     }
 
- private static void menuCarregarGuardar() throws CloneNotSupportedException, IOException, ClassNotFoundException {
+    /**
+     * Imprime menu carregar ou guardar ficheiro objectos
+     * @throws java.lang.CloneNotSupportedException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
+    private static void menuCarregarGuardar() throws CloneNotSupportedException, IOException, ClassNotFoundException {
 
         int opcao;
         boolean r = true;
@@ -416,9 +441,7 @@ public class Interface implements Serializable{
         }
     }
 
-    private static void limpaEcra(){
-        System.out.print("\033");//Nao funciona
-    }
+   
 
 }
 

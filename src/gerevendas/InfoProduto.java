@@ -14,8 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Classe InfoProduto
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class InfoProduto implements Serializable{
      
@@ -24,7 +25,9 @@ public class InfoProduto implements Serializable{
    private int compradoMes[];
    private double TotalPagoMes[];
 
-   
+   /**
+     * Construtor Vazio
+     */
     public InfoProduto(){
     this.produtoCompras=new TreeMap<>(new ComparatorCodigoProduto());
     this.UnidadesVendidas = 0;
@@ -32,7 +35,13 @@ public class InfoProduto implements Serializable{
     this.compradoMes = new int[12];
 
     }
-   
+   /**
+     * Construtor Parametrizado
+     * @param produtoCompras  Map produto compras 
+     * @param UnidadesVendidas  Unidades vendidas 
+     * @param TotalPagoMes  Total pago mensalmente
+     * @param compradoMes  Unidades compradas mensalmente
+     */
     public InfoProduto(TreeMap<Produto, InfoProdutoComprado> produtoCompras,int UnidadesVendidas,double[] TotalPagoMes,int[] compradoMes) {
         this.produtoCompras=produtoCompras;
         this.UnidadesVendidas = UnidadesVendidas;
@@ -40,6 +49,11 @@ public class InfoProduto implements Serializable{
         this.compradoMes =compradoMes.clone();
     }
     
+     /**
+     * Construtor de Cópia
+     * @param ip Objecto a ser Copiado
+     * @throws java.lang.CloneNotSupportedException
+     */
      public InfoProduto(InfoProduto ip) throws CloneNotSupportedException{
         this.produtoCompras=ip.getProdutoCompras();
         this.UnidadesVendidas=ip.getUnidadesVendidas();
@@ -48,16 +62,10 @@ public class InfoProduto implements Serializable{
         
         
     }
-    
-    public int getProdutosCliente(int mes) {
-         int r = 0;
-         for(InfoProdutoComprado ipc : produtoCompras.values()){
-         
-             if(ipc.totalComprasMes(mes)!=0) r++;
-         
-         }
-        return r;
-    }
+    /**
+     * 
+     * @return Map de produtoCompras
+     */
     
     public TreeMap<Produto, InfoProdutoComprado> getProdutoCompras() throws CloneNotSupportedException {
         
@@ -72,35 +80,65 @@ public class InfoProduto implements Serializable{
         return res;
     }
 
-
+    /**
+     * 
+     * @return Unidades Vendidas
+     */
     public int getUnidadesVendidas() {
         return UnidadesVendidas;
     }
 
-   
-     public double[] getTotalPagoMes() {
-        return TotalPagoMes;
+    /**
+     * 
+     * @return Total pago
+     */
+     public  double[] getTotalPagoMes() {
+        return TotalPagoMes.clone();
     }
      
+     /**
+     * 
+     * @param i Mês
+     * @return Total pago num dado mes
+     */
      public double getTotalPagoMesIndice(int i) {
         return TotalPagoMes[i-1];
     }
     
-    public int[] getCompradoMes(){
+     /**
+     * 
+     * @return Total vendas 
+     */
+    public  int[] getCompradoMes(){
         return compradoMes;
     }
     
+    /**
+     * 
+     * @param i Mês
+     * @return Total vendas num dado mes
+     */
     public int getCompradoMesIndice(int i){
         return compradoMes[i-1];
     }
 
-    void adicionaInfoProduto(double preco, int quant,int mes) {
+     /**
+     * Adiciona info de produto
+     * @param preco Preco da venda
+     * @param quant Quantidade vendida
+     * @param mes Mes em que foi vendido
+     */
+   public  void adicionaInfoProduto(double preco, int quant,int mes) {
         UnidadesVendidas++;
         compradoMes[mes-1]+=quant;
         TotalPagoMes[mes-1]+=preco*quant;
     }
 
-
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param obj Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -126,6 +164,11 @@ public class InfoProduto implements Serializable{
         return true;
     }
 
+    /**
+     *
+     * @return Novo Objecto como cópia da instância Actual
+     * @throws java.lang.CloneNotSupportedException
+     */
     @Override
     public InfoProduto clone() throws CloneNotSupportedException {
         return new InfoProduto(this);

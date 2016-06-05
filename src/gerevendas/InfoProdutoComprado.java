@@ -9,8 +9,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
+ * Classe InfoProdutoComprado
  *
- * @author Rui
+ * @author Rui Machado, Jose Lima, Jose Mirra, Joao Miranda
  */
 public class InfoProdutoComprado implements Serializable{
     
@@ -20,7 +21,9 @@ public class InfoProdutoComprado implements Serializable{
    private int ComprasN[], ComprasP[];
 
 
-   /*Construtores*/
+    /**
+     * Construtor Vazio
+     */
    
    public InfoProdutoComprado() {
         
@@ -33,12 +36,26 @@ public class InfoProdutoComprado implements Serializable{
 
     }
    
-    public InfoProdutoComprado(int UnidadesVendidas, double TotalPago) {
+   /**
+     * Construtor Parametrizado
+     * @param UnidadesVendidas Numero de unidades vendidas
+     * @param TotalPago Total Pago
+     * @param cn vendas em modo N
+     * @param cp vendas em modo P
+     */
+    public InfoProdutoComprado(int UnidadesVendidas, double TotalPago, int[] cn , int[] cp) {
         this.UnidadesVendidas = UnidadesVendidas;
         this.TotalPago = TotalPago;
+        this.ComprasN=cn.clone();
+        this.ComprasP = cp.clone();
       
     }
-   
+    
+   /**
+     * Construtor de Cópia
+     * @param ip Objecto a ser Copiado
+     * @throws java.lang.CloneNotSupportedException
+     */
    public InfoProdutoComprado(InfoProdutoComprado ip) throws CloneNotSupportedException {
        
         this.TotalPago = ip.getTotalPago();
@@ -49,35 +66,54 @@ public class InfoProdutoComprado implements Serializable{
    
    
    
-   /*Getters
-   */
+   /**
+     * 
+     * @return Compras N
+     */
 
     public int[] getComprasN() {
         return ComprasN.clone();
     }
-
+    
+    /**
+     * 
+     * @return Compras P
+     */
     public int[] getComprasP() {
         return ComprasP.clone();
     }
 
-   
-   
-
+    /**
+     * 
+     * @return Unidades Vendidas
+     */
     public int getUnidadesVendidas() {
         return UnidadesVendidas;
     }
 
+    /**
+     * 
+     * @return Total pago
+     */
     public double getTotalPago() {
         return TotalPago;
     }
 
     
     
-   /*Setter*/
+   /**
+     * Actualiza Numero de unidades vendidas
+     * @param UnidadesVendidas Unidades Vendidas
+     */
 
     public void setUnidadesVendidas(int UnidadesVendidas) {
         this.UnidadesVendidas = UnidadesVendidas;
     }
+    
+    /**
+     * Actualiza Total pago
+     * @param TotalPago Total pago
+     */
 
     public void setTotalPago(double TotalPago) {
         this.TotalPago = TotalPago;
@@ -85,7 +121,11 @@ public class InfoProdutoComprado implements Serializable{
 
     
     
-    /* Métodos */
+    /**
+     * Calcula total de compras num dado mês
+     * @param mes Mes
+     * @return total de compras num dado mês
+     */
     
   
     public int totalComprasMes(int mes){
@@ -93,14 +133,25 @@ public class InfoProdutoComprado implements Serializable{
         return ComprasN[mes-1]+ ComprasP[mes-1];
     }
     
-    void adicionaInfoProduto(double preco, int quant,int mes,String PouN) {
+   /**
+     * Adiciona info de produto
+     * @param preco Preco da venda
+     * @param quant Quantidade vendida
+     * @param mes Mes
+     * @param PouN Modo em que foi efectuada a venda
+     */
+    public void adicionaInfoProduto(double preco, int quant,int mes,String PouN) {
         UnidadesVendidas+=quant;
         TotalPago+=preco*quant;
         if(PouN.equals("N")) ComprasN[mes-1]++;
         else ComprasP[mes-1]++;
     }
 
-  
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param obj Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
 
     @Override
     public boolean equals(Object obj) {
@@ -128,7 +179,11 @@ public class InfoProdutoComprado implements Serializable{
     
     
     
-    
+    /**
+     *
+     * @return Novo Objecto como cópia da instância Actual
+     * @throws java.lang.CloneNotSupportedException
+     */
      @Override
     public InfoProdutoComprado clone() throws CloneNotSupportedException {
         return new InfoProdutoComprado(this);
