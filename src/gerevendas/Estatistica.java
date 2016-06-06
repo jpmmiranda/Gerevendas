@@ -90,12 +90,12 @@ public class Estatistica implements Serializable {
         this.totalClientesNaoCompradores = totalClientesNaoCompradores;
         this.totalComprasZero = totalComprasZero;
         this.totalFacturacao = totalFacturacao;
-        this.totalComprasMes = totalComprasMes;
-        this.totalFacturacaoFilial1 = totalFacturacaoFilial1;
-        this.totalFacturacaoFilial2 = totalFacturacaoFilial2;
-        this.totalFacturacaoFilial3 = totalFacturacaoFilial3;
-        this.totalFacturacaoMensal = totalFacturacaoMensal;
-        this.clientesDistintos = clientesDistintos;
+        this.totalComprasMes = totalComprasMes.clone();
+        this.totalFacturacaoFilial1 = totalFacturacaoFilial1.clone();
+        this.totalFacturacaoFilial2 = totalFacturacaoFilial2.clone();
+        this.totalFacturacaoFilial3 = totalFacturacaoFilial3.clone();
+        this.totalFacturacaoMensal = totalFacturacaoMensal.clone();
+        this.clientesDistintos = clientesDistintos.clone();
     }
     
     /**
@@ -410,8 +410,10 @@ public class Estatistica implements Serializable {
     /**
      * Método clone
      * @return Uma nova instância de Estatistica
+     * @throws java.lang.CloneNotSupportedException
      */
-    public Estatistica clone() {
+    @Override
+    public Estatistica clone() throws CloneNotSupportedException {
         return new Estatistica(this);
     }
     
@@ -548,15 +550,5 @@ public class Estatistica implements Serializable {
         }
         return true;
     }
-    
-    
-
-    
-
-    
-    
-    
-    
-    
 
 }

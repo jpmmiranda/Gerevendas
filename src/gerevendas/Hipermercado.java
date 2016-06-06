@@ -43,13 +43,14 @@ public class Hipermercado  implements Serializable{
      * @param fact Facturacao a ser copiada 
      * @param gf GestaoFilial a ser copiada
      * @param e CEstatistica a ser copiada
+     * @throws java.lang.CloneNotSupportedException
      */
-    public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp,Facturacao fact, GestaoFilial gf, Estatistica e) {
-		this.clientes= cc;
-		this.produtos = cp;	
-                this.faturacao=fact;
-                this.gestfilial=gf;
-                this.estatistica=e;
+    public Hipermercado(CatalogoClientes cc,CatalogoProdutos cp,Facturacao fact, GestaoFilial gf, Estatistica e) throws CloneNotSupportedException {
+		this.clientes= cc.clone();
+		this.produtos = cp.clone();	
+                this.faturacao=fact.clone();
+                this.gestfilial=gf.clone();
+                this.estatistica=e.clone();
     }
 
     /**
@@ -164,8 +165,9 @@ public class Hipermercado  implements Serializable{
     /**
      * Insere um novo Produto nos módulos
      * @param pro Produto a ser inserido
+     * @throws java.lang.CloneNotSupportedException
      */
-   public void insereProduto(Produto pro) {
+   public void insereProduto(Produto pro) throws CloneNotSupportedException {
          produtos.adicionaProduto(pro.clone());
          faturacao.adicionaProduto(pro.clone());
          gestfilial.adicionaProdutoInicial(pro.clone());
@@ -205,7 +207,7 @@ public class Hipermercado  implements Serializable{
 
         int i;
         for(i=0;i<12;i++){
-            estatistica.setTotalComprasMes(i,faturacao.vendasMensais(i));
+            estatistica.setTotalComprasMes(i,faturacao.vendasMensais(i+1));
             estatistica.setTotalFacturacaoFilial1(i,faturacao.totalFaturadoFilial1(i));
             estatistica.setTotalFacturacaoFilial2(i,faturacao.totalFaturadoFilial2(i));
             estatistica.setTotalFacturacaoFilial3(i,faturacao.totalFaturadoFilial3(i));
@@ -219,11 +221,12 @@ public class Hipermercado  implements Serializable{
      * Verifica existencia de cliente
      * @param cli Cliente a verificar a existencia
      * @return True se cliente existe, false em caso contrario
+     * @throws java.lang.CloneNotSupportedException
      */
     
-    public boolean existeCliente(Cliente cli){
+    public boolean existeCliente(Cliente cli) throws CloneNotSupportedException{
     Boolean r;
-        r=clientes.existeCliente(cli);
+        r=clientes.existeCliente(cli.clone());
     return r;
     }
     
@@ -231,10 +234,11 @@ public class Hipermercado  implements Serializable{
      * Verifica existencia de produto
      * @param pro produto a verificar a existencia
      * @return True se produto existe, false em caso contrario
+     * @throws java.lang.CloneNotSupportedException
      */
-    public boolean existeProduto(Produto pro){
+    public boolean existeProduto(Produto pro) throws CloneNotSupportedException{
     Boolean r;
-        r=produtos.existeProduto(pro);
+        r=produtos.existeProduto(pro.clone());
     return r;
     }
     

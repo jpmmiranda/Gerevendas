@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -57,6 +59,8 @@ public class Queries {
     /**
      * Metodo carrega dados de ficheiro objecto
      * @param input Nome do ficheiro
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
     */
     public void carregaDados(String input) throws IOException, ClassNotFoundException{
     
@@ -96,15 +100,20 @@ public class Queries {
     public void Querie1(){
        Crono.start();
       gestaofilial = Gerevendas.getHipermercado().getGestfilial();
-      int aux=0;
+      int aux=0, tamanho;
       ArrayList<String> ProdutosNaoComprados = gestaofilial.getProdutosNaoComprados();
+      tamanho = ProdutosNaoComprados.size();
       Collections.sort(ProdutosNaoComprados);
       Crono.stop();
       System.out.println("Tempo: " + Crono.print() );
       saiTempos(); 
-      printQuerie1(ProdutosNaoComprados,aux,aux,ProdutosNaoComprados.size());
-     
+      if(tamanho!=0){
+            printQuerie1(ProdutosNaoComprados,aux,aux,ProdutosNaoComprados.size());
+       }else{
+       System.out.println("Todos produtos foram comprados" );
+       sair();
 
+      }
     }
       
    /**
@@ -130,16 +139,18 @@ public class Queries {
     /**
      * Metodo Query 3
      * @param cliente Cliente usado para resolução da query
+     * @throws gerevendas.ClienteNaoExisteExcepcao
+     * @throws java.lang.CloneNotSupportedException
     */
-    public void Querie3(String cliente){
+    public void Querie3(String cliente) throws ClienteNaoExisteExcepcao, CloneNotSupportedException{
         
         Crono.start();
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
         Cliente cli = new Cliente(cliente);
         
-        TrioCliComProFat  tcpf = gestaofilial.getClienteParaCadaMes(cli);
-         Crono.stop();
+        TrioCliComProFat  tcpf = gestaofilial.getClienteParaCadaMes(cli.clone());
+        Crono.stop();
         System.out.println("Tempo: " + Crono.print() );
         saiTempos();
         System.out.println(tcpf.toString());
@@ -150,15 +161,17 @@ public class Queries {
     /**
      * Metodo Query 4
      * @param produto Produto usado para resolução da query
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
+     * @throws java.lang.CloneNotSupportedException
     */
-    public void Querie4(String produto){
+    public void Querie4(String produto) throws ProdutoNaoExisteExcepcao, CloneNotSupportedException{
         
         Crono.start();  
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
         
         Produto prod = new Produto(produto);
         
-        TrioProdCompCliFat  tcpf = gestaofilial.getProdutoParaCadaMes(prod);
+        TrioProdCompCliFat  tcpf = gestaofilial.getProdutoParaCadaMes(prod.clone());
          Crono.stop();
          System.out.println("Tempo: " + Crono.print() );
         saiTempos();
@@ -169,8 +182,10 @@ public class Queries {
      /**
      * Metodo Query 5
      * @param cliente Cliente usado para resolução da query
+     * @throws gerevendas.ClienteNaoExisteExcepcao
+     * @throws java.lang.CloneNotSupportedException
     */
-    public void Querie5(String cliente){
+    public void Querie5(String cliente) throws ClienteNaoExisteExcepcao, CloneNotSupportedException{
     
         Crono.start();
         int tamanho,aux=0;
@@ -178,7 +193,7 @@ public class Queries {
         
         Cliente cli = new Cliente(cliente);
         
-        TreeSet<ParCliProdsComprados>  pcpc = gestaofilial.listaDeProdutos(cli);
+        TreeSet<ParCliProdsComprados>  pcpc = gestaofilial.listaDeProdutos(cli.clone());
          Crono.stop();
         System.out.println("Tempo: " + Crono.print() );
         saiTempos();
@@ -190,8 +205,9 @@ public class Queries {
      /**
      * Metodo Query 6
      * @param X Valor usado para resolução da query
+     * @throws java.lang.CloneNotSupportedException
     */
-    public void Querie6(int X){
+    public void Querie6(int X) throws CloneNotSupportedException{
         Crono.start(); 
         
         facturacao = Gerevendas.getHipermercado().getFaturacao();
@@ -202,7 +218,11 @@ public class Queries {
         ArrayList<ParCliProdsComprados> pcpc = facturacao.listaDeXProdutos(X);
         
         pcpc.forEach( (v) ->  {
-           compradores.add(gestaofilial.quantidadeDeCompradores(v.getProdutos()));
+            try {
+                compradores.add(gestaofilial.quantidadeDeCompradores(v.getProdutos()));
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(Queries.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });      
             
        Crono.stop();
@@ -267,8 +287,9 @@ public class Queries {
      /**
      * Metodo Query 8
      * @param X Valor usado para resolução da query
+     * @throws java.lang.CloneNotSupportedException
     */
-    public void Querie8(int X){
+    public void Querie8(int X) throws CloneNotSupportedException{
         
          Crono.start();
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();
@@ -286,8 +307,10 @@ public class Queries {
      * Metodo Query 9
      * @param produto Produto usado para resolução da query
      * @param X Valor usado para resolução da query
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
+     * @throws java.lang.CloneNotSupportedException
     */
-    public void Querie9(String produto, int X){
+    public void Querie9(String produto, int X) throws ProdutoNaoExisteExcepcao, CloneNotSupportedException{
         
          Crono.start();
         gestaofilial = Gerevendas.getHipermercado().getGestfilial();

@@ -67,6 +67,11 @@ public class InfoProduto implements Serializable{
      * @return Map de produtoCompras
      */
     
+    /**
+     *
+     * @return Map de produtoCompras
+     * @throws java.lang.CloneNotSupportedException
+     */
     public TreeMap<Produto, InfoProdutoComprado> getProdutoCompras() throws CloneNotSupportedException {
         
     TreeMap<Produto,InfoProdutoComprado> res = new TreeMap<>();
@@ -110,7 +115,7 @@ public class InfoProduto implements Serializable{
      * @return Total vendas 
      */
     public  int[] getCompradoMes(){
-        return compradoMes;
+        return compradoMes.clone();
     }
     
     /**

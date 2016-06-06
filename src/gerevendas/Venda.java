@@ -62,10 +62,11 @@ public class Venda implements Serializable {
      * @param c Cliente da venda
      * @param m Mes da venda
      * @param f Filial da venda
+     * @throws java.lang.CloneNotSupportedException
      */
-   public Venda(Produto p, double pre,int q, String PN, Cliente c, int m, int f ){
-       produto = p;
-       cliente = c;
+   public Venda(Produto p, double pre,int q, String PN, Cliente c, int m, int f ) throws CloneNotSupportedException{
+       produto = p.clone();
+       cliente = c.clone();
        filial = f;
        quantidade = q;
        mes = m;

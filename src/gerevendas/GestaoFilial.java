@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe que implementa o módulo de Gestão Filial
@@ -196,8 +198,9 @@ public class GestaoFilial implements Serializable {
      * Adiciona produto
      *
      * @param pro Produto a ser adicionado
+     * @throws java.lang.CloneNotSupportedException
      */
-    public void adicionaProdutoInicial(Produto pro) {
+    public void adicionaProdutoInicial(Produto pro) throws CloneNotSupportedException {
         InfoProduto ip = new InfoProduto();
         this.comprasDeProduto.put(pro.clone(), ip);
     }
@@ -299,11 +302,16 @@ public class GestaoFilial implements Serializable {
      * Calcula número de compras, número de produtos e total gasto, de um dado cliente, mensalmente (Apoio Query 3)
      * @param c Cliente
      * @return TrioCliComProFat com os dados recolhidos
+     * @throws gerevendas.ClienteNaoExisteExcepcao
+     * @throws java.lang.CloneNotSupportedException
      */
       
-    public TrioCliComProFat getClienteParaCadaMes(Cliente c){
+    public TrioCliComProFat getClienteParaCadaMes(Cliente c) throws ClienteNaoExisteExcepcao, CloneNotSupportedException{
     
-            int mes,comprasCliente=0;
+        if (!(this.comprasDoCliente.containsKey(c))) {
+            throw new ClienteNaoExisteExcepcao(c.getCodigo());
+        } else {
+            int mes,comprasCliente;
             TrioCliComProFat tccpf = new TrioCliComProFat();
             InfoCliente ic = this.comprasDoCliente.get(c);
             for (mes = 1; mes <= 12; mes++) {
@@ -314,15 +322,21 @@ public class GestaoFilial implements Serializable {
             }
             return tccpf.clone();
         }
+    }
       
     /**
      * Calcula número de vendas, número de clientes e total facturado, de um dado produto, mensalmente (Apoio Query 4)
      * @param p Produto
      * @return TrioProdCompCliFat com os dados recolhidos
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
+     * @throws java.lang.CloneNotSupportedException
      */
       
-    public TrioProdCompCliFat getProdutoParaCadaMes(Produto p){
-    
+    public TrioProdCompCliFat getProdutoParaCadaMes(Produto p)throws ProdutoNaoExisteExcepcao, CloneNotSupportedException{
+         
+        if (!(this.comprasDeProduto.containsKey(p))) {
+            throw new ProdutoNaoExisteExcepcao(p.getCodigo());
+         } else {
             int mes,comprasProduto;
             TrioProdCompCliFat tpccf = new TrioProdCompCliFat();
             InfoProduto ip = this.comprasDeProduto.get(p);
@@ -341,31 +355,37 @@ public class GestaoFilial implements Serializable {
             }
             return tpccf.clone();
         }
-    
+    }
     
     
      /**
      * Calcula lista de produtos comprados por um dado cliente (Apoio Query 5)
      * @param c Cliente
      * @return lista de produtos comprados por um dado cliente
+     * @throws gerevendas.ClienteNaoExisteExcepcao
      */
     
-    public TreeSet<ParCliProdsComprados> listaDeProdutos(Cliente c){
-       TreeSet<ParCliProdsComprados> cod;
-        InfoCliente ic = comprasDoCliente.get(c);
-        cod=(TreeSet<ParCliProdsComprados>) ic.getCodigoProduto().clone();
-   
-        return cod;
-    } 
-    
+    public TreeSet<ParCliProdsComprados> listaDeProdutos(Cliente c) throws ClienteNaoExisteExcepcao{
+       
+        if (!(this.comprasDoCliente.containsKey(c))) {
+            throw new ClienteNaoExisteExcepcao(c.getCodigo());
+        } else {
+            TreeSet<ParCliProdsComprados> cod;
+            InfoCliente ic = comprasDoCliente.get(c);
+            cod=(TreeSet<ParCliProdsComprados>) ic.getCodigoProduto().clone();
+
+            return cod;
+        } 
+    }
     
     /**
      * Calcula quantidade de compradores para determinado produto (Apoio Query 6)
      * @param pro Codigo de Produto
      * @return quantidade de compradores para um dado codigo de produto
+     * @throws java.lang.CloneNotSupportedException
      */
     
-    public int quantidadeDeCompradores(String pro){
+    public int quantidadeDeCompradores(String pro) throws CloneNotSupportedException{
        int r=0;
        InfoCliente ic;
        Produto p = new Produto(pro);
@@ -392,7 +412,11 @@ public class GestaoFilial implements Serializable {
               ParCliProdsComprados pcpc = new ParCliProdsComprados();
                     pcpc.adicionaProduto(k.getCodigo());
                     pcpc.adicionaTotal(v.intValue());
-                    clientes.add(pcpc);
+           try {
+               clientes.add(pcpc.clone());
+           } catch (CloneNotSupportedException ex) {
+               Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+           }
             
            });
     
@@ -410,7 +434,11 @@ public class GestaoFilial implements Serializable {
               ParCliProdsComprados pcpc = new ParCliProdsComprados();
               pcpc.adicionaProduto(k.getCodigo());
               pcpc.adicionaTotal(v.intValue());
-              clientes.add(pcpc);
+           try {
+               clientes.add(pcpc.clone());
+           } catch (CloneNotSupportedException ex) {
+               Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+           }
             
            });
         
@@ -429,7 +457,11 @@ public class GestaoFilial implements Serializable {
               ParCliProdsComprados pcpc = new ParCliProdsComprados();
               pcpc.adicionaProduto(k.getCodigo());
               pcpc.adicionaTotal(v.intValue());
-              clientes.add(pcpc);
+           try {
+               clientes.add(pcpc.clone());
+           } catch (CloneNotSupportedException ex) {
+               Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+           }
             
            });
         
@@ -440,9 +472,10 @@ public class GestaoFilial implements Serializable {
      * Calcula lista com X compradores de produtos diferentes(Apoio Query 8)
      * @param X Tamanho maximo da lista
      * @return lista de ParCliProdsComprados com a informação desejada
+     * @throws java.lang.CloneNotSupportedException
      */
     
-    public ArrayList<ParCliProdsComprados> compradoresProdutosDiferentes(int X){
+    public ArrayList<ParCliProdsComprados> compradoresProdutosDiferentes(int X) throws CloneNotSupportedException{
          TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
          ArrayList<ParCliProdsComprados> clientesFinal=new ArrayList<>();
          ArrayList<ParCliProdsComprados> clientesAux=new ArrayList<>();
@@ -453,12 +486,20 @@ public class GestaoFilial implements Serializable {
               ParCliProdsComprados pcpc = new ParCliProdsComprados();
               pcpc.adicionaProduto(k.getCodigo());
               pcpc.adicionaTotal(total);
-              clientes.add(pcpc);
+             try {
+                 clientes.add(pcpc.clone());
+             } catch (CloneNotSupportedException ex) {
+                 Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+             }
             
            });
        
         clientes.forEach( (v) ->  {  
-            clientesAux.add(v.clone());
+             try {
+                 clientesAux.add(v.clone());
+             } catch (CloneNotSupportedException ex) {
+                 Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+             }
         });
         
         for(int i=0;i<X && i<clientesAux.size();i++)
@@ -475,34 +516,51 @@ public class GestaoFilial implements Serializable {
      * @param pro Produto de quem se calculará os seus compradores
      * @param X Tamanho maximo da lista
      * @return lista de ParCliProdsComprados com a informação desejada
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
+     * @throws java.lang.CloneNotSupportedException
      */
-    public ArrayList<ParCliProdsComprados> listaDeClientes(Produto pro,int X) {
-        
-        TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
-        ArrayList<ParCliProdsComprados> clientesFinal=new ArrayList<>();
-        ArrayList<ParCliProdsComprados> clientesAux=new ArrayList<>();
-        
-         comprasDoCliente.forEach( (k, v) ->  {
-             InfoCliente ic = v;
-             if(ic.existeProduto(pro.clone())) {
-                  ParCliProdsComprados pcpc = new ParCliProdsComprados();
-                  pcpc.adicionaProduto(k.getCodigo());                  
-                  pcpc.adicionaTotal(ic.gastoNoProduto(pro.clone()));
-                  clientes.add(pcpc);  
-             }            
-           });
-        clientes.forEach( (v) ->  {  
-            clientesAux.add(v.clone());
-        });
-        
-        for(int i=0;i<X && i<clientesAux.size();i++)
-            clientesFinal.add(clientesAux.get(i).clone());
-        
-         
-    return clientesFinal;
-        
-    }
+    public ArrayList<ParCliProdsComprados> listaDeClientes(Produto pro,int X) throws ProdutoNaoExisteExcepcao, CloneNotSupportedException {
     
+        if (!(this.comprasDeProduto.containsKey(pro))) {
+            throw new ProdutoNaoExisteExcepcao(pro.getCodigo());
+        } else {    
+            TreeSet<ParCliProdsComprados> clientes=new TreeSet<>(new ComparatorProdutosEQuantidade());
+            ArrayList<ParCliProdsComprados> clientesFinal=new ArrayList<>();
+            ArrayList<ParCliProdsComprados> clientesAux=new ArrayList<>();
+
+             comprasDoCliente.forEach( (k, v) ->  {
+                 InfoCliente ic = v;
+                try {
+                    if(ic.existeProduto(pro.clone())) {
+                        ParCliProdsComprados pcpc = new ParCliProdsComprados();
+                        pcpc.adicionaProduto(k.getCodigo());
+                        pcpc.adicionaTotal(ic.gastoNoProduto(pro.clone()));
+                        try {
+                            clientes.add(pcpc.clone());
+                        } catch (CloneNotSupportedException ex) {
+                            Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+                        }            
+                    }
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               });
+            clientes.forEach( (v) ->  {  
+                try {
+                    clientesAux.add(v.clone());
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+
+            for(int i=0;i<X && i<clientesAux.size();i++)
+                clientesFinal.add(clientesAux.get(i).clone());
+
+
+        return clientesFinal;
+        
+        }
+    }
     
     
     /**

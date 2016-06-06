@@ -81,20 +81,22 @@ public class TrioCliComProFat implements Serializable {
     /**
      * Adiciona  compras num dado mes
      * 
-     * @param nCompras Compras a adicionar
+     * @param total Compras a adicionar
      * @param mes Mes a ser adicionado
     */
-    public void adicionaCompras(int nCompras, int mes) {
-        this.Compras[mes - 1] = nCompras;
+    public void adicionaCompras(int total, int mes) {
+        this.Compras[mes - 1] = total;
     }
 
     
     /**
      *
      * @return Novo Objecto como cópia da instância Actual
+     * @throws java.lang.CloneNotSupportedException
      */
     
-    public TrioCliComProFat clone() {
+    @Override
+    public TrioCliComProFat clone() throws CloneNotSupportedException {
         return new TrioCliComProFat(this);
     }
     
@@ -122,6 +124,7 @@ public class TrioCliComProFat implements Serializable {
      * @return String resultante
      */
    
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 

@@ -94,9 +94,10 @@ public class Produto implements Serializable {
     /**
      * 
      * @return Novo objecto como cópia da instância actual
+     * @throws java.lang.CloneNotSupportedException
      */
     @Override
-    public Produto clone() {
+    public Produto clone() throws CloneNotSupportedException {
         return new Produto(this);
     }
 

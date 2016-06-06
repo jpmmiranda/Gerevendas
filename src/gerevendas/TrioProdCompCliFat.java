@@ -84,11 +84,11 @@ public class TrioProdCompCliFat implements Serializable{
      /**
      * Adiciona  compras num dado mes
      * 
-     * @param nCompras Compras a adicionar
+     * @param total Compras a adicionar
      * @param mes Mes a ser adicionado
     */
-    public void adicionaCompras(int nCompras, int mes) {
-        this.Compras[mes - 1] = nCompras;
+    public void adicionaCompras(int total, int mes) {
+        this.Compras[mes - 1] = total;
     }
 
     
@@ -96,8 +96,10 @@ public class TrioProdCompCliFat implements Serializable{
      /**
      *
      * @return Novo Objecto como cópia da instância Actual
+     * @throws java.lang.CloneNotSupportedException
      */
-    public TrioProdCompCliFat clone() {
+    @Override
+    public TrioProdCompCliFat clone() throws CloneNotSupportedException {
         return new TrioProdCompCliFat(this);
     }
     
@@ -106,6 +108,7 @@ public class TrioProdCompCliFat implements Serializable{
      * @param o Objecto a ser testado
      * @return Igualdade entre a instância actual e o parâmetro obj
      */
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -125,6 +128,7 @@ public class TrioProdCompCliFat implements Serializable{
      */
 
    
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 

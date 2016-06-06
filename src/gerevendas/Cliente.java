@@ -94,9 +94,10 @@ public class Cliente implements Serializable{
     /**
      * 
      * @return Novo objecto como cópia da instância actual
+     * @throws java.lang.CloneNotSupportedException
      */
     @Override
-    public Cliente clone() {
+    public Cliente clone() throws CloneNotSupportedException {
         return new Cliente(this);
     }
     /**

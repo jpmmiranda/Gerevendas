@@ -74,9 +74,11 @@ public class ParCliProdsComprados implements Serializable {
     /**
      *
      * @return Novo Objecto como cópia da instância Actual
+     * @throws java.lang.CloneNotSupportedException
      */
     
-    public ParCliProdsComprados clone()  {
+    @Override
+    public ParCliProdsComprados clone() throws CloneNotSupportedException  {
         return new ParCliProdsComprados(this);
     }
     

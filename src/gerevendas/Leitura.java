@@ -48,8 +48,8 @@ public class Leitura implements Serializable {
             int mes = Integer.parseInt(partes[5]);
             int filial = Integer.parseInt(partes[6]);
             
-            if(verificaVenda(pro,preco,quantidade,cliente)){
-                v = new Venda(pro, preco, quantidade, PouN, cliente, mes, filial);
+            if(verificaVenda(pro.clone(),preco,quantidade,cliente.clone())){
+                v = new Venda(pro.clone(), preco, quantidade, PouN, cliente.clone(), mes, filial);
                 if(preco==0) Preco0++;
                 hiper.insereVendaValida(v.clone());
             }else{
@@ -64,8 +64,9 @@ public class Leitura implements Serializable {
 
     /**
     * Metodo responsavel pela leitura do ficheiro de produtos
+     * @throws java.lang.CloneNotSupportedException
     */
-    public static void lerProdutos() {
+    public static void lerProdutos() throws CloneNotSupportedException {
         ArrayList<String> codigos;
         Hipermercado hiper = Gerevendas.getHipermercado();
                 
@@ -119,12 +120,12 @@ public class Leitura implements Serializable {
     /**
     * Metodo responsavel por verificar uma venda
     */
-    private static boolean verificaVenda(Produto pro,double preco,int quantidade,Cliente cliente) {
+    private static boolean verificaVenda(Produto pro,double preco,int quantidade,Cliente cliente) throws CloneNotSupportedException {
         Hipermercado hiper = Gerevendas.getHipermercado();
         Boolean r=false;
         
-        if(hiper.existeCliente(cliente)){
-            if(hiper.existeProduto(pro)){
+        if(hiper.existeCliente(cliente.clone())){
+            if(hiper.existeProduto(pro.clone())){
                 if(preco>=0.0 && quantidade>=0) r=true;
             }
         }

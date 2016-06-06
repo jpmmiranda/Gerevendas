@@ -28,7 +28,7 @@ public class CatalogoClientes implements Serializable {
     public  CatalogoClientes(){
         this.CatClientes = new HashMap<>();
         for (Character c = 'A'; c <= 'Z'; c++) {
-          this.CatClientes.put(c, new TreeSet<Cliente>(new ComparatorCodigoCliente()));
+          this.CatClientes.put(c, new TreeSet<>(new ComparatorCodigoCliente()));
         }
     }
     
@@ -36,17 +36,19 @@ public class CatalogoClientes implements Serializable {
      * Construtor de cópia de uma instância da classe CatalogoClientes
      *
      * @param cc Catálogo a ser copiado
+     * @throws java.lang.CloneNotSupportedException
      */
     
-     public CatalogoClientes(CatalogoClientes cc) {
+     public CatalogoClientes(CatalogoClientes cc) throws CloneNotSupportedException {
         this.CatClientes = cc.getCatClientes();
     }
     
     /**
      * 
      * @return Catálogo de Clientes existente no objecto
+     * @throws java.lang.CloneNotSupportedException
      */
-    public HashMap<Character, TreeSet<Cliente>> getCatClientes() {
+    public HashMap<Character, TreeSet<Cliente>> getCatClientes() throws CloneNotSupportedException {
         HashMap<Character, TreeSet<Cliente>> res = new HashMap<>();
         TreeSet<Cliente> aux;
         Character counter = 'A';
@@ -65,9 +67,10 @@ public class CatalogoClientes implements Serializable {
      * Método que adiciona um cliente ao catalogo
      *
      * @param cli Cliente a ser inserido
+     * @throws java.lang.CloneNotSupportedException
      */
     
-   public void adicionaCliente(Cliente cli) {
+   public void adicionaCliente(Cliente cli) throws CloneNotSupportedException {
         String cod = cli.getCodigo();
         Character c= Character.toUpperCase(cod.charAt(0));
         this.CatClientes.get(c).add(cli.clone());
@@ -111,6 +114,7 @@ public class CatalogoClientes implements Serializable {
     /**
      * Método clone
      * @return Uma nova instância de CatalogoClientes 
+     * @throws java.lang.CloneNotSupportedException 
      */
     @Override
     public CatalogoClientes clone() throws CloneNotSupportedException {

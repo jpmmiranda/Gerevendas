@@ -84,7 +84,7 @@ public class InfoCliente implements Serializable {
      * @return Compras em modo N
      */
     public int[] getComprasMesN() {
-        return comprasMesN;
+        return comprasMesN.clone();
     }
 
     /**
@@ -92,13 +92,14 @@ public class InfoCliente implements Serializable {
      * @return Compras em Modo P
      */
     public int[] getComprasMesP() {
-        return comprasMesP;
+        return comprasMesP.clone();
     }
   
 
     /**
      * 
      * @return Map de clienteCompras
+     * @throws java.lang.CloneNotSupportedException
      */
     public TreeMap<Produto, InfoProdutoComprado> getClienteCompras() throws CloneNotSupportedException {
         
@@ -166,7 +167,11 @@ public class InfoCliente implements Serializable {
           ParCliProdsComprados pcpc=new ParCliProdsComprados();
           pcpc.adicionaTotal(v.getUnidadesVendidas());
           pcpc.adicionaProduto(k.getCodigo());
-          cod.add(pcpc.clone());      
+          try {      
+              cod.add(pcpc.clone());
+          } catch (CloneNotSupportedException ex) {
+              Logger.getLogger(InfoCliente.class.getName()).log(Level.SEVERE, null, ex);
+          }
          });
 
         return cod;

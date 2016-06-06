@@ -24,8 +24,10 @@ public class Gerevendas implements Serializable {
      * @throws java.lang.CloneNotSupportedException
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
+     * @throws gerevendas.ClienteNaoExisteExcepcao
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
      */
-    public static void main(String[] args) throws CloneNotSupportedException, IOException, ClassNotFoundException {
+    public static void main(String[] args) throws CloneNotSupportedException, IOException, ClassNotFoundException, ClienteNaoExisteExcepcao, ProdutoNaoExisteExcepcao {
         hipermercado = new Hipermercado();
         Interface.printMenu();
     }

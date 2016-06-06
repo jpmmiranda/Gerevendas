@@ -56,10 +56,10 @@ public class Facturacao implements Serializable {
      */
     public Facturacao(Map<Produto, InfoProdutoFacturacao> fact,int[][] tVendas,double tFaturado,double[][] tf1,double[][] tf2,double[][] tf3) throws CloneNotSupportedException {
         this.totalFaturado = tFaturado;
-        this.totalVendas = tVendas;
-        this.totalFatFilial1 = tf1;
-        this.totalFatFilial2 = tf2;
-        this.totalFatFilial3 =tf3;
+        this.totalVendas = tVendas.clone();
+        this.totalFatFilial1 = tf1.clone();
+        this.totalFatFilial2 = tf2.clone();
+        this.totalFatFilial3 =tf3.clone();
         this.facturacao = new TreeMap<>();
        
         fact.forEach( (k,v) ->  {
@@ -90,6 +90,7 @@ public class Facturacao implements Serializable {
     /**
      * 
      * @return Map de facturacao
+     * @throws java.lang.CloneNotSupportedException
      */
 
     public Map<Produto, InfoProdutoFacturacao> getFacturacao() throws CloneNotSupportedException {
@@ -191,9 +192,10 @@ public class Facturacao implements Serializable {
    /**
      * Adiciona produto 
      * @param prod Produto a ser inserido
+     * @throws java.lang.CloneNotSupportedException
      */
     
-   public  void adicionaProduto(Produto prod){
+   public  void adicionaProduto(Produto prod) throws CloneNotSupportedException{
         InfoProdutoFacturacao ipf = new InfoProdutoFacturacao();
 
         this.facturacao.put(prod.clone(),ipf );
@@ -207,9 +209,9 @@ public class Facturacao implements Serializable {
      */
     public int vendasMensais(int mes){
     
-        int vendas=0;
+        int vendas;
        
-        vendas=totalVendas[mes][0]+totalVendas[mes][1];
+        vendas=totalVendas[mes-1][0]+totalVendas[mes-1][1];
          
         return vendas;
     }
@@ -276,9 +278,10 @@ public class Facturacao implements Serializable {
      * Método que devolve X produtos vendidos
      * @param X Limite de produtos a retornar
      * @return Lista com produtos vendidos.
+     * @throws java.lang.CloneNotSupportedException
      */
     
-    public ArrayList<ParCliProdsComprados> listaDeXProdutos(int X) {
+    public ArrayList<ParCliProdsComprados> listaDeXProdutos(int X) throws CloneNotSupportedException {
          TreeSet<ParCliProdsComprados> cod=new TreeSet<>(new ComparatorProdutosEQuantidade());
           ArrayList<ParCliProdsComprados> prodFinal=new ArrayList<>();
          ArrayList<ParCliProdsComprados> prodAux=new ArrayList<>();
@@ -289,12 +292,20 @@ public class Facturacao implements Serializable {
                     ParCliProdsComprados pcpc = new ParCliProdsComprados();
                     pcpc.adicionaProduto(k.getCodigo());
                     pcpc.adicionaTotal(ip.getTotalVendidas());
-                    cod.add(pcpc);
+                 try {
+                     cod.add(pcpc.clone());
+                 } catch (CloneNotSupportedException ex) {
+                     Logger.getLogger(Facturacao.class.getName()).log(Level.SEVERE, null, ex);
+                 }
                 }
            });
          
       cod.forEach( (v) ->  {  
-            prodAux.add(v.clone());
+             try {
+                 prodAux.add(v.clone());
+             } catch (CloneNotSupportedException ex) {
+                 Logger.getLogger(Facturacao.class.getName()).log(Level.SEVERE, null, ex);
+             }
         });
         
         for(int i=0;i<X && i<prodAux.size();i++)

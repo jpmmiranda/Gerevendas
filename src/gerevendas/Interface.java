@@ -39,8 +39,10 @@ public class Interface implements Serializable{
      * @throws java.lang.CloneNotSupportedException
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
+     * @throws gerevendas.ClienteNaoExisteExcepcao
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
      */
-    public static void printMenu() throws CloneNotSupportedException, IOException, ClassNotFoundException {
+    public static void printMenu() throws CloneNotSupportedException, IOException, ClassNotFoundException, ClienteNaoExisteExcepcao, ProdutoNaoExisteExcepcao {
         
         int opcao;
         boolean r = true;
@@ -86,8 +88,10 @@ public class Interface implements Serializable{
      * @throws java.lang.CloneNotSupportedException
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
+     * @throws gerevendas.ClienteNaoExisteExcepcao
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
      */
-    public static void menuLerFicheiros() throws CloneNotSupportedException, IOException, ClassNotFoundException{
+    public static void menuLerFicheiros() throws CloneNotSupportedException, IOException, ClassNotFoundException, ClienteNaoExisteExcepcao, ProdutoNaoExisteExcepcao{
 	int r;
 
 	printInicializar();
@@ -166,7 +170,7 @@ public class Interface implements Serializable{
 				break;
 			case 0:
 				printMenu();
-				r = 0;
+				
 				break;
 			default:				
 				System.out.print("Opção inválida.\n");
@@ -245,8 +249,10 @@ public class Interface implements Serializable{
      * @throws java.lang.CloneNotSupportedException
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
+     * @throws gerevendas.ClienteNaoExisteExcepcao
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
      */
-    public static void printEstatisticas() throws CloneNotSupportedException, IOException, ClassNotFoundException{
+    public static void printEstatisticas() throws CloneNotSupportedException, IOException, ClassNotFoundException, ClienteNaoExisteExcepcao, ProdutoNaoExisteExcepcao{
       
          
         int opcao;
@@ -280,8 +286,10 @@ public class Interface implements Serializable{
      * @throws java.lang.CloneNotSupportedException
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
+     * @throws gerevendas.ClienteNaoExisteExcepcao
+     * @throws gerevendas.ProdutoNaoExisteExcepcao
      */
-    public static void printQueries() throws CloneNotSupportedException, IOException, ClassNotFoundException{
+    public static void printQueries() throws CloneNotSupportedException, IOException, ClassNotFoundException, ClienteNaoExisteExcepcao, ProdutoNaoExisteExcepcao{
           
         int opcao;
         boolean r = true;
@@ -403,7 +411,7 @@ public class Interface implements Serializable{
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
      */
-    private static void menuCarregarGuardar() throws CloneNotSupportedException, IOException, ClassNotFoundException {
+    private static void menuCarregarGuardar() throws CloneNotSupportedException, IOException, ClassNotFoundException, ClienteNaoExisteExcepcao, ProdutoNaoExisteExcepcao {
 
         int opcao;
         boolean r = true;
