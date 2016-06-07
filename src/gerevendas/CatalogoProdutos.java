@@ -74,6 +74,18 @@ public class CatalogoProdutos implements Serializable{
         this.CatProdutos.get(c).add(pro.clone());
     }
     
+    /**
+     * Método que calcula total de produtos
+     * @return total de produtos
+     */
+    public int totalProdutos(){
+    
+        int r=0;
+        for (Character c = 'A'; c <= 'Z'; c++) {
+         r+= CatProdutos.get(c).size();
+        }
+        return r;
+    }
    
      /**
      * Método de verificação da existência de um Produto no catálogo de Produtos

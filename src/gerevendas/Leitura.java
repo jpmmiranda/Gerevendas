@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class Leitura implements Serializable {
     
-     private static int Clientes = 0, Produtos = 0, Preco0 = 0, Errados=0;
+     private static int Preco0 = 0, Errados=0;
     
   
    /**
@@ -32,7 +32,7 @@ public class Leitura implements Serializable {
         Hipermercado hiper = Gerevendas.getHipermercado();
       
         Venda v;
-        String fich="Vendas_1M.txt";
+        String fich="Vendas_3M.txt";
       
         ArrayList<String> codigos;
 
@@ -57,7 +57,7 @@ public class Leitura implements Serializable {
             }
             
         }
-        hiper.insereEstatistica(fich,Clientes,Produtos,Preco0,Errados);
+        hiper.insereEstatistica(fich,Preco0,Errados);
 
 
   }
@@ -74,7 +74,7 @@ public class Leitura implements Serializable {
         for(String cod : codigos){
             Produto pro = new Produto(cod);
              hiper.insereProduto(pro.clone());
-             Produtos++;
+
           }
         
     }
@@ -92,7 +92,7 @@ public class Leitura implements Serializable {
         for(String cod : codigos){
                 Cliente cli = new Cliente(cod);
                 hiper.insereCliente(cli.clone());
-                Clientes++;
+               
         }
     }
     

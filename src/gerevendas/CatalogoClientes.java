@@ -76,6 +76,20 @@ public class CatalogoClientes implements Serializable {
         this.CatClientes.get(c).add(cli.clone());
     }
    
+   
+   /**
+     * Método que calcula total de clientes
+     * @return total de clientes
+     */
+    public int totalClientes(){
+    
+        int r=0;
+        for (Character c = 'A'; c <= 'Z'; c++) {
+         r+= CatClientes.get(c).size();
+        }
+        return r;
+    }
+   
    /**
      * Método de verificação da existência de um Cliente no catálogo de Clientes
      * @param cli Código a ser verificado

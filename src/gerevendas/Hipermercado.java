@@ -188,22 +188,26 @@ public class Hipermercado  implements Serializable{
     /**
      * Insere estatistica 
      * @param fichVendas Nome de ficheiro de vendas
-     * @param clientes Numero de clientes
-     * @param produtos Numero de Produtos
      * @param preco0 Numero de vendas a 0.0
      * @param errados Numero de registos errados
      */
-    public void insereEstatistica(String fichVendas,int clientes, int produtos, int preco0, int errados){
+    public void insereEstatistica(String fichVendas, int preco0, int errados){
+        
+        int clientesCompradores=gestfilial.getTotalDeClientesCompradores();
+        int produtosDistintosComprados=gestfilial.getTotalProdutosDiferentesComprados();
+        int totalClientes=clientes.totalClientes();
+        int totalProdutos=produtos.totalProdutos();
+        
         estatistica.setFicheiroVendas(fichVendas);
-        estatistica.setTotalClientes(clientes);
-        estatistica.setTotalProdutos(produtos);
+        estatistica.setTotalClientes(totalClientes);
+        estatistica.setTotalProdutos(totalProdutos);
         estatistica.setTotalComprasZero(preco0);
         estatistica.setTotalFacturacao(faturacao.getTotalFaturadoGlobal());
         estatistica.setTotalNaoComprados(faturacao.getTotalProdutosNaoComprados());
-        estatistica.setTotalClientesCompradores(gestfilial.getTotalDeClientesCompradores());
-        estatistica.setTotalClientesNaoCompradores(clientes-gestfilial.getTotalDeClientesCompradores());
-        estatistica.setTotalProdutosDiferentes(gestfilial.getTotalProdutosDiferentesComprados());
-        estatistica.setTotalNaoComprados(produtos-gestfilial.getTotalProdutosDiferentesComprados());
+        estatistica.setTotalClientesCompradores(clientesCompradores);
+        estatistica.setTotalClientesNaoCompradores(totalClientes-clientesCompradores);
+        estatistica.setTotalProdutosDiferentes(produtosDistintosComprados);
+        estatistica.setTotalNaoComprados(totalProdutos-produtosDistintosComprados);
 
         int i;
         for(i=0;i<12;i++){
