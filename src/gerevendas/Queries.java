@@ -208,10 +208,11 @@ public class Queries {
         if(catalogoClientes.existeCliente(cli.clone())){
             Crono.start();
             TreeSet<ParCliProdsComprados>  pcpc = gestaofilial.listaDeProdutos(cli.clone());
-             Crono.stop();
+            Crono.stop();
             System.out.println("Tempo: " + Crono.print() );
             saiTempos();
-             ArrayList<ParCliProdsComprados> imprime = new ArrayList<>(pcpc);
+            ArrayList<ParCliProdsComprados> imprime = new ArrayList<>();
+            for(ParCliProdsComprados p : pcpc) imprime.add(p.clone());
             tamanho = imprime.size();
             printQuerie5(imprime,aux,aux,tamanho);
         }else{
