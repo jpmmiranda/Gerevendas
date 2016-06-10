@@ -428,6 +428,9 @@ public class Estatistica implements Serializable {
         s.append("Ficheiro lido: ");
         s.append(getFicheiroVendas());
         s.append("\n");
+        s.append("Total de registos errados: ");
+        s.append(getTotalRegistosErrados());
+        s.append("\n");
         s.append("Total de produtos:");
         s.append(getTotalProdutos());
         s.append("\n");        

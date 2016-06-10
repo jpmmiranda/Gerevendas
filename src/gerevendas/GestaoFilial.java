@@ -73,7 +73,17 @@ public class GestaoFilial implements Serializable {
      * @return Map de ComprasDoCliente
      */   
     public HashMap<Cliente,InfoCliente> getComprasDoCliente() {
-        return comprasDoCliente;
+        HashMap<Cliente, InfoCliente> fin = new HashMap<>();
+       
+        this.comprasDoCliente.forEach( (k,v) ->  {
+            
+            try {
+                fin.put(k.clone(), v.clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           });
+       return fin;
     }
     
     /**
@@ -81,7 +91,17 @@ public class GestaoFilial implements Serializable {
      * @return Map de ComprasDeProduto
      */   
     public HashMap<Produto,InfoProduto> getComprasDeProduto() {
-        return comprasDeProduto;
+        HashMap<Produto,InfoProduto> fin = new HashMap<>();
+       
+        this.comprasDeProduto.forEach( (k,v) ->  {
+            
+            try {
+                fin.put(k.clone(), v.clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           });
+       return fin;
     }
   
     /**
@@ -89,7 +109,17 @@ public class GestaoFilial implements Serializable {
      * @return Map de CompradoresFilial1
      */   
     private HashMap<Cliente, Double> getCompradoresFilial1() {
-        return compradoresFilial1;
+       HashMap<Cliente, Double> fin = new HashMap<>();
+       
+        this.compradoresFilial1.forEach( (k,v) ->  {
+            
+            try {
+                fin.put(k.clone(), v);
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           });
+       return fin;
     }
 
     /**
@@ -97,7 +127,17 @@ public class GestaoFilial implements Serializable {
      * @return Map de CompradoresFilial2
      */   
     private HashMap<Cliente, Double> getCompradoresFilial2() {
-        return compradoresFilial2;
+        HashMap<Cliente, Double> fin = new HashMap<>();
+       
+        this.compradoresFilial2.forEach( (k,v) ->  {
+            
+            try {
+                fin.put(k.clone(), v);
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           });
+       return fin;
     }
 
     /**
@@ -105,7 +145,17 @@ public class GestaoFilial implements Serializable {
      * @return Map de CompradoresFilial3
      */   
     private HashMap<Cliente, Double> getCompradoresFilial3() {
-        return compradoresFilial3;
+        HashMap<Cliente, Double> fin = new HashMap<>();
+       
+        this.compradoresFilial3.forEach( (k,v) ->  {
+            
+            try {
+                fin.put(k.clone(), v);
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           });
+       return fin;
     }
 
      /**
@@ -114,7 +164,17 @@ public class GestaoFilial implements Serializable {
      * @param comprasDoCliente compras do cliente a actualizar
      */
     public void setComprasDoCliente(HashMap<Cliente,InfoCliente> comprasDoCliente) {
-        this.comprasDoCliente = comprasDoCliente;
+        this.comprasDoCliente = new HashMap<>();
+       
+        comprasDoCliente.forEach( (k,v) ->  {
+            
+            try {
+                this.comprasDoCliente.put(k.clone(), v.clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           });
+      
     }
     
     /**
@@ -123,7 +183,16 @@ public class GestaoFilial implements Serializable {
      * @param comprasDeProduto compras de produto a actualizar
      */
     public void setComprasDeProduto(HashMap<Produto,InfoProduto> comprasDeProduto) {
-        this.comprasDeProduto = comprasDeProduto;
+        this.comprasDeProduto = new HashMap<>();
+       
+        comprasDeProduto.forEach( (k,v) ->  {
+            
+            try {
+                this.comprasDeProduto.put(k.clone(), v.clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           });
     }
     
      /**
@@ -132,7 +201,17 @@ public class GestaoFilial implements Serializable {
      * @param compradoresFilial1 compradores da filial 1 a actualizar
      */
     public void setCompradoresFilial1(HashMap<Cliente, Double> compradoresFilial1) {
-        this.compradoresFilial1 = compradoresFilial1;
+        
+            this.compradoresFilial1 = new HashMap<>();
+
+            compradoresFilial1.forEach( (k,v) ->  {
+
+                try {
+                    this.compradoresFilial1.put(k.clone(), v);
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               });
     }
     
     /**
@@ -141,7 +220,16 @@ public class GestaoFilial implements Serializable {
      * @param compradoresFilial2 compradores da filial 2 a actualizar
      */
     public void setCompradoresFilial2(HashMap<Cliente, Double> compradoresFilial2) {
-        this.compradoresFilial2 = compradoresFilial2;
+        this.compradoresFilial2 = new HashMap<>();
+
+            compradoresFilial2.forEach( (k,v) ->  {
+
+                try {
+                    this.compradoresFilial2.put(k.clone(), v);
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               });
     }
     
     /**
@@ -150,7 +238,16 @@ public class GestaoFilial implements Serializable {
      * @param compradoresFilial3 compradores da filial 3 a actualizar
      */
     public void setCompradoresFilial3(HashMap<Cliente, Double> compradoresFilial3) {
-        this.compradoresFilial3 = compradoresFilial3;
+        this.compradoresFilial3 = new HashMap<>();
+
+            compradoresFilial3.forEach( (k,v) ->  {
+
+                try {
+                    this.compradoresFilial3.put(k.clone(), v);
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               });
     }
     
     /**
@@ -164,19 +261,37 @@ public class GestaoFilial implements Serializable {
       
       int filial = v.getFilial();
       double d;
+      Cliente cli=v.getCliente();
       if(filial==1){
-           
+            if(this.compradoresFilial1.containsKey(cli)){
+                d=this.compradoresFilial1.get(cli);
+                d+=v.getPreco()*v.getQuantidade();
+               this.compradoresFilial1.put(cli.clone(), d);
+            }else{
              d=v.getPreco()*v.getQuantidade();
-             this.compradoresFilial1.put(v.getCliente().clone(), d);
+             this.compradoresFilial1.put(cli.clone(), d);
+            }
       }else if(filial==2){
+            if(this.compradoresFilial2.containsKey(cli)){
+                d=this.compradoresFilial2.get(cli);
+                d+=v.getPreco()*v.getQuantidade();
+               this.compradoresFilial2.put(cli.clone(), d);
+            }else{
              d=v.getPreco()*v.getQuantidade();
-             this.compradoresFilial2.put(v.getCliente().clone(), d);
+             this.compradoresFilial2.put(cli.clone(), d);
+            }
       } else{
+           if(this.compradoresFilial3.containsKey(cli)){
+                d=this.compradoresFilial3.get(cli);
+                d+=v.getPreco()*v.getQuantidade();
+               this.compradoresFilial3.put(cli.clone(), d);
+            }else{
              d=v.getPreco()*v.getQuantidade();
-             this.compradoresFilial3.put(v.getCliente().clone(), d);
+             this.compradoresFilial3.put(cli.clone(), d);
+            }
       }
           
-      this.comprasDoCliente.get(v.getCliente()).adicionaInfo(v.clone());
+      this.comprasDoCliente.get(cli).adicionaInfo(v.clone());
                     
     }
     

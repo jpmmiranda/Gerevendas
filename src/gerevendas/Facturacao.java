@@ -8,6 +8,7 @@ package gerevendas;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class Facturacao implements Serializable {
     
-    private Map<Produto, InfoProdutoFacturacao> facturacao;
+    private Map<Produto, Integer> facturacao;
     int[][] totalVendas;//Por mes e tipo
     double totalFaturado;
     double[][] totalFatFilial1;
@@ -54,7 +55,7 @@ public class Facturacao implements Serializable {
      * @param tf3 Total Facturado Filial 3
      * @throws java.lang.CloneNotSupportedException
      */
-    public Facturacao(Map<Produto, InfoProdutoFacturacao> fact,int[][] tVendas,double tFaturado,double[][] tf1,double[][] tf2,double[][] tf3) throws CloneNotSupportedException {
+    public Facturacao(Map<Produto, Integer> fact,int[][] tVendas,double tFaturado,double[][] tf1,double[][] tf2,double[][] tf3) throws CloneNotSupportedException {
         this.totalFaturado = tFaturado;
         this.totalVendas = tVendas.clone();
         this.totalFatFilial1 = tf1.clone();
@@ -62,9 +63,9 @@ public class Facturacao implements Serializable {
         this.totalFatFilial3 =tf3.clone();
         this.facturacao = new TreeMap<>();
        
-        fact.forEach( (k,v) ->  {
+        fact.forEach( (Produto k,Integer v) ->  {
             try {
-                this.facturacao.put(k.clone(), v.clone());
+                this.facturacao.put(k.clone(), v);
             } catch (CloneNotSupportedException ex) {
                 Logger.getLogger(Facturacao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -93,11 +94,11 @@ public class Facturacao implements Serializable {
      * @throws java.lang.CloneNotSupportedException
      */
 
-    public Map<Produto, InfoProdutoFacturacao> getFacturacao() throws CloneNotSupportedException {
-        TreeMap<Produto, InfoProdutoFacturacao> aux = new TreeMap<>();
+    public Map<Produto, Integer> getFacturacao() throws CloneNotSupportedException {
+        TreeMap<Produto, Integer> aux = new TreeMap<>();
         facturacao.forEach( (k,v) ->  {
             try {
-                aux.put(k.clone(), v.clone());
+                aux.put(k.clone(), v);
             } catch (CloneNotSupportedException ex) {
                 Logger.getLogger(Facturacao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -129,9 +130,9 @@ public class Facturacao implements Serializable {
      */
     public int getTotalProdutosNaoComprados(){
         int  r=0;
-        for(InfoProdutoFacturacao p : facturacao.values()){
+        for(Integer p : facturacao.values()){
         
-            if(p.getTotalVendidas()==0)r++;
+            if(p==0)r++;
         }
         return r;
     }
@@ -166,8 +167,17 @@ public class Facturacao implements Serializable {
      * @param facturacao Map a actualizar 
      */
     
-    public void setFacturacao(Map<Produto, InfoProdutoFacturacao> facturacao){
-        this.facturacao = facturacao;
+    public void setFacturacao(Map<Produto, Integer> facturacao){
+         this.facturacao = new TreeMap<>(new ComparatorCodigoProduto());
+
+           facturacao.forEach( (k,v) ->  {
+
+                try {
+                    this.facturacao.put(k.clone(), v);
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               });
     }
 
     /**
@@ -196,9 +206,8 @@ public class Facturacao implements Serializable {
      */
     
    public  void adicionaProduto(Produto prod) throws CloneNotSupportedException{
-        InfoProdutoFacturacao ipf = new InfoProdutoFacturacao();
 
-        this.facturacao.put(prod.clone(),ipf );
+        this.facturacao.put(prod.clone(),0 );
     
     }
     
@@ -287,11 +296,10 @@ public class Facturacao implements Serializable {
          ArrayList<ParCliProdsComprados> prodAux=new ArrayList<>();
          facturacao.forEach( (k,v) ->  {
             
-             InfoProdutoFacturacao ip = facturacao.get(k);
-             if(ip.getTotalVendidas()!=0){
+             if(v!=0){
                     ParCliProdsComprados pcpc = new ParCliProdsComprados();
                     pcpc.adicionaProduto(k.getCodigo());
-                    pcpc.adicionaTotal(ip.getTotalVendidas());
+                    pcpc.adicionaTotal(v);
                  try {
                      cod.add(pcpc.clone());
                  } catch (CloneNotSupportedException ex) {
@@ -325,7 +333,6 @@ public class Facturacao implements Serializable {
         int mes,quantidade,filial;
         double preco ;
         
-        InfoProdutoFacturacao ipf;
         quantidade=ven.getQuantidade();
         PouN=ven.getPouN();
         mes=ven.getMes();
@@ -345,9 +352,9 @@ public class Facturacao implements Serializable {
 
         }
         
-               
-                ipf=this.facturacao.get(ven.getProduto());
-                ipf.incrementaTotalVendidas(quantidade);  
+               int v=this.facturacao.get(ven.getProduto());
+               v+=quantidade;
+               this.facturacao.put(ven.getProduto(),v);
              
     }
     

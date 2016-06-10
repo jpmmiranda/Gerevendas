@@ -57,8 +57,8 @@ public class InfoProduto implements Serializable{
      public InfoProduto(InfoProduto ip) throws CloneNotSupportedException{
         this.produtoCompras=ip.getProdutoCompras();
         this.UnidadesVendidas=ip.getUnidadesVendidas();
-        this.TotalPagoMes=getTotalPagoMes();
-        this.compradoMes=getCompradoMes();
+        this.TotalPagoMes=ip.getTotalPagoMes();
+        this.compradoMes=ip.getCompradoMes();
         
         
     }

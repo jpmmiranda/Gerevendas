@@ -192,7 +192,16 @@ public class InfoCliente implements Serializable {
     */
 
     public void setClienteCompras(TreeMap<Produto, InfoProdutoComprado> clienteCompras) {
-        this.clienteCompras = clienteCompras;
+        this.clienteCompras = new TreeMap<>(new ComparatorCodigoProduto());
+
+           clienteCompras.forEach( (k,v) ->  {
+
+                try {
+                    this.clienteCompras.put(k.clone(), v.clone());
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(GestaoFilial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               });
     }
 
   
