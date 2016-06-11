@@ -6,6 +6,7 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Classe TrioProdCompCliFa
@@ -120,6 +121,19 @@ public class TrioProdCompCliFat implements Serializable{
             return  this.faturacao.equals(t.getFaturacao())  && this.Compras.equals(t.getCompras()) && this.Cdistintos.equals(t.getCDistintos());
         }
 
+    }
+
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + Arrays.hashCode(this.Cdistintos);
+        hash = 31 * hash + Arrays.hashCode(this.Compras);
+        hash = 31 * hash + Arrays.hashCode(this.faturacao);
+        return hash;
     }
 
     /**

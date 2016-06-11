@@ -102,6 +102,21 @@ public class CatalogoClientes implements Serializable {
         Character c= Character.toUpperCase(cod.charAt(0));
         return this.CatClientes.get(c).contains(cli);
     }
+
+      
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.CatClientes);
+        return hash;
+    }
+  
+    
+    
     
     /**
      * Teste de igualdade da instância actual com o parâmetro 

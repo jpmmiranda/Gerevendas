@@ -392,6 +392,23 @@ public class Facturacao implements Serializable {
         return true;
     }
 
+      
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.facturacao);
+        hash = 97 * hash + Arrays.deepHashCode(this.totalVendas);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.totalFaturado) ^ (Double.doubleToLongBits(this.totalFaturado) >>> 32));
+        hash = 97 * hash + Arrays.deepHashCode(this.totalFatFilial1);
+        hash = 97 * hash + Arrays.deepHashCode(this.totalFatFilial2);
+        hash = 97 * hash + Arrays.deepHashCode(this.totalFatFilial3);
+        return hash;
+    }
+
     
     /**
      *

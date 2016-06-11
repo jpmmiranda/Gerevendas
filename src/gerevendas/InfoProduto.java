@@ -164,6 +164,20 @@ public class InfoProduto implements Serializable{
         }
         return true;
     }
+    
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.produtoCompras);
+        hash = 47 * hash + this.UnidadesVendidas;
+        hash = 47 * hash + Arrays.hashCode(this.compradoMes);
+        hash = 47 * hash + Arrays.hashCode(this.TotalPagoMes);
+        return hash;
+    }
 
     /**
      *

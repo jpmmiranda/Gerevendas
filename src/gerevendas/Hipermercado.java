@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Classe de convergência dos Módulos
@@ -273,7 +274,44 @@ public class Hipermercado  implements Serializable{
         return res;
     }
 
-
-
     
+
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 73 * hash + Objects.hashCode(this.clientes);
+        hash = 73 * hash + Objects.hashCode(this.produtos);
+        hash = 73 * hash + Objects.hashCode(this.faturacao);
+        hash = 73 * hash + Objects.hashCode(this.gestfilial);
+        hash = 73 * hash + Objects.hashCode(this.estatistica);
+        return hash;
+    }
+    
+
+    /**
+     * Teste de igualdade da instância actual com o parâmetro 
+     * @param obj Objecto a ser testado
+     * @return Igualdade entre a instância actual e o parâmetro obj
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Hipermercado other = (Hipermercado) obj;
+        
+        return this.clientes.equals(other.clientes)
+                && this.produtos.equals(other.produtos)
+                && this.faturacao.equals(other.faturacao)
+                && this.gestfilial.equals(other.gestfilial)
+                && this.estatistica.equals(other.estatistica);
+    }
 }

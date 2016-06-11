@@ -699,19 +699,23 @@ public class GestaoFilial implements Serializable {
                 && this.comprasDeProduto.values().containsAll(other.comprasDeProduto.values());
       }
 
-   /**
-     *
-     * @return Hashcode
+     
+    /**
+     * Método hashcode
+     * @return valor de hash
      */
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.comprasDoCliente);
-        hash = 97 * hash + Objects.hashCode(this.comprasDeProduto);
+        hash = 31 * hash + Objects.hashCode(this.comprasDoCliente);
+        hash = 31 * hash + Objects.hashCode(this.comprasDeProduto);
+        hash = 31 * hash + Objects.hashCode(this.compradoresFilial1);
+        hash = 31 * hash + Objects.hashCode(this.compradoresFilial2);
+        hash = 31 * hash + Objects.hashCode(this.compradoresFilial3);
         return hash;
     }
-     
-     /**
+
+    /**
      *
      * @return Novo Objecto como cópia da instância Actual
      * @throws java.lang.CloneNotSupportedException

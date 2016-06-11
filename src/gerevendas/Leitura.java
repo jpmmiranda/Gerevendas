@@ -32,7 +32,7 @@ public class Leitura implements Serializable {
         Hipermercado hiper = Gerevendas.getHipermercado();
       
         Venda v;
-        String fich="Vendas_3M.txt";
+        String fich="Vendas_1M.txt";
       
         ArrayList<String> codigos;
 

@@ -298,6 +298,20 @@ public class InfoCliente implements Serializable {
         }
         return true;
     }
+
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.clienteCompras);
+        hash = 47 * hash + Arrays.hashCode(this.totalgasto);
+        hash = 47 * hash + Arrays.hashCode(this.comprasMesN);
+        hash = 47 * hash + Arrays.hashCode(this.comprasMesP);
+        return hash;
+    }
     
     /**
      *

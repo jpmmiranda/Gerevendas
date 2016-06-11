@@ -6,6 +6,7 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Classe ParCliProdsComprados
@@ -99,6 +100,18 @@ public class ParCliProdsComprados implements Serializable {
            ParCliProdsComprados t = (ParCliProdsComprados) o;
             return  (this.total == t.getTotal()&& produto.equals(t.getProdutos())) ;
     }
+    }
+    
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this.total;
+        hash = 59 * hash + Objects.hashCode(this.produto);
+        return hash;
     }
 
     

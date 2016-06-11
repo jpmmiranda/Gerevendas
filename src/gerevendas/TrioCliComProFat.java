@@ -1,6 +1,7 @@
 package gerevendas;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -106,6 +107,7 @@ public class TrioCliComProFat implements Serializable {
      * @param o Objecto a ser testado
      * @return Igualdade entre a instância actual e o parâmetro obj
      */
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -116,6 +118,19 @@ public class TrioCliComProFat implements Serializable {
             TrioCliComProFat t = (TrioCliComProFat) o;
             return  this.Pdistintos.equals(t.getPDistintos()) && this.faturacao.equals(t.getFaturacao())  && this.Compras.equals(t.getCompras()) ;   }
 
+    }
+    
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Arrays.hashCode(this.Pdistintos);
+        hash = 89 * hash + Arrays.hashCode(this.Compras);
+        hash = 89 * hash + Arrays.hashCode(this.faturacao);
+        return hash;
     }
 
     

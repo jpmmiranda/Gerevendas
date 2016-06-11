@@ -99,7 +99,19 @@ public class CatalogoProdutos implements Serializable{
         return this.CatProdutos.get(c).contains(pro);
         
     }
+    
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 61 * hash + Objects.hashCode(this.CatProdutos);
+        return hash;
+    }
 
+    
     /**
      * Teste de igualdade da instância actual com o parâmetro 
      * @param obj Objecto a ser testado

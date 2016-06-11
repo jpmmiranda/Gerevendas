@@ -487,6 +487,35 @@ public class Estatistica implements Serializable {
         s.append("\n");
         return s.toString();
     }
+  
+    /**
+     * Método hashcode
+     * @return valor de hash
+     */
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.ficheiroVendas);
+        hash = 29 * hash + this.totalRegistosErrados;
+        hash = 29 * hash + this.totalProdutos;
+        hash = 29 * hash + this.totalProdutosDiferentes;
+        hash = 29 * hash + this.totalNaoComprados;
+        hash = 29 * hash + this.totalClientes;
+        hash = 29 * hash + this.totalClientesCompradores;
+        hash = 29 * hash + this.totalClientesNaoCompradores;
+        hash = 29 * hash + this.totalComprasZero;
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.totalFacturacao) ^ (Double.doubleToLongBits(this.totalFacturacao) >>> 32));
+        hash = 29 * hash + Arrays.hashCode(this.totalComprasMes);
+        hash = 29 * hash + Arrays.hashCode(this.totalFacturacaoFilial1);
+        hash = 29 * hash + Arrays.hashCode(this.totalFacturacaoFilial2);
+        hash = 29 * hash + Arrays.hashCode(this.totalFacturacaoFilial3);
+        hash = 29 * hash + Arrays.hashCode(this.totalFacturacaoMensal);
+        hash = 29 * hash + Arrays.hashCode(this.clientesDistintos);
+        return hash;
+    }
+    
+    
 
     /**
      * Teste de igualdade da instância actual com o parâmetro 
