@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class InfoCliente implements Serializable {
     
-    private Map<Produto, InfoProdutoComprado> clienteCompras; // Cada cliente tem os seus produtos
+    private Map<Produto, InfoProdutoComprado> clienteCompras; 
     private int[] totalgasto;
     private int[] comprasMesN;
     private int[] comprasMesP;

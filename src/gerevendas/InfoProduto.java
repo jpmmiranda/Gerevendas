@@ -62,11 +62,7 @@ public class InfoProduto implements Serializable{
         
         
     }
-    /**
-     * 
-     * @return Map de produtoCompras
-     */
-    
+     
     /**
      *
      * @return Map de produtoCompras

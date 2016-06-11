@@ -199,6 +199,7 @@ public class Hipermercado  implements Serializable{
         int totalProdutos=produtos.totalProdutos();
         
         estatistica.setFicheiroVendas(fichVendas);
+        estatistica.setTotalRegistosErrados(errados);
         estatistica.setTotalClientes(totalClientes);
         estatistica.setTotalProdutos(totalProdutos);
         estatistica.setTotalComprasZero(preco0);
@@ -271,6 +272,7 @@ public class Hipermercado  implements Serializable{
         }
         return res;
     }
+
 
 
     
